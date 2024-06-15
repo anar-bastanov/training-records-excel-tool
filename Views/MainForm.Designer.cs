@@ -34,6 +34,14 @@ partial class MainForm
         _stripMenuFileNew = new ToolStripMenuItem();
         _stripMenuFileOpen = new ToolStripMenuItem();
         _stripMenuFileClose = new ToolStripMenuItem();
+        toolStripSeparator2 = new ToolStripSeparator();
+        _stripMenuFileSave = new ToolStripMenuItem();
+        _stripMenuFileSaveAs = new ToolStripMenuItem();
+        _stripMenuFileSaveAsExcel = new ToolStripMenuItem();
+        _stripMenuFileSaveAsPDF = new ToolStripMenuItem();
+        _stripMenuFileSaveAsJson = new ToolStripMenuItem();
+        _stripMenuFileSaveAsCSV = new ToolStripMenuItem();
+        _stripMenuFileSaveAsLocalHistory = new ToolStripMenuItem();
         toolStripSeparator1 = new ToolStripSeparator();
         _stripMenuFileExit = new ToolStripMenuItem();
         _stripMenuEdit = new ToolStripMenuItem();
@@ -41,15 +49,12 @@ partial class MainForm
         _stripMenuEditHistory = new ToolStripMenuItem();
         _stripMenuHelp = new ToolStripMenuItem();
         _stripMenuLicense = new ToolStripMenuItem();
-        _startMenuNewButton = new StartMenuButton();
-        _startMenuOpenButton = new StartMenuButton();
-        _startMenuHelpButton = new StartMenuButton();
-        _azercosmosLogo = new PictureBox();
         _stripStatus = new StatusStrip();
         _stripStatusWatermark = new ToolStripStatusLabel();
         _stripStatusProgramState = new ToolStripStatusLabel();
+        _projectEditor = new ProjectEditor();
+        _startMenu = new StartMenu();
         _menuStrip.SuspendLayout();
-        ((System.ComponentModel.ISupportInitialize)_azercosmosLogo).BeginInit();
         _stripStatus.SuspendLayout();
         SuspendLayout();
         // 
@@ -59,47 +64,109 @@ partial class MainForm
         _menuStrip.Items.AddRange(new ToolStripItem[] { _stripMenuFile, _stripMenuEdit, _stripMenuHelp, _stripMenuLicense });
         _menuStrip.Location = new Point(0, 0);
         _menuStrip.Name = "_menuStrip";
-        _menuStrip.Size = new Size(1184, 33);
+        _menuStrip.Size = new Size(1178, 33);
         _menuStrip.TabIndex = 0;
         _menuStrip.Text = "menuStrip1";
         // 
         // _stripMenuFile
         // 
-        _stripMenuFile.DropDownItems.AddRange(new ToolStripItem[] { _stripMenuFileNew, _stripMenuFileOpen, _stripMenuFileClose, toolStripSeparator1, _stripMenuFileExit });
+        _stripMenuFile.DropDownItems.AddRange(new ToolStripItem[] { _stripMenuFileNew, _stripMenuFileOpen, _stripMenuFileClose, toolStripSeparator2, _stripMenuFileSave, _stripMenuFileSaveAs, toolStripSeparator1, _stripMenuFileExit });
         _stripMenuFile.Name = "_stripMenuFile";
         _stripMenuFile.Size = new Size(54, 29);
         _stripMenuFile.Text = "&File";
         // 
         // _stripMenuFileNew
         // 
+        _stripMenuFileNew.Image = (Image)resources.GetObject("_stripMenuFileNew.Image");
         _stripMenuFileNew.Name = "_stripMenuFileNew";
-        _stripMenuFileNew.Size = new Size(158, 34);
+        _stripMenuFileNew.ShortcutKeys = Keys.Control | Keys.N;
+        _stripMenuFileNew.Size = new Size(270, 34);
         _stripMenuFileNew.Text = "&New";
         _stripMenuFileNew.Click += StripMenuFileNew_Click;
         // 
         // _stripMenuFileOpen
         // 
+        _stripMenuFileOpen.Image = (Image)resources.GetObject("_stripMenuFileOpen.Image");
         _stripMenuFileOpen.Name = "_stripMenuFileOpen";
-        _stripMenuFileOpen.Size = new Size(158, 34);
+        _stripMenuFileOpen.ShortcutKeys = Keys.Control | Keys.O;
+        _stripMenuFileOpen.Size = new Size(270, 34);
         _stripMenuFileOpen.Text = "&Open";
         _stripMenuFileOpen.Click += StripMenuFileOpen_Click;
         // 
         // _stripMenuFileClose
         // 
+        _stripMenuFileClose.Enabled = false;
+        _stripMenuFileClose.Image = (Image)resources.GetObject("_stripMenuFileClose.Image");
         _stripMenuFileClose.Name = "_stripMenuFileClose";
-        _stripMenuFileClose.Size = new Size(158, 34);
+        _stripMenuFileClose.ShortcutKeys = Keys.Control | Keys.C;
+        _stripMenuFileClose.Size = new Size(270, 34);
         _stripMenuFileClose.Text = "&Close";
         _stripMenuFileClose.Click += StripMenuFileClose_Click;
+        // 
+        // toolStripSeparator2
+        // 
+        toolStripSeparator2.Name = "toolStripSeparator2";
+        toolStripSeparator2.Size = new Size(267, 6);
+        // 
+        // _stripMenuFileSave
+        // 
+        _stripMenuFileSave.Enabled = false;
+        _stripMenuFileSave.Image = (Image)resources.GetObject("_stripMenuFileSave.Image");
+        _stripMenuFileSave.Name = "_stripMenuFileSave";
+        _stripMenuFileSave.ShortcutKeys = Keys.Control | Keys.S;
+        _stripMenuFileSave.Size = new Size(270, 34);
+        _stripMenuFileSave.Text = "&Save";
+        // 
+        // _stripMenuFileSaveAs
+        // 
+        _stripMenuFileSaveAs.DropDownItems.AddRange(new ToolStripItem[] { _stripMenuFileSaveAsExcel, _stripMenuFileSaveAsPDF, _stripMenuFileSaveAsJson, _stripMenuFileSaveAsCSV, _stripMenuFileSaveAsLocalHistory });
+        _stripMenuFileSaveAs.Enabled = false;
+        _stripMenuFileSaveAs.Image = (Image)resources.GetObject("_stripMenuFileSaveAs.Image");
+        _stripMenuFileSaveAs.Name = "_stripMenuFileSaveAs";
+        _stripMenuFileSaveAs.Size = new Size(270, 34);
+        _stripMenuFileSaveAs.Text = "Save &As";
+        // 
+        // _stripMenuFileSaveAsExcel
+        // 
+        _stripMenuFileSaveAsExcel.Name = "_stripMenuFileSaveAsExcel";
+        _stripMenuFileSaveAsExcel.Size = new Size(355, 34);
+        _stripMenuFileSaveAsExcel.Text = "Excel Workbook (*.xlsx)";
+        // 
+        // _stripMenuFileSaveAsPDF
+        // 
+        _stripMenuFileSaveAsPDF.Name = "_stripMenuFileSaveAsPDF";
+        _stripMenuFileSaveAsPDF.Size = new Size(355, 34);
+        _stripMenuFileSaveAsPDF.Text = "PDF (*.pdf)";
+        // 
+        // _stripMenuFileSaveAsJson
+        // 
+        _stripMenuFileSaveAsJson.Name = "_stripMenuFileSaveAsJson";
+        _stripMenuFileSaveAsJson.Size = new Size(355, 34);
+        _stripMenuFileSaveAsJson.Text = "JSON Format (*.json)";
+        // 
+        // _stripMenuFileSaveAsCSV
+        // 
+        _stripMenuFileSaveAsCSV.Name = "_stripMenuFileSaveAsCSV";
+        _stripMenuFileSaveAsCSV.Size = new Size(355, 34);
+        _stripMenuFileSaveAsCSV.Text = "CSV (Comma delimited) (*.csv)";
+        // 
+        // _stripMenuFileSaveAsLocalHistory
+        // 
+        _stripMenuFileSaveAsLocalHistory.Name = "_stripMenuFileSaveAsLocalHistory";
+        _stripMenuFileSaveAsLocalHistory.Size = new Size(355, 34);
+        _stripMenuFileSaveAsLocalHistory.Text = "Local History File (*.lhf)";
         // 
         // toolStripSeparator1
         // 
         toolStripSeparator1.Name = "toolStripSeparator1";
-        toolStripSeparator1.Size = new Size(155, 6);
+        toolStripSeparator1.Size = new Size(267, 6);
         // 
         // _stripMenuFileExit
         // 
+        _stripMenuFileExit.Image = (Image)resources.GetObject("_stripMenuFileExit.Image");
         _stripMenuFileExit.Name = "_stripMenuFileExit";
-        _stripMenuFileExit.Size = new Size(158, 34);
+        _stripMenuFileExit.ShortcutKeys = Keys.Alt | Keys.F4;
+        _stripMenuFileExit.Size = new Size(270, 34);
         _stripMenuFileExit.Text = "&Exit";
         _stripMenuFileExit.Click += StripMenuFileExit_Click;
         // 
@@ -112,12 +179,14 @@ partial class MainForm
         // 
         // _stripMenuEditConfigure
         // 
+        _stripMenuEditConfigure.Image = (Image)resources.GetObject("_stripMenuEditConfigure.Image");
         _stripMenuEditConfigure.Name = "_stripMenuEditConfigure";
         _stripMenuEditConfigure.Size = new Size(270, 34);
         _stripMenuEditConfigure.Text = "&Configure";
         // 
         // _stripMenuEditHistory
         // 
+        _stripMenuEditHistory.Image = (Image)resources.GetObject("_stripMenuEditHistory.Image");
         _stripMenuEditHistory.Name = "_stripMenuEditHistory";
         _stripMenuEditHistory.Size = new Size(270, 34);
         _stripMenuEditHistory.Text = "&History";
@@ -125,6 +194,7 @@ partial class MainForm
         // _stripMenuHelp
         // 
         _stripMenuHelp.Name = "_stripMenuHelp";
+        _stripMenuHelp.ShortcutKeys = Keys.Control | Keys.H;
         _stripMenuHelp.Size = new Size(65, 29);
         _stripMenuHelp.Text = "&Help";
         _stripMenuHelp.Click += StripMenuHelp_Click;
@@ -132,76 +202,18 @@ partial class MainForm
         // _stripMenuLicense
         // 
         _stripMenuLicense.Name = "_stripMenuLicense";
+        _stripMenuLicense.ShortcutKeys = Keys.Control | Keys.L;
         _stripMenuLicense.Size = new Size(84, 29);
         _stripMenuLicense.Text = "&License";
         _stripMenuLicense.Click += StripMenuLicense_Click;
-        // 
-        // _startMenuNewButton
-        // 
-        _startMenuNewButton.Anchor = AnchorStyles.None;
-        _startMenuNewButton.BackColor = SystemColors.ControlLight;
-        _startMenuNewButton.BackgroundImageLayout = ImageLayout.Zoom;
-        _startMenuNewButton.ButtonIcon = (Image)resources.GetObject("_startMenuNewButton.ButtonIcon");
-        _startMenuNewButton.ButtonText = "New";
-        _startMenuNewButton.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        _startMenuNewButton.Location = new Point(253, 295);
-        _startMenuNewButton.Margin = new Padding(6);
-        _startMenuNewButton.MinimumSize = new Size(200, 275);
-        _startMenuNewButton.Name = "_startMenuNewButton";
-        _startMenuNewButton.Size = new Size(200, 275);
-        _startMenuNewButton.TabIndex = 1;
-        _startMenuNewButton.Click += StartMenuNewButton_Click;
-        // 
-        // _startMenuOpenButton
-        // 
-        _startMenuOpenButton.Anchor = AnchorStyles.None;
-        _startMenuOpenButton.BackColor = SystemColors.ControlLight;
-        _startMenuOpenButton.BackgroundImageLayout = ImageLayout.Zoom;
-        _startMenuOpenButton.ButtonIcon = (Image)resources.GetObject("_startMenuOpenButton.ButtonIcon");
-        _startMenuOpenButton.ButtonText = "Open";
-        _startMenuOpenButton.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        _startMenuOpenButton.Location = new Point(503, 295);
-        _startMenuOpenButton.Margin = new Padding(6);
-        _startMenuOpenButton.MinimumSize = new Size(200, 275);
-        _startMenuOpenButton.Name = "_startMenuOpenButton";
-        _startMenuOpenButton.Size = new Size(200, 275);
-        _startMenuOpenButton.TabIndex = 2;
-        _startMenuOpenButton.Click += StartMenuOpenButton_Click;
-        // 
-        // _startMenuHelpButton
-        // 
-        _startMenuHelpButton.Anchor = AnchorStyles.None;
-        _startMenuHelpButton.BackColor = SystemColors.ControlLight;
-        _startMenuHelpButton.BackgroundImageLayout = ImageLayout.Zoom;
-        _startMenuHelpButton.ButtonIcon = (Image)resources.GetObject("_startMenuHelpButton.ButtonIcon");
-        _startMenuHelpButton.ButtonText = "Help";
-        _startMenuHelpButton.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        _startMenuHelpButton.Location = new Point(753, 295);
-        _startMenuHelpButton.Margin = new Padding(6);
-        _startMenuHelpButton.MinimumSize = new Size(200, 275);
-        _startMenuHelpButton.Name = "_startMenuHelpButton";
-        _startMenuHelpButton.Size = new Size(200, 275);
-        _startMenuHelpButton.TabIndex = 3;
-        // 
-        // _azercosmosLogo
-        // 
-        _azercosmosLogo.Anchor = AnchorStyles.None;
-        _azercosmosLogo.BackgroundImage = (Image)resources.GetObject("_azercosmosLogo.BackgroundImage");
-        _azercosmosLogo.BackgroundImageLayout = ImageLayout.Zoom;
-        _azercosmosLogo.Location = new Point(403, 145);
-        _azercosmosLogo.Margin = new Padding(0);
-        _azercosmosLogo.Name = "_azercosmosLogo";
-        _azercosmosLogo.Size = new Size(400, 100);
-        _azercosmosLogo.TabIndex = 4;
-        _azercosmosLogo.TabStop = false;
         // 
         // _stripStatus
         // 
         _stripStatus.ImageScalingSize = new Size(24, 24);
         _stripStatus.Items.AddRange(new ToolStripItem[] { _stripStatusWatermark, _stripStatusProgramState });
-        _stripStatus.Location = new Point(0, 725);
+        _stripStatus.Location = new Point(0, 708);
         _stripStatus.Name = "_stripStatus";
-        _stripStatus.Size = new Size(1184, 36);
+        _stripStatus.Size = new Size(1178, 36);
         _stripStatus.TabIndex = 5;
         _stripStatus.Text = "statusStrip1";
         // 
@@ -219,17 +231,38 @@ partial class MainForm
         _stripStatusProgramState.Size = new Size(29, 29);
         _stripStatusProgramState.Text = "Hi";
         // 
+        // _projectEditor
+        // 
+        _projectEditor.Dock = DockStyle.Fill;
+        _projectEditor.Font = new Font("Bahnschrift SemiCondensed", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        _projectEditor.Location = new Point(0, 0);
+        _projectEditor.Margin = new Padding(0);
+        _projectEditor.Name = "_projectEditor";
+        _projectEditor.Size = new Size(1178, 744);
+        _projectEditor.TabIndex = 6;
+        // 
+        // _startMenu
+        // 
+        _startMenu.Dock = DockStyle.Fill;
+        _startMenu.Font = new Font("Bahnschrift SemiCondensed", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        _startMenu.Location = new Point(0, 0);
+        _startMenu.Margin = new Padding(5);
+        _startMenu.Name = "_startMenu";
+        _startMenu.Size = new Size(1178, 744);
+        _startMenu.TabIndex = 7;
+        _startMenu.NewFileClick += StartMenu_NewFileClick;
+        _startMenu.OpenFileClick += StartMenu_OpenFileClick;
+        _startMenu.HelpClick += StartMenu_HelpClick;
+        // 
         // MainForm
         // 
         AutoScaleDimensions = new SizeF(20F, 48F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(1184, 761);
+        ClientSize = new Size(1178, 744);
         Controls.Add(_stripStatus);
-        Controls.Add(_azercosmosLogo);
-        Controls.Add(_startMenuHelpButton);
-        Controls.Add(_startMenuOpenButton);
-        Controls.Add(_startMenuNewButton);
         Controls.Add(_menuStrip);
+        Controls.Add(_startMenu);
+        Controls.Add(_projectEditor);
         Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
         MainMenuStrip = _menuStrip;
         Margin = new Padding(6);
@@ -237,7 +270,6 @@ partial class MainForm
         Text = "Master Training Records";
         _menuStrip.ResumeLayout(false);
         _menuStrip.PerformLayout();
-        ((System.ComponentModel.ISupportInitialize)_azercosmosLogo).EndInit();
         _stripStatus.ResumeLayout(false);
         _stripStatus.PerformLayout();
         ResumeLayout(false);
@@ -257,12 +289,18 @@ partial class MainForm
     private ToolStripMenuItem _stripMenuEditConfigure;
     private ToolStripMenuItem _stripMenuEditHistory;
     private ToolStripMenuItem _stripMenuHelp;
-    private StartMenuButton _startMenuNewButton;
-    private StartMenuButton _startMenuOpenButton;
-    private StartMenuButton _startMenuHelpButton;
-    private PictureBox _azercosmosLogo;
     private StatusStrip _stripStatus;
     private ToolStripStatusLabel _stripStatusProgramState;
     private ToolStripStatusLabel _stripStatusWatermark;
     private ToolStripMenuItem _stripMenuLicense;
+    private ToolStripMenuItem _stripMenuFileSaveAs;
+    private ToolStripSeparator toolStripSeparator2;
+    private ToolStripMenuItem _stripMenuFileSaveAsExcel;
+    private ToolStripMenuItem _stripMenuFileSaveAsLocalHistory;
+    private ToolStripMenuItem _stripMenuFileSaveAsJson;
+    private ToolStripMenuItem _stripMenuFileSaveAsCSV;
+    private ToolStripMenuItem _stripMenuFileSaveAsPDF;
+    private ToolStripMenuItem _stripMenuFileSave;
+    private ProjectEditor _projectEditor;
+    private StartMenu _startMenu;
 }
