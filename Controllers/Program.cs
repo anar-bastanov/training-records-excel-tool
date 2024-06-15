@@ -1,6 +1,6 @@
-// global using ExcelTool.Models;
+global using ExcelTool.Models;
 global using ExcelTool.Views;
-// global using ExcelTool.Controls;
+global using ExcelTool.Controllers;
 global using System.Drawing;
 global using System.Windows.Forms;
 using System;
