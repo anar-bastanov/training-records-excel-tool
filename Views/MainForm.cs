@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 
 namespace ExcelTool.Views;
 
@@ -13,19 +14,16 @@ public sealed partial class MainForm : Form
     private void StripMenuFileNew_Click(object sender, EventArgs e)
     {
         ProjectManager.CreateNewProject();
-        _stripStatusProgramState.Text = "New";
     }
 
     private void StripMenuFileOpen_Click(object sender, EventArgs e)
     {
         ProjectManager.OpenProject();
-        _stripStatusProgramState.Text = "Open";
     }
 
     private void StripMenuFileClose_Click(object sender, EventArgs e)
     {
         ProjectManager.CloseCurrentProject();
-        _stripStatusProgramState.Text = "Close";
     }
 
     private void StripMenuFileExit_Click(object sender, EventArgs e)
@@ -35,7 +33,7 @@ public sealed partial class MainForm : Form
 
     private void StripMenuHelp_Click(object sender, EventArgs e)
     {
-
+        OpenWikiPageForHelp();
     }
 
     private void StripMenuLicense_Click(object sender, EventArgs e)
@@ -96,5 +94,34 @@ public sealed partial class MainForm : Form
             default:
                 throw new NotSupportedException("This is not supposed to happen.");
         }
+    }
+
+    private static void OpenWikiPageForHelp()
+    {
+        const string linkToWiki = "https://github.com/anar-bastanov/training-records-excel-tool/wiki";
+
+        var choice = MessageBox.Show(
+            $"""
+            You are about to open a link in your default browser!
+
+            Clicking `OK` will take you to:
+            {linkToWiki}
+            """,
+            "External Link",
+            MessageBoxButtons.OKCancel,
+            MessageBoxIcon.Asterisk,
+            MessageBoxDefaultButton.Button1);
+
+        if (choice is DialogResult.Cancel)
+            return;
+
+        // Open the default browser with the link to GitHub wiki:
+        ProcessStartInfo psInfo = new()
+        {
+            FileName = linkToWiki,
+            UseShellExecute = true
+        };
+
+        Process.Start(psInfo);
     }
 }

@@ -18,6 +18,9 @@ public static class ProjectManager
         }
         set
         {
+            if (_applicationState == value)
+                return;
+
             _applicationState = value;
             OnApplicationStateChanged?.Invoke(value);
         }

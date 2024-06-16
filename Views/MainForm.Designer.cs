@@ -41,17 +41,12 @@ partial class MainForm
         _stripMenuFileSaveAsPDF = new ToolStripMenuItem();
         _stripMenuFileSaveAsJson = new ToolStripMenuItem();
         _stripMenuFileSaveAsCSV = new ToolStripMenuItem();
-        _stripMenuFileSaveAsLocalHistory = new ToolStripMenuItem();
         toolStripSeparator1 = new ToolStripSeparator();
         _stripMenuFileExit = new ToolStripMenuItem();
-        _stripMenuEdit = new ToolStripMenuItem();
-        _stripMenuEditConfigure = new ToolStripMenuItem();
-        _stripMenuEditHistory = new ToolStripMenuItem();
         _stripMenuHelp = new ToolStripMenuItem();
         _stripMenuLicense = new ToolStripMenuItem();
         _stripStatus = new StatusStrip();
         _stripStatusWatermark = new ToolStripStatusLabel();
-        _stripStatusProgramState = new ToolStripStatusLabel();
         _projectEditor = new ProjectEditor();
         _startMenu = new StartMenu();
         _menuStrip.SuspendLayout();
@@ -61,7 +56,7 @@ partial class MainForm
         // _menuStrip
         // 
         _menuStrip.ImageScalingSize = new Size(24, 24);
-        _menuStrip.Items.AddRange(new ToolStripItem[] { _stripMenuFile, _stripMenuEdit, _stripMenuHelp, _stripMenuLicense });
+        _menuStrip.Items.AddRange(new ToolStripItem[] { _stripMenuFile, _stripMenuHelp, _stripMenuLicense });
         _menuStrip.Location = new Point(0, 0);
         _menuStrip.Name = "_menuStrip";
         _menuStrip.Size = new Size(1178, 33);
@@ -119,7 +114,7 @@ partial class MainForm
         // 
         // _stripMenuFileSaveAs
         // 
-        _stripMenuFileSaveAs.DropDownItems.AddRange(new ToolStripItem[] { _stripMenuFileSaveAsExcel, _stripMenuFileSaveAsPDF, _stripMenuFileSaveAsJson, _stripMenuFileSaveAsCSV, _stripMenuFileSaveAsLocalHistory });
+        _stripMenuFileSaveAs.DropDownItems.AddRange(new ToolStripItem[] { _stripMenuFileSaveAsExcel, _stripMenuFileSaveAsPDF, _stripMenuFileSaveAsJson, _stripMenuFileSaveAsCSV });
         _stripMenuFileSaveAs.Enabled = false;
         _stripMenuFileSaveAs.Image = (Image)resources.GetObject("_stripMenuFileSaveAs.Image");
         _stripMenuFileSaveAs.Name = "_stripMenuFileSaveAs";
@@ -150,12 +145,6 @@ partial class MainForm
         _stripMenuFileSaveAsCSV.Size = new Size(355, 34);
         _stripMenuFileSaveAsCSV.Text = "CSV (Comma delimited) (*.csv)";
         // 
-        // _stripMenuFileSaveAsLocalHistory
-        // 
-        _stripMenuFileSaveAsLocalHistory.Name = "_stripMenuFileSaveAsLocalHistory";
-        _stripMenuFileSaveAsLocalHistory.Size = new Size(355, 34);
-        _stripMenuFileSaveAsLocalHistory.Text = "Local History File (*.lhf)";
-        // 
         // toolStripSeparator1
         // 
         toolStripSeparator1.Name = "toolStripSeparator1";
@@ -169,27 +158,6 @@ partial class MainForm
         _stripMenuFileExit.Size = new Size(270, 34);
         _stripMenuFileExit.Text = "&Exit";
         _stripMenuFileExit.Click += StripMenuFileExit_Click;
-        // 
-        // _stripMenuEdit
-        // 
-        _stripMenuEdit.DropDownItems.AddRange(new ToolStripItem[] { _stripMenuEditConfigure, _stripMenuEditHistory });
-        _stripMenuEdit.Name = "_stripMenuEdit";
-        _stripMenuEdit.Size = new Size(58, 29);
-        _stripMenuEdit.Text = "&Edit";
-        // 
-        // _stripMenuEditConfigure
-        // 
-        _stripMenuEditConfigure.Image = (Image)resources.GetObject("_stripMenuEditConfigure.Image");
-        _stripMenuEditConfigure.Name = "_stripMenuEditConfigure";
-        _stripMenuEditConfigure.Size = new Size(270, 34);
-        _stripMenuEditConfigure.Text = "&Configure";
-        // 
-        // _stripMenuEditHistory
-        // 
-        _stripMenuEditHistory.Image = (Image)resources.GetObject("_stripMenuEditHistory.Image");
-        _stripMenuEditHistory.Name = "_stripMenuEditHistory";
-        _stripMenuEditHistory.Size = new Size(270, 34);
-        _stripMenuEditHistory.Text = "&History";
         // 
         // _stripMenuHelp
         // 
@@ -210,7 +178,7 @@ partial class MainForm
         // _stripStatus
         // 
         _stripStatus.ImageScalingSize = new Size(24, 24);
-        _stripStatus.Items.AddRange(new ToolStripItem[] { _stripStatusWatermark, _stripStatusProgramState });
+        _stripStatus.Items.AddRange(new ToolStripItem[] { _stripStatusWatermark });
         _stripStatus.Location = new Point(0, 708);
         _stripStatus.Name = "_stripStatus";
         _stripStatus.Size = new Size(1178, 36);
@@ -224,12 +192,6 @@ partial class MainForm
         _stripStatusWatermark.Name = "_stripStatusWatermark";
         _stripStatusWatermark.Size = new Size(167, 29);
         _stripStatusWatermark.Text = "Powered by Silisoft";
-        // 
-        // _stripStatusProgramState
-        // 
-        _stripStatusProgramState.Name = "_stripStatusProgramState";
-        _stripStatusProgramState.Size = new Size(29, 29);
-        _stripStatusProgramState.Text = "Hi";
         // 
         // _projectEditor
         // 
@@ -266,6 +228,7 @@ partial class MainForm
         Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
         MainMenuStrip = _menuStrip;
         Margin = new Padding(6);
+        MinimumSize = new Size(1200, 800);
         Name = "MainForm";
         Text = "Master Training Records";
         _menuStrip.ResumeLayout(false);
@@ -285,18 +248,13 @@ partial class MainForm
     private ToolStripSeparator toolStripSeparator1;
     private ToolStripMenuItem _stripMenuFileExit;
     private ToolStripMenuItem _stripMenuFileClose;
-    private ToolStripMenuItem _stripMenuEdit;
-    private ToolStripMenuItem _stripMenuEditConfigure;
-    private ToolStripMenuItem _stripMenuEditHistory;
     private ToolStripMenuItem _stripMenuHelp;
     private StatusStrip _stripStatus;
-    private ToolStripStatusLabel _stripStatusProgramState;
     private ToolStripStatusLabel _stripStatusWatermark;
     private ToolStripMenuItem _stripMenuLicense;
     private ToolStripMenuItem _stripMenuFileSaveAs;
     private ToolStripSeparator toolStripSeparator2;
     private ToolStripMenuItem _stripMenuFileSaveAsExcel;
-    private ToolStripMenuItem _stripMenuFileSaveAsLocalHistory;
     private ToolStripMenuItem _stripMenuFileSaveAsJson;
     private ToolStripMenuItem _stripMenuFileSaveAsCSV;
     private ToolStripMenuItem _stripMenuFileSaveAsPDF;

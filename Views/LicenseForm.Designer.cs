@@ -30,6 +30,7 @@ partial class LicenseForm
     {
         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LicenseForm));
         _overlay = new Label();
+        _acknowledgeButton = new Button();
         SuspendLayout();
         // 
         // _overlay
@@ -43,17 +44,27 @@ partial class LicenseForm
         _overlay.Text = resources.GetString("_overlay.Text");
         _overlay.TextAlign = ContentAlignment.MiddleCenter;
         // 
+        // _acknowledgeButton
+        // 
+        _acknowledgeButton.Location = new Point(340, 505);
+        _acknowledgeButton.Name = "_acknowledgeButton";
+        _acknowledgeButton.Size = new Size(90, 34);
+        _acknowledgeButton.TabIndex = 2;
+        _acknowledgeButton.Text = "OK";
+        _acknowledgeButton.UseVisualStyleBackColor = true;
+        _acknowledgeButton.Click += AcknowledgeButton_Click;
+        // 
         // LicenseForm
         // 
         AutoScaleDimensions = new SizeF(10F, 25F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(768, 494);
+        CancelButton = _acknowledgeButton;
+        ClientSize = new Size(768, 554);
+        Controls.Add(_acknowledgeButton);
         Controls.Add(_overlay);
         FormBorderStyle = FormBorderStyle.FixedDialog;
         MaximizeBox = false;
-        MaximumSize = new Size(790, 550);
         MinimizeBox = false;
-        MinimumSize = new Size(790, 550);
         Name = "LicenseForm";
         ShowIcon = false;
         Text = "License";
@@ -62,4 +73,5 @@ partial class LicenseForm
 
     #endregion
     private Label _overlay;
+    private Button _acknowledgeButton;
 }
