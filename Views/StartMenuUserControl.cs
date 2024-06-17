@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace ExcelTool.Views;
 
-public partial class StartMenu : UserControl
+public partial class StartMenuUserControl : UserControl
 {
     [Browsable(true)]
     public event EventHandler? NewFileClick;
@@ -14,7 +14,7 @@ public partial class StartMenu : UserControl
     [Browsable(true)]
     public event EventHandler? HelpClick;
 
-    public StartMenu()
+    public StartMenuUserControl()
     {
         InitializeComponent();
     }

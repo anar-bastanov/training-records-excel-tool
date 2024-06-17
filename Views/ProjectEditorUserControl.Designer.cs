@@ -1,6 +1,6 @@
 ﻿namespace ExcelTool.Views;
 
-partial class ProjectEditor
+partial class ProjectEditorUserControl
 {
     /// <summary> 
     /// Required designer variable.
@@ -51,7 +51,7 @@ partial class ProjectEditor
         headerTableLayout.ColumnCount = 4;
         headerTableLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 140F));
         headerTableLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-        headerTableLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 140F));
+        headerTableLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 160F));
         headerTableLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
         headerTableLayout.Controls.Add(_traineeLabel, 0, 0);
         headerTableLayout.Controls.Add(_positionTextBox, 3, 0);
@@ -83,9 +83,9 @@ partial class ProjectEditor
         // 
         _positionTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         _positionTextBox.BorderStyle = BorderStyle.FixedSingle;
-        _positionTextBox.Location = new Point(690, 3);
+        _positionTextBox.Location = new Point(700, 3);
         _positionTextBox.Name = "_positionTextBox";
-        _positionTextBox.Size = new Size(402, 51);
+        _positionTextBox.Size = new Size(392, 51);
         _positionTextBox.TabIndex = 11;
         _positionTextBox.TabStop = false;
         _positionTextBox.WordWrap = false;
@@ -94,9 +94,9 @@ partial class ProjectEditor
         // 
         _managerTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         _managerTextBox.BorderStyle = BorderStyle.FixedSingle;
-        _managerTextBox.Location = new Point(690, 63);
+        _managerTextBox.Location = new Point(700, 63);
         _managerTextBox.Name = "_managerTextBox";
-        _managerTextBox.Size = new Size(402, 51);
+        _managerTextBox.Size = new Size(392, 51);
         _managerTextBox.TabIndex = 12;
         _managerTextBox.TabStop = false;
         _managerTextBox.WordWrap = false;
@@ -117,7 +117,7 @@ partial class ProjectEditor
         _courseTextBox.BorderStyle = BorderStyle.FixedSingle;
         _courseTextBox.Location = new Point(143, 63);
         _courseTextBox.Name = "_courseTextBox";
-        _courseTextBox.Size = new Size(401, 51);
+        _courseTextBox.Size = new Size(391, 51);
         _courseTextBox.TabIndex = 8;
         _courseTextBox.TabStop = false;
         _courseTextBox.WordWrap = false;
@@ -125,10 +125,10 @@ partial class ProjectEditor
         // _positionLabel
         // 
         _positionLabel.Anchor = AnchorStyles.Top;
-        _positionLabel.Location = new Point(552, 0);
+        _positionLabel.Location = new Point(546, 0);
         _positionLabel.Margin = new Padding(5, 0, 5, 0);
         _positionLabel.Name = "_positionLabel";
-        _positionLabel.Size = new Size(130, 43);
+        _positionLabel.Size = new Size(142, 43);
         _positionLabel.TabIndex = 9;
         _positionLabel.Text = "Position";
         _positionLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -136,10 +136,10 @@ partial class ProjectEditor
         // _managerLabel
         // 
         _managerLabel.Anchor = AnchorStyles.Top;
-        _managerLabel.Location = new Point(552, 60);
+        _managerLabel.Location = new Point(546, 60);
         _managerLabel.Margin = new Padding(5, 0, 5, 0);
         _managerLabel.Name = "_managerLabel";
-        _managerLabel.Size = new Size(130, 43);
+        _managerLabel.Size = new Size(142, 43);
         _managerLabel.TabIndex = 10;
         _managerLabel.Text = "Manager";
         _managerLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -150,7 +150,7 @@ partial class ProjectEditor
         _traineeTextBox.BorderStyle = BorderStyle.FixedSingle;
         _traineeTextBox.Location = new Point(143, 3);
         _traineeTextBox.Name = "_traineeTextBox";
-        _traineeTextBox.Size = new Size(401, 51);
+        _traineeTextBox.Size = new Size(391, 51);
         _traineeTextBox.TabIndex = 7;
         _traineeTextBox.TabStop = false;
         _traineeTextBox.WordWrap = false;
@@ -202,7 +202,7 @@ partial class ProjectEditor
         _copyPathToDatabaseButton.TabIndex = 4;
         _copyPathToDatabaseButton.UseVisualStyleBackColor = true;
         // 
-        // ProjectEditor
+        // ProjectEditorUserControl
         // 
         AutoScaleDimensions = new SizeF(17F, 43F);
         AutoScaleMode = AutoScaleMode.Font;
@@ -213,7 +213,7 @@ partial class ProjectEditor
         Controls.Add(_taskDatabaseLabel);
         Font = new Font("Bahnschrift SemiCondensed", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
         Margin = new Padding(5);
-        Name = "ProjectEditor";
+        Name = "ProjectEditorUserControl";
         Size = new Size(1200, 800);
         headerTableLayout.ResumeLayout(false);
         headerTableLayout.PerformLayout();

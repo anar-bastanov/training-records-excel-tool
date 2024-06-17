@@ -1,6 +1,6 @@
 ﻿namespace ExcelTool.Views;
 
-partial class StartMenuButton
+partial class StartMenuButtonUserControl
 {
     /// <summary> 
     /// Required designer variable.
@@ -28,7 +28,7 @@ partial class StartMenuButton
     /// </summary>
     private void InitializeComponent()
     {
-        System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StartMenuButton));
+        System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StartMenuButtonUserControl));
         _buttonText = new Label();
         _buttonIcon = new PictureBox();
         ((System.ComponentModel.ISupportInitialize)_buttonIcon).BeginInit();

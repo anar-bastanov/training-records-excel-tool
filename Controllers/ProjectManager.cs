@@ -1,16 +1,14 @@
-﻿using System;
+﻿namespace ExcelTool.Controllers;
 
-namespace ExcelTool.Controllers;
-
-public static class ProjectManager
+public sealed class ProjectManager
 {
-    private static ApplicationState _applicationState = ApplicationState.OnStartMenu;
+    private readonly MainForm _mainView;
 
-    private static Project? _currentProject;
+    private ApplicationState _applicationState = ApplicationState.Idle;
 
-    public static event Action<ApplicationState>? OnApplicationStateChanged;
+    private ProjectModel? _currentProject;
 
-    public static ApplicationState State
+    public ApplicationState State
     {
         get
         {
@@ -22,22 +20,40 @@ public static class ProjectManager
                 return;
 
             _applicationState = value;
-            OnApplicationStateChanged?.Invoke(value);
+            _mainView.AdjustStripMenuItemsAndVisuals(value);
         }
     }
 
-    public static void CreateNewProject()
+    public ProjectManager(MainForm mainView)
+    {
+        _mainView = mainView;
+        mainView.FileNewRequested += CreateNewProject;
+        mainView.FileOpenRequested += OpenProject;
+        mainView.FileCloseRequested += CloseCurrentProject;
+    }
+
+    public void CreateNewProject()
     {
         State = ApplicationState.NewFile;
+
+        _currentProject = new ProjectModel();
+        _currentProject.PropertyChanged += (_, _) => State = State.MarkUnsavedChanges();
+        _mainView.BindProjectData(_currentProject);
     }
 
-    public static void OpenProject()
+    public void OpenProject()
     {
         State = ApplicationState.OpenFile;
+
+        _currentProject = new ProjectModel();
+        _currentProject.PropertyChanged += (_, _) => State = State.MarkUnsavedChanges();
+        _mainView.BindProjectData(_currentProject);
     }
 
-    public static void CloseCurrentProject()
+    public void CloseCurrentProject()
     {
-        State = ApplicationState.OnStartMenu;
+        State = ApplicationState.Idle;
+
+        _currentProject = null;
     }
 }

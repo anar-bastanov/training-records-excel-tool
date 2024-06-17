@@ -1,6 +1,6 @@
 ﻿namespace ExcelTool.Views;
 
-partial class StartMenu
+partial class StartMenuUserControl
 {
     /// <summary> 
     /// Required designer variable.
@@ -28,11 +28,11 @@ partial class StartMenu
     /// </summary>
     private void InitializeComponent()
     {
-        System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StartMenu));
+        System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StartMenuUserControl));
         _azercosmosLogo = new PictureBox();
-        _startMenuHelpButton = new StartMenuButton();
-        _startMenuOpenButton = new StartMenuButton();
-        _startMenuNewButton = new StartMenuButton();
+        _startMenuHelpButton = new StartMenuButtonUserControl();
+        _startMenuOpenButton = new StartMenuButtonUserControl();
+        _startMenuNewButton = new StartMenuButtonUserControl();
         ((System.ComponentModel.ISupportInitialize)_azercosmosLogo).BeginInit();
         SuspendLayout();
         // 
@@ -115,7 +115,7 @@ partial class StartMenu
     #endregion
 
     private PictureBox _azercosmosLogo;
-    private StartMenuButton _startMenuHelpButton;
-    private StartMenuButton _startMenuOpenButton;
-    private StartMenuButton _startMenuNewButton;
+    private StartMenuButtonUserControl _startMenuHelpButton;
+    private StartMenuButtonUserControl _startMenuOpenButton;
+    private StartMenuButtonUserControl _startMenuNewButton;
 }

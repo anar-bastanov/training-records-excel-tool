@@ -5,25 +5,30 @@ namespace ExcelTool.Views;
 
 public sealed partial class MainForm : Form
 {
+    public event Action? FileNewRequested;
+
+    public event Action? FileOpenRequested;
+
+    public event Action? FileCloseRequested;
+
     public MainForm()
     {
         InitializeComponent();
-        ProjectManager.OnApplicationStateChanged += AdjustStripMenuItemsAndVisuals;
     }
 
     private void StripMenuFileNew_Click(object sender, EventArgs e)
     {
-        ProjectManager.CreateNewProject();
+        FileNewRequested?.Invoke();
     }
 
     private void StripMenuFileOpen_Click(object sender, EventArgs e)
     {
-        ProjectManager.OpenProject();
+        FileOpenRequested?.Invoke();
     }
 
     private void StripMenuFileClose_Click(object sender, EventArgs e)
     {
-        ProjectManager.CloseCurrentProject();
+        FileCloseRequested?.Invoke();
     }
 
     private void StripMenuFileExit_Click(object sender, EventArgs e)
@@ -57,23 +62,25 @@ public sealed partial class MainForm : Form
         StripMenuHelp_Click(sender, e);
     }
 
-    private void AdjustStripMenuItemsAndVisuals(ApplicationState state)
+    public void AdjustStripMenuItemsAndVisuals(ApplicationState state)
     {
-        if (state is ApplicationState.OnStartMenu)
+        if (state is ApplicationState.Idle)
             _startMenu.BringToFront();
         else
             _projectEditor.BringToFront();
 
+        _debugStatus.Text = state.ToString();
+
         switch (state)
         {
-            case ApplicationState.OnStartMenu:
+            case ApplicationState.Idle:
                 _stripMenuFileClose.Enabled = false;
                 _stripMenuFileSave.Enabled = false;
                 _stripMenuFileSaveAs.Enabled = false;
                 break;
             case ApplicationState.NewFile:
-                _stripMenuFileClose.Enabled = true;
-                _stripMenuFileSave.Enabled = false;
+                _stripMenuFileClose.Enabled = false;
+                _stripMenuFileSave.Enabled = true;
                 _stripMenuFileSaveAs.Enabled = true;
                 break;
             case ApplicationState.OpenFile:
@@ -82,12 +89,12 @@ public sealed partial class MainForm : Form
                 _stripMenuFileSaveAs.Enabled = true;
                 break;
             case ApplicationState.NewFileUnsavedChanges:
-                _stripMenuFileClose.Enabled = false;
-                _stripMenuFileSave.Enabled = false;
+                _stripMenuFileClose.Enabled = true;
+                _stripMenuFileSave.Enabled = true;
                 _stripMenuFileSaveAs.Enabled = true;
                 break;
             case ApplicationState.OpenFileUnsavedChanges:
-                _stripMenuFileClose.Enabled = false;
+                _stripMenuFileClose.Enabled = true;
                 _stripMenuFileSave.Enabled = true;
                 _stripMenuFileSaveAs.Enabled = true;
                 break;
@@ -96,21 +103,56 @@ public sealed partial class MainForm : Form
         }
     }
 
+    public void BindProjectData(ProjectModel project)
+    {
+        _projectEditor.HeaderInfoTrainee.DataBindings.Clear();
+        _projectEditor.HeaderInfoTrainee.DataBindings.Add(
+            propertyName: "Text",
+            dataSource: project.ProfileInfo,
+            dataMember: "Trainee",
+            formattingEnabled: false,
+            updateMode: DataSourceUpdateMode.OnPropertyChanged);
+
+        _projectEditor.HeaderInfoCourse.DataBindings.Clear();
+        _projectEditor.HeaderInfoCourse.DataBindings.Add(
+            propertyName: "Text",
+            dataSource: project.ProfileInfo,
+            dataMember: "Course",
+            formattingEnabled: false,
+            updateMode: DataSourceUpdateMode.OnPropertyChanged);
+
+        _projectEditor.HeaderInfoPosition.DataBindings.Clear();
+        _projectEditor.HeaderInfoPosition.DataBindings.Add(
+            propertyName: "Text",
+            dataSource: project.ProfileInfo,
+            dataMember: "Position",
+            formattingEnabled: false,
+            updateMode: DataSourceUpdateMode.OnPropertyChanged);
+
+        _projectEditor.HeaderInfoManager.DataBindings.Clear();
+        _projectEditor.HeaderInfoManager.DataBindings.Add(
+            propertyName: "Text",
+            dataSource: project.ProfileInfo,
+            dataMember: "Manager",
+            formattingEnabled: false,
+            updateMode: DataSourceUpdateMode.OnPropertyChanged);
+    }
+
     private static void OpenWikiPageForHelp()
     {
         const string linkToWiki = "https://github.com/anar-bastanov/training-records-excel-tool/wiki";
 
         var choice = MessageBox.Show(
-            $"""
+            text: $"""
             You are about to open a link in your default browser!
 
             Clicking `OK` will take you to:
             {linkToWiki}
             """,
-            "External Link",
-            MessageBoxButtons.OKCancel,
-            MessageBoxIcon.Asterisk,
-            MessageBoxDefaultButton.Button1);
+            caption: "External Link",
+            buttons: MessageBoxButtons.OKCancel,
+            icon: MessageBoxIcon.Asterisk,
+            defaultButton: MessageBoxDefaultButton.Button1);
 
         if (choice is DialogResult.Cancel)
             return;

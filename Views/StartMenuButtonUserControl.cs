@@ -4,9 +4,9 @@ using System.ComponentModel;
 namespace ExcelTool.Views;
 
 [DefaultEvent(nameof(Click))]
-public partial class StartMenuButton : UserControl
+public partial class StartMenuButtonUserControl : UserControl
 {
-    public StartMenuButton()
+    public StartMenuButtonUserControl()
     {
         InitializeComponent();
 

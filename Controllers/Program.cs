@@ -13,6 +13,10 @@ internal static class Program
     private static void Main()
     {
         ApplicationConfiguration.Initialize();
-        Application.Run(new MainForm());
+
+        var mainForm = new MainForm();
+        _ = new ProjectManager(mainForm);
+
+        Application.Run(mainForm);
     }
 }
