@@ -112,6 +112,7 @@ partial class MainForm
         _stripMenuFileSave.ShortcutKeys = Keys.Control | Keys.S;
         _stripMenuFileSave.Size = new Size(223, 34);
         _stripMenuFileSave.Text = "&Save";
+        _stripMenuFileSave.Click += StripMenuFileSave_Click;
         // 
         // _stripMenuFileSaveAs
         // 
@@ -240,6 +241,7 @@ partial class MainForm
         MinimumSize = new Size(1200, 800);
         Name = "MainForm";
         Text = "Master Training Records";
+        FormClosing += MainForm_FormClosing;
         _menuStrip.ResumeLayout(false);
         _menuStrip.PerformLayout();
         _stripStatus.ResumeLayout(false);

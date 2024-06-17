@@ -8,6 +8,8 @@ public sealed class ProjectManager
 
     private ProjectModel? _currentProject;
 
+    private string _sourceFilePath = "";
+
     public ApplicationState State
     {
         get
@@ -30,12 +32,16 @@ public sealed class ProjectManager
         mainView.FileNewRequested += CreateNewProject;
         mainView.FileOpenRequested += OpenProject;
         mainView.FileCloseRequested += CloseCurrentProject;
+        mainView.FileSaveRequested += () => SaveCurrentProject();
+        mainView.ApplicationExitRequested += ExitApplication;
     }
 
     public void CreateNewProject()
     {
-        State = ApplicationState.NewFile;
+        if (!CheckUnsavedChanges())
+            return;
 
+        State = ApplicationState.NewFile;
         _currentProject = new ProjectModel();
         _currentProject.PropertyChanged += (_, _) => State = State.MarkUnsavedChanges();
         _mainView.BindProjectData(_currentProject);
@@ -43,17 +49,67 @@ public sealed class ProjectManager
 
     public void OpenProject()
     {
-        State = ApplicationState.OpenFile;
+        if (!CheckUnsavedChanges())
+            return;
 
+        if (!MainForm.TryPromptOpenFile(out string fullPath))
+            return;
+
+        State = ApplicationState.OpenFile;
+        _sourceFilePath = fullPath;
         _currentProject = new ProjectModel();
+        FileConverter.LoadFromText(_currentProject, fullPath);
         _currentProject.PropertyChanged += (_, _) => State = State.MarkUnsavedChanges();
         _mainView.BindProjectData(_currentProject);
     }
 
     public void CloseCurrentProject()
     {
-        State = ApplicationState.Idle;
+        if (!CheckUnsavedChanges())
+            return;
 
+        State = ApplicationState.Idle;
         _currentProject = null;
+        _sourceFilePath = "";
+    }
+
+    public bool SaveCurrentProject()
+    {
+        if (State is ApplicationState.OpenFileUnsavedChanges)
+        {
+            FileConverter.SaveAsText(_currentProject!, _sourceFilePath);
+        }
+        else
+        {
+            if (!MainForm.TryPromptSaveFile(out string fullPath))
+                return false;
+
+            _sourceFilePath = fullPath;
+            FileConverter.SaveAsText(_currentProject!, fullPath);
+        }
+
+        State = ApplicationState.OpenFile;
+        return true;
+    }
+
+    public bool CheckUnsavedChanges()
+    {
+        if (!State.HasUnsavedChanges())
+            return true;
+
+        var choice = MainForm.WarnUnsavedChanges();
+
+        if (choice is DialogResult.Cancel)
+            return false;
+
+        if (choice is DialogResult.Yes)
+            return SaveCurrentProject();
+
+        return true;
+    }
+
+    public void ExitApplication(FormClosingEventArgs e)
+    {
+        e.Cancel = !CheckUnsavedChanges();
     }
 }

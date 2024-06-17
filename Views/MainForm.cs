@@ -11,6 +11,35 @@ public sealed partial class MainForm : Form
 
     public event Action? FileCloseRequested;
 
+    public event Action? FileSaveRequested;
+
+    public event Action<FormClosingEventArgs>? ApplicationExitRequested;
+
+    private const string LinkToWiki = "https://github.com/anar-bastanov/training-records-excel-tool/wiki";
+
+    private static readonly ProcessStartInfo OpenLinkProcessInfo = new()
+    {
+        FileName = LinkToWiki,
+        UseShellExecute = true
+    };
+
+    private static readonly SaveFileDialog SaveFilePrompt = new()
+    {
+        Title = "Save Text File",
+        Filter = "Text File (*.txt)|*.txt",
+        DefaultExt = "txt",
+        AddExtension = true,
+        FileName = "TrainingRecords.txt",
+    };
+
+    private static readonly OpenFileDialog OpenFilePrompt = new()
+    {
+        Title = "Open Text File",
+        Filter = "Text File (*.txt)|*.txt",
+        DefaultExt = "txt",
+        AddExtension = true
+    };
+
     public MainForm()
     {
         InitializeComponent();
@@ -29,6 +58,11 @@ public sealed partial class MainForm : Form
     private void StripMenuFileClose_Click(object sender, EventArgs e)
     {
         FileCloseRequested?.Invoke();
+    }
+
+    private void StripMenuFileSave_Click(object sender, EventArgs e)
+    {
+        FileSaveRequested?.Invoke();
     }
 
     private void StripMenuFileExit_Click(object sender, EventArgs e)
@@ -60,6 +94,11 @@ public sealed partial class MainForm : Form
     private void StartMenu_HelpClick(object sender, EventArgs e)
     {
         StripMenuHelp_Click(sender, e);
+    }
+
+    private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+    {
+        ApplicationExitRequested?.Invoke(e);
     }
 
     public void AdjustStripMenuItemsAndVisuals(ApplicationState state)
@@ -140,14 +179,12 @@ public sealed partial class MainForm : Form
 
     private static void OpenWikiPageForHelp()
     {
-        const string linkToWiki = "https://github.com/anar-bastanov/training-records-excel-tool/wiki";
-
         var choice = MessageBox.Show(
             text: $"""
             You are about to open a link in your default browser!
 
             Clicking `OK` will take you to:
-            {linkToWiki}
+            {LinkToWiki}
             """,
             caption: "External Link",
             buttons: MessageBoxButtons.OKCancel,
@@ -157,13 +194,30 @@ public sealed partial class MainForm : Form
         if (choice is DialogResult.Cancel)
             return;
 
-        // Open the default browser with the link to GitHub wiki:
-        ProcessStartInfo psInfo = new()
-        {
-            FileName = linkToWiki,
-            UseShellExecute = true
-        };
+        Process.Start(OpenLinkProcessInfo);
+    }
 
-        Process.Start(psInfo);
+    public static bool TryPromptSaveFile(out string fullPath)
+    {
+        var choice = SaveFilePrompt.ShowDialog();
+        fullPath = SaveFilePrompt.FileName;
+        return choice is DialogResult.OK;
+    }
+
+    public static bool TryPromptOpenFile(out string fullPath)
+    {
+        var choice = OpenFilePrompt.ShowDialog();
+        fullPath = OpenFilePrompt.FileName;
+        return choice is DialogResult.OK;
+    }
+
+    public static DialogResult WarnUnsavedChanges()
+    {
+        return MessageBox.Show(
+            text: "Do you want to save your changes to a file?",
+            caption: "Unsaved Changes",
+            buttons: MessageBoxButtons.YesNoCancel,
+            icon: MessageBoxIcon.Exclamation,
+            defaultButton: MessageBoxDefaultButton.Button1);
     }
 }
