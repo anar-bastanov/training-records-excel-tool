@@ -47,7 +47,6 @@ partial class MainForm
         _stripMenuLicense = new ToolStripMenuItem();
         _stripStatus = new StatusStrip();
         _stripStatusWatermark = new ToolStripStatusLabel();
-        _debugStatus = new ToolStripStatusLabel();
         _projectEditor = new ProjectEditorUserControl();
         _startMenu = new StartMenuUserControl();
         _menuStrip.SuspendLayout();
@@ -76,7 +75,7 @@ partial class MainForm
         _stripMenuFileNew.Image = (Image)resources.GetObject("_stripMenuFileNew.Image");
         _stripMenuFileNew.Name = "_stripMenuFileNew";
         _stripMenuFileNew.ShortcutKeys = Keys.Control | Keys.N;
-        _stripMenuFileNew.Size = new Size(223, 34);
+        _stripMenuFileNew.Size = new Size(270, 34);
         _stripMenuFileNew.Text = "&New";
         _stripMenuFileNew.Click += StripMenuFileNew_Click;
         // 
@@ -85,7 +84,7 @@ partial class MainForm
         _stripMenuFileOpen.Image = (Image)resources.GetObject("_stripMenuFileOpen.Image");
         _stripMenuFileOpen.Name = "_stripMenuFileOpen";
         _stripMenuFileOpen.ShortcutKeys = Keys.Control | Keys.O;
-        _stripMenuFileOpen.Size = new Size(223, 34);
+        _stripMenuFileOpen.Size = new Size(270, 34);
         _stripMenuFileOpen.Text = "&Open";
         _stripMenuFileOpen.Click += StripMenuFileOpen_Click;
         // 
@@ -94,15 +93,15 @@ partial class MainForm
         _stripMenuFileClose.Enabled = false;
         _stripMenuFileClose.Image = (Image)resources.GetObject("_stripMenuFileClose.Image");
         _stripMenuFileClose.Name = "_stripMenuFileClose";
-        _stripMenuFileClose.ShortcutKeys = Keys.Control | Keys.C;
-        _stripMenuFileClose.Size = new Size(223, 34);
+        _stripMenuFileClose.ShortcutKeys = Keys.Control | Keys.Shift | Keys.C;
+        _stripMenuFileClose.Size = new Size(270, 34);
         _stripMenuFileClose.Text = "&Close";
         _stripMenuFileClose.Click += StripMenuFileClose_Click;
         // 
         // toolStripSeparator2
         // 
         toolStripSeparator2.Name = "toolStripSeparator2";
-        toolStripSeparator2.Size = new Size(220, 6);
+        toolStripSeparator2.Size = new Size(267, 6);
         // 
         // _stripMenuFileSave
         // 
@@ -110,7 +109,7 @@ partial class MainForm
         _stripMenuFileSave.Image = (Image)resources.GetObject("_stripMenuFileSave.Image");
         _stripMenuFileSave.Name = "_stripMenuFileSave";
         _stripMenuFileSave.ShortcutKeys = Keys.Control | Keys.S;
-        _stripMenuFileSave.Size = new Size(223, 34);
+        _stripMenuFileSave.Size = new Size(270, 34);
         _stripMenuFileSave.Text = "&Save";
         _stripMenuFileSave.Click += StripMenuFileSave_Click;
         // 
@@ -120,7 +119,7 @@ partial class MainForm
         _stripMenuFileSaveAs.Enabled = false;
         _stripMenuFileSaveAs.Image = (Image)resources.GetObject("_stripMenuFileSaveAs.Image");
         _stripMenuFileSaveAs.Name = "_stripMenuFileSaveAs";
-        _stripMenuFileSaveAs.Size = new Size(223, 34);
+        _stripMenuFileSaveAs.Size = new Size(270, 34);
         _stripMenuFileSaveAs.Text = "Save &As";
         // 
         // _stripMenuFileSaveAsExcel
@@ -151,21 +150,20 @@ partial class MainForm
         // toolStripSeparator1
         // 
         toolStripSeparator1.Name = "toolStripSeparator1";
-        toolStripSeparator1.Size = new Size(220, 6);
+        toolStripSeparator1.Size = new Size(267, 6);
         // 
         // _stripMenuFileExit
         // 
         _stripMenuFileExit.Image = (Image)resources.GetObject("_stripMenuFileExit.Image");
         _stripMenuFileExit.Name = "_stripMenuFileExit";
         _stripMenuFileExit.ShortcutKeys = Keys.Alt | Keys.F4;
-        _stripMenuFileExit.Size = new Size(223, 34);
+        _stripMenuFileExit.Size = new Size(270, 34);
         _stripMenuFileExit.Text = "&Exit";
         _stripMenuFileExit.Click += StripMenuFileExit_Click;
         // 
         // _stripMenuHelp
         // 
         _stripMenuHelp.Name = "_stripMenuHelp";
-        _stripMenuHelp.ShortcutKeys = Keys.Control | Keys.H;
         _stripMenuHelp.Size = new Size(65, 29);
         _stripMenuHelp.Text = "&Help";
         _stripMenuHelp.Click += StripMenuHelp_Click;
@@ -173,7 +171,6 @@ partial class MainForm
         // _stripMenuLicense
         // 
         _stripMenuLicense.Name = "_stripMenuLicense";
-        _stripMenuLicense.ShortcutKeys = Keys.Control | Keys.L;
         _stripMenuLicense.Size = new Size(84, 29);
         _stripMenuLicense.Text = "&License";
         _stripMenuLicense.Click += StripMenuLicense_Click;
@@ -181,7 +178,7 @@ partial class MainForm
         // _stripStatus
         // 
         _stripStatus.ImageScalingSize = new Size(24, 24);
-        _stripStatus.Items.AddRange(new ToolStripItem[] { _stripStatusWatermark, _debugStatus });
+        _stripStatus.Items.AddRange(new ToolStripItem[] { _stripStatusWatermark });
         _stripStatus.Location = new Point(0, 708);
         _stripStatus.Name = "_stripStatus";
         _stripStatus.Size = new Size(1178, 36);
@@ -196,14 +193,9 @@ partial class MainForm
         _stripStatusWatermark.Size = new Size(167, 29);
         _stripStatusWatermark.Text = "Powered by Silisoft";
         // 
-        // _debugStatus
-        // 
-        _debugStatus.Name = "_debugStatus";
-        _debugStatus.Size = new Size(160, 29);
-        _debugStatus.Text = "Happy Debugging";
-        // 
         // _projectEditor
         // 
+        _projectEditor.BackColor = SystemColors.Control;
         _projectEditor.Dock = DockStyle.Fill;
         _projectEditor.Font = new Font("Bahnschrift SemiCondensed", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
         _projectEditor.Location = new Point(0, 0);
@@ -211,6 +203,8 @@ partial class MainForm
         _projectEditor.Name = "_projectEditor";
         _projectEditor.Size = new Size(1178, 744);
         _projectEditor.TabIndex = 6;
+        _projectEditor.SelectTaskDatabase += ProjectEditor_SelectDatabase;
+        _projectEditor.CopyTaskDatabaseFilePath += ProjectEditor_CopyTaskDatabaseFilePath;
         // 
         // _startMenu
         // 
@@ -272,5 +266,4 @@ partial class MainForm
     private ToolStripMenuItem _stripMenuFileSave;
     private ProjectEditorUserControl _projectEditor;
     private StartMenuUserControl _startMenu;
-    private ToolStripStatusLabel _debugStatus;
 }

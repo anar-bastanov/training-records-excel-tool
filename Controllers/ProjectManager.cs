@@ -1,6 +1,8 @@
-﻿namespace ExcelTool.Controllers;
+﻿using System.ComponentModel;
 
-public sealed class ProjectManager
+namespace ExcelTool.Controllers;
+
+public sealed class ProjectManager : INotifyPropertyChanged
 {
     private readonly MainForm _mainView;
 
@@ -10,20 +12,33 @@ public sealed class ProjectManager
 
     private string _sourceFilePath = "";
 
+    private string _taskDatabasePath = "";
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
     public ApplicationState State
     {
         get
         {
             return _applicationState;
         }
+        // private
         set
         {
             if (_applicationState == value)
                 return;
 
             _applicationState = value;
-            _mainView.AdjustStripMenuItemsAndVisuals(value);
+            _mainView.EnableEditor(value is not ApplicationState.Idle);
+            _mainView.EnableStripMenuItems(value);
+            _mainView.EnableTitleFilename(value, _sourceFilePath);
         }
+    }
+
+    public string TaskDatabasePath
+    {
+        get => _taskDatabasePath is "" ? "No database is selected" : _taskDatabasePath;
+        set => this.SetProperty(ref _taskDatabasePath, value, PropertyChanged);
     }
 
     public ProjectManager(MainForm mainView)
@@ -33,7 +48,10 @@ public sealed class ProjectManager
         mainView.FileOpenRequested += OpenProject;
         mainView.FileCloseRequested += CloseCurrentProject;
         mainView.FileSaveRequested += () => SaveCurrentProject();
+        mainView.TaskDatabaseSelectRequested += SelectTaskDatabase;
+        mainView.TaskDatabaseFilePathCopyRequested += CopyTaskDatabaseFilePath;
         mainView.ApplicationExitRequested += ExitApplication;
+        mainView.BindTaskDatabasePath(this);
     }
 
     public void CreateNewProject()
@@ -41,10 +59,11 @@ public sealed class ProjectManager
         if (!CheckUnsavedChanges())
             return;
 
-        State = ApplicationState.NewFile;
+        _sourceFilePath = "";
         _currentProject = new ProjectModel();
         _currentProject.PropertyChanged += (_, _) => State = State.MarkUnsavedChanges();
         _mainView.BindProjectData(_currentProject);
+        State = ApplicationState.NewFile;
     }
 
     public void OpenProject()
@@ -55,12 +74,12 @@ public sealed class ProjectManager
         if (!MainForm.TryPromptOpenFile(out string fullPath))
             return;
 
-        State = ApplicationState.OpenFile;
         _sourceFilePath = fullPath;
         _currentProject = new ProjectModel();
-        FileConverter.LoadFromText(_currentProject, fullPath);
+        FileProcessor.LoadFromText(_currentProject, fullPath);
         _currentProject.PropertyChanged += (_, _) => State = State.MarkUnsavedChanges();
         _mainView.BindProjectData(_currentProject);
+        State = ApplicationState.OpenFile;
     }
 
     public void CloseCurrentProject()
@@ -68,16 +87,16 @@ public sealed class ProjectManager
         if (!CheckUnsavedChanges())
             return;
 
-        State = ApplicationState.Idle;
         _currentProject = null;
         _sourceFilePath = "";
+        State = ApplicationState.Idle;
     }
 
     public bool SaveCurrentProject()
     {
         if (State is ApplicationState.OpenFileUnsavedChanges)
         {
-            FileConverter.SaveAsText(_currentProject!, _sourceFilePath);
+            FileProcessor.SaveAsText(_currentProject!, _sourceFilePath);
         }
         else
         {
@@ -85,11 +104,27 @@ public sealed class ProjectManager
                 return false;
 
             _sourceFilePath = fullPath;
-            FileConverter.SaveAsText(_currentProject!, fullPath);
+            FileProcessor.SaveAsText(_currentProject!, fullPath);
         }
 
         State = ApplicationState.OpenFile;
         return true;
+    }
+
+    public void SelectTaskDatabase()
+    {
+        if (!MainForm.TryPromptSelectTaskDatabase(out string fullPath))
+            return;
+
+        TaskDatabasePath = fullPath;
+    }
+    
+    public void CopyTaskDatabaseFilePath()
+    {
+        if (_taskDatabasePath is "")
+            return;
+
+        Clipboard.SetText(_taskDatabasePath);
     }
 
     public bool CheckUnsavedChanges()

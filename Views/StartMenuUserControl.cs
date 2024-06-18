@@ -21,16 +21,16 @@ public partial class StartMenuUserControl : UserControl
 
     private void StartMenuNewFileButton_Click(object sender, EventArgs e)
     {
-        NewFileClick?.Invoke(this, e);
+        NewFileClick?.Invoke(sender, e);
     }
 
     private void StartMenuOpenFileButton_Click(object sender, EventArgs e)
     {
-        OpenFileClick?.Invoke(this, e);
+        OpenFileClick?.Invoke(sender, e);
     }
 
     private void StartMenuHelpButton_Click(object sender, EventArgs e)
     {
-        HelpClick?.Invoke(this, e);
+        HelpClick?.Invoke(sender, e);
     }
 }

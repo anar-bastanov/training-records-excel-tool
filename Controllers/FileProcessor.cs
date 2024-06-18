@@ -2,7 +2,7 @@
 
 namespace ExcelTool.Controllers;
 
-public static class FileConverter
+public static class FileProcessor
 {
     public static void SaveAsText(ProjectModel model, string fullPath)
     {
