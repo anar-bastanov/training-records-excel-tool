@@ -35,9 +35,10 @@ partial class ProjectEditorUserControl
         Panel traineePanel;
         Panel taskDatabasePathPanel;
         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProjectEditorUserControl));
-        _managerTextBox = new TextBox();
-        _positionTextBox = new TextBox();
-        _traineeTextBox = new TextBox();
+        _managerRichTextBox = new RichTextBox();
+        _courseRichTextBox = new RichTextBox();
+        _positionRichTextBox = new RichTextBox();
+        _traineeRichTextBox = new RichTextBox();
         _traineeLabel = new Label();
         _courseLabel = new Label();
         _positionLabel = new Label();
@@ -54,6 +55,7 @@ partial class ProjectEditorUserControl
         taskDatabasePathPanel = new Panel();
         headerTableLayout.SuspendLayout();
         managerPanel.SuspendLayout();
+        coursePanel.SuspendLayout();
         positionPanel.SuspendLayout();
         traineePanel.SuspendLayout();
         taskDatabasePathPanel.SuspendLayout();
@@ -88,80 +90,104 @@ partial class ProjectEditorUserControl
         managerPanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         managerPanel.BackColor = SystemColors.Window;
         managerPanel.BorderStyle = BorderStyle.FixedSingle;
-        managerPanel.Controls.Add(_managerTextBox);
+        managerPanel.Controls.Add(_managerRichTextBox);
         managerPanel.Location = new Point(700, 64);
         managerPanel.Name = "managerPanel";
         managerPanel.Padding = new Padding(10, 5, 10, 0);
         managerPanel.Size = new Size(392, 55);
         managerPanel.TabIndex = 17;
         // 
-        // _managerTextBox
+        // _managerRichTextBox
         // 
-        _managerTextBox.BorderStyle = BorderStyle.None;
-        _managerTextBox.Dock = DockStyle.Fill;
-        _managerTextBox.Location = new Point(10, 5);
-        _managerTextBox.Name = "_managerTextBox";
-        _managerTextBox.Size = new Size(370, 44);
-        _managerTextBox.TabIndex = 12;
-        _managerTextBox.TabStop = false;
-        _managerTextBox.WordWrap = false;
+        _managerRichTextBox.BorderStyle = BorderStyle.None;
+        _managerRichTextBox.DetectUrls = false;
+        _managerRichTextBox.Dock = DockStyle.Fill;
+        _managerRichTextBox.Location = new Point(10, 5);
+        _managerRichTextBox.Multiline = false;
+        _managerRichTextBox.Name = "_managerRichTextBox";
+        _managerRichTextBox.ScrollBars = RichTextBoxScrollBars.None;
+        _managerRichTextBox.Size = new Size(370, 48);
+        _managerRichTextBox.TabIndex = 21;
+        _managerRichTextBox.Text = "";
+        _managerRichTextBox.WordWrap = false;
         // 
         // coursePanel
         // 
         coursePanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         coursePanel.BackColor = SystemColors.Window;
         coursePanel.BorderStyle = BorderStyle.FixedSingle;
+        coursePanel.Controls.Add(_courseRichTextBox);
         coursePanel.Location = new Point(143, 64);
         coursePanel.Name = "coursePanel";
         coursePanel.Padding = new Padding(10, 5, 10, 0);
         coursePanel.Size = new Size(391, 55);
         coursePanel.TabIndex = 16;
         // 
+        // _courseRichTextBox
+        // 
+        _courseRichTextBox.BorderStyle = BorderStyle.None;
+        _courseRichTextBox.DetectUrls = false;
+        _courseRichTextBox.Dock = DockStyle.Fill;
+        _courseRichTextBox.Location = new Point(10, 5);
+        _courseRichTextBox.Multiline = false;
+        _courseRichTextBox.Name = "_courseRichTextBox";
+        _courseRichTextBox.ScrollBars = RichTextBoxScrollBars.None;
+        _courseRichTextBox.Size = new Size(369, 48);
+        _courseRichTextBox.TabIndex = 18;
+        _courseRichTextBox.Text = "";
+        _courseRichTextBox.WordWrap = false;
+        // 
         // positionPanel
         // 
         positionPanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         positionPanel.BackColor = SystemColors.Window;
         positionPanel.BorderStyle = BorderStyle.FixedSingle;
-        positionPanel.Controls.Add(_positionTextBox);
+        positionPanel.Controls.Add(_positionRichTextBox);
         positionPanel.Location = new Point(700, 3);
         positionPanel.Name = "positionPanel";
         positionPanel.Padding = new Padding(10, 5, 10, 0);
         positionPanel.Size = new Size(392, 55);
         positionPanel.TabIndex = 15;
         // 
-        // _positionTextBox
+        // _positionRichTextBox
         // 
-        _positionTextBox.BorderStyle = BorderStyle.None;
-        _positionTextBox.Dock = DockStyle.Fill;
-        _positionTextBox.Location = new Point(10, 5);
-        _positionTextBox.Name = "_positionTextBox";
-        _positionTextBox.Size = new Size(370, 44);
-        _positionTextBox.TabIndex = 11;
-        _positionTextBox.TabStop = false;
-        _positionTextBox.WordWrap = false;
+        _positionRichTextBox.BorderStyle = BorderStyle.None;
+        _positionRichTextBox.DetectUrls = false;
+        _positionRichTextBox.Dock = DockStyle.Fill;
+        _positionRichTextBox.Location = new Point(10, 5);
+        _positionRichTextBox.Multiline = false;
+        _positionRichTextBox.Name = "_positionRichTextBox";
+        _positionRichTextBox.ScrollBars = RichTextBoxScrollBars.None;
+        _positionRichTextBox.Size = new Size(370, 48);
+        _positionRichTextBox.TabIndex = 20;
+        _positionRichTextBox.Text = "";
+        _positionRichTextBox.WordWrap = false;
         // 
         // traineePanel
         // 
         traineePanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         traineePanel.BackColor = SystemColors.Window;
         traineePanel.BorderStyle = BorderStyle.FixedSingle;
-        traineePanel.Controls.Add(_traineeTextBox);
+        traineePanel.Controls.Add(_traineeRichTextBox);
         traineePanel.Location = new Point(143, 3);
         traineePanel.Name = "traineePanel";
         traineePanel.Padding = new Padding(10, 5, 10, 0);
         traineePanel.Size = new Size(391, 55);
         traineePanel.TabIndex = 14;
         // 
-        // _traineeTextBox
+        // _traineeRichTextBox
         // 
-        _traineeTextBox.BorderStyle = BorderStyle.None;
-        _traineeTextBox.Dock = DockStyle.Fill;
-        _traineeTextBox.Location = new Point(10, 5);
-        _traineeTextBox.Name = "_traineeTextBox";
-        _traineeTextBox.Size = new Size(369, 44);
-        _traineeTextBox.TabIndex = 7;
-        _traineeTextBox.TabStop = false;
-        _traineeTextBox.WordWrap = false;
+        _traineeRichTextBox.BorderStyle = BorderStyle.None;
+        _traineeRichTextBox.DetectUrls = false;
+        _traineeRichTextBox.Dock = DockStyle.Fill;
+        _traineeRichTextBox.Location = new Point(10, 5);
+        _traineeRichTextBox.Multiline = false;
+        _traineeRichTextBox.Name = "_traineeRichTextBox";
+        _traineeRichTextBox.ScrollBars = RichTextBoxScrollBars.None;
+        _traineeRichTextBox.Size = new Size(369, 48);
+        _traineeRichTextBox.TabIndex = 19;
+        _traineeRichTextBox.Text = "";
+        _traineeRichTextBox.WordWrap = false;
         // 
         // _traineeLabel
         // 
@@ -281,11 +307,9 @@ partial class ProjectEditorUserControl
         Size = new Size(1200, 800);
         headerTableLayout.ResumeLayout(false);
         managerPanel.ResumeLayout(false);
-        managerPanel.PerformLayout();
+        coursePanel.ResumeLayout(false);
         positionPanel.ResumeLayout(false);
-        positionPanel.PerformLayout();
         traineePanel.ResumeLayout(false);
-        traineePanel.PerformLayout();
         taskDatabasePathPanel.ResumeLayout(false);
         ResumeLayout(false);
         PerformLayout();
@@ -298,11 +322,11 @@ partial class ProjectEditorUserControl
     private Button _copyTaskDatabaseButtonFilePath;
     private Label _traineeLabel;
     private Label _courseLabel;
-    private TextBox _traineeTextBox;
-    private TextBox _courseTextBox;
-    private TextBox _managerTextBox;
-    private TextBox _positionTextBox;
     private Label _managerLabel;
     private Label _positionLabel;
     private Label _taskDatabasePathLabel;
+    private RichTextBox _courseRichTextBox;
+    private RichTextBox _positionRichTextBox;
+    private RichTextBox _managerRichTextBox;
+    private RichTextBox _traineeRichTextBox;
 }

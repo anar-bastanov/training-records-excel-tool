@@ -76,7 +76,7 @@ public sealed class ProjectManager : INotifyPropertyChanged
 
         _sourceFilePath = fullPath;
         _currentProject = new ProjectModel();
-        FileProcessor.LoadFromText(_currentProject, fullPath);
+        FileProcessor.LoadFromExcel(_currentProject, fullPath);
         _currentProject.PropertyChanged += (_, _) => State = State.MarkUnsavedChanges();
         _mainView.BindProjectData(_currentProject);
         State = ApplicationState.OpenFile;
@@ -96,7 +96,7 @@ public sealed class ProjectManager : INotifyPropertyChanged
     {
         if (State is ApplicationState.OpenFileUnsavedChanges)
         {
-            FileProcessor.SaveAsText(_currentProject!, _sourceFilePath);
+            FileProcessor.SaveToExcel(_currentProject!, _sourceFilePath);
         }
         else
         {
@@ -104,7 +104,7 @@ public sealed class ProjectManager : INotifyPropertyChanged
                 return false;
 
             _sourceFilePath = fullPath;
-            FileProcessor.SaveAsText(_currentProject!, fullPath);
+            FileProcessor.SaveToExcel(_currentProject!, fullPath);
         }
 
         State = ApplicationState.OpenFile;

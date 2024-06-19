@@ -196,7 +196,7 @@ public sealed partial class MainForm : Form
             propertyName: "Text",
             dataSource: project.ProfileInfo,
             dataMember: "Trainee",
-            formattingEnabled: false,
+            formattingEnabled: true,
             updateMode: DataSourceUpdateMode.OnPropertyChanged);
 
         _projectEditor.HeaderInfoCourse.DataBindings.Clear();
@@ -204,7 +204,7 @@ public sealed partial class MainForm : Form
             propertyName: "Text",
             dataSource: project.ProfileInfo,
             dataMember: "Course",
-            formattingEnabled: false,
+            formattingEnabled: true,
             updateMode: DataSourceUpdateMode.OnPropertyChanged);
 
         _projectEditor.HeaderInfoPosition.DataBindings.Clear();
@@ -212,7 +212,7 @@ public sealed partial class MainForm : Form
             propertyName: "Text",
             dataSource: project.ProfileInfo,
             dataMember: "Position",
-            formattingEnabled: false,
+            formattingEnabled: true,
             updateMode: DataSourceUpdateMode.OnPropertyChanged);
 
         _projectEditor.HeaderInfoManager.DataBindings.Clear();
@@ -220,7 +220,7 @@ public sealed partial class MainForm : Form
             propertyName: "Text",
             dataSource: project.ProfileInfo,
             dataMember: "Manager",
-            formattingEnabled: false,
+            formattingEnabled: true,
             updateMode: DataSourceUpdateMode.OnPropertyChanged);
     }
 

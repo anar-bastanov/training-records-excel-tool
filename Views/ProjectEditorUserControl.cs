@@ -7,13 +7,13 @@ public partial class ProjectEditorUserControl : UserControl
 {
     public Label TaskDatabasePath => _taskDatabasePathLabel;
 
-    public TextBox HeaderInfoTrainee => _traineeTextBox;
+    public RichTextBox HeaderInfoTrainee => _traineeRichTextBox;
 
-    public TextBox HeaderInfoCourse => _courseTextBox;
+    public RichTextBox HeaderInfoCourse => _courseRichTextBox;
 
-    public TextBox HeaderInfoPosition => _positionTextBox;
+    public RichTextBox HeaderInfoPosition => _positionRichTextBox;
 
-    public TextBox HeaderInfoManager => _managerTextBox;
+    public RichTextBox HeaderInfoManager => _managerRichTextBox;
 
     [Browsable(true)]
     public event EventHandler? SelectTaskDatabase;
