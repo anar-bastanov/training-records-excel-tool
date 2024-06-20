@@ -14,15 +14,17 @@ public sealed partial class MainForm : Form
 
     public event Action? FileSaveRequested;
 
+    public event Action<FileType>? FileSaveAsRequested;
+
     public event Action? TaskDatabaseSelectRequested;
-    
+
     public event Action? TaskDatabaseFilePathCopyRequested;
 
     public event Action<FormClosingEventArgs>? ApplicationExitRequested;
 
     private const string ApplicationName = "Master Training Records";
 
-    private const string DefaultFilename = "TrainingRecords.xlsx";
+    private const string DefaultFilename = "TrainingRecords";
 
     private const string LinkToWiki = "https://github.com/anar-bastanov/training-records-excel-tool/wiki";
 
@@ -39,6 +41,14 @@ public sealed partial class MainForm : Form
         DefaultExt = "xlsx",
         AddExtension = true,
         FileName = DefaultFilename,
+    };
+
+    private static readonly SaveFileDialog SaveAsFilePrompt = new()
+    {
+        Title = "Save File",
+        Filter = "Excel File (*.xlsx)|*.xlsx|JSON (*.json)|*.json|XML (*.xml)|*.xml",
+        DefaultExt = "xlsx",
+        AddExtension = true
     };
 
     private static readonly OpenFileDialog OpenFilePrompt = new()
@@ -80,6 +90,21 @@ public sealed partial class MainForm : Form
     private void StripMenuFileSave_Click(object sender, EventArgs e)
     {
         FileSaveRequested?.Invoke();
+    }
+
+    private void StripMenuFileSaveAsExcel_Click(object sender, EventArgs e)
+    {
+        FileSaveAsRequested?.Invoke(FileType.Excel);
+    }
+
+    private void StripMenuFileSaveAsJson_Click(object sender, EventArgs e)
+    {
+        FileSaveAsRequested?.Invoke(FileType.Json);
+    }
+
+    private void StripMenuFileSaveAsXML_Click(object sender, EventArgs e)
+    {
+        FileSaveAsRequested?.Invoke(FileType.XML);
     }
 
     private void StripMenuFileExit_Click(object sender, EventArgs e)
@@ -258,6 +283,15 @@ public sealed partial class MainForm : Form
     public static bool TryPromptSaveFile(out string fullPath)
     {
         return TryPrompt(SaveFilePrompt, out fullPath);
+    }
+
+    public static bool TryPromptSaveFileAs(ref FileType fileType, out string fullPath)
+    {
+        SaveAsFilePrompt.FilterIndex = (int)fileType;
+        SaveAsFilePrompt.FileName = DefaultFilename;
+        bool success = TryPrompt(SaveAsFilePrompt, out fullPath);
+        fileType = (FileType)SaveAsFilePrompt.FilterIndex;
+        return success;
     }
 
     public static bool TryPromptOpenFile(out string fullPath)

@@ -4,7 +4,7 @@ namespace ExcelTool.Models;
 
 public sealed class ProjectModel : INotifyPropertyChanged
 {
-    public readonly ProfileModel ProfileInfo = new();
+    public ProfileModel ProfileInfo { get; set; } = new();
 
     public event PropertyChangedEventHandler? PropertyChanged
     {

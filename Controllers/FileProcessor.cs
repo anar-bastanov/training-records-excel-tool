@@ -1,30 +1,30 @@
 ﻿using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System.IO;
+using System.Text.Json;
+using System.Xml.Serialization;
+using System.Xml;
 
 namespace ExcelTool.Controllers;
 
 public static class FileProcessor
 {
-    public static void LoadFromText(ProjectModel project, string fullPath)
+    private static readonly JsonSerializerOptions JsonSerializerConfiguration = new()
     {
-        using var file = File.OpenText(fullPath);
-        project.ProfileInfo.Trainee = file.ReadLine() ?? "";
-        project.ProfileInfo.Course = file.ReadLine() ?? "";
-        project.ProfileInfo.Position = file.ReadLine() ?? "";
-        project.ProfileInfo.Manager = file.ReadLine() ?? "";
-    }
-
-    public static void SaveToText(ProjectModel project, string fullPath)
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        WriteIndented = true
+    };
+    
+    private static readonly XmlWriterSettings XmlSerializerConfiguration = new()
     {
-        using var file = File.CreateText(fullPath);
-        file.WriteLine(project.ProfileInfo.Trainee);
-        file.WriteLine(project.ProfileInfo.Course);
-        file.WriteLine(project.ProfileInfo.Position);
-        file.WriteLine(project.ProfileInfo.Manager);
-    }
+        Indent = true,
+        OmitXmlDeclaration = true,
+        NewLineOnAttributes = true
+    };
 
-    public static void LoadFromExcel(ProjectModel project, string fullPath)
+    private static readonly XmlSerializerNamespaces XmlEmptyNamespaces = new([XmlQualifiedName.Empty]);
+
+    public static void LoadProjectFromExcel(ProjectModel project, string fullPath)
     {
         using var package = new ExcelPackage(fullPath);
         var worksheet = package.Workbook.Worksheets[0];
@@ -40,7 +40,7 @@ public static class FileProcessor
         }
     }
 
-    public static void SaveToExcel(ProjectModel project, string fullPath)
+    public static void SaveProjectToExcel(ProjectModel project, string fullPath)
     {
         File.Delete(fullPath);
 
@@ -116,5 +116,23 @@ public static class FileProcessor
             ws.Cells["I3"].Value = "Certifying Score";
             ws.Cells["J3"].Value = "Required Score";
         }
+    }
+
+    public static void SaveProjectToJson(ProjectModel project, string fullPath)
+    {
+        using var file = File.CreateText(fullPath);
+        string data = JsonSerializer.Serialize(project, JsonSerializerConfiguration);
+        file.WriteLine(data);
+    }
+
+    public static void SaveProjectToXML(ProjectModel project, string fullPath)
+    {
+        using var file = File.CreateText(fullPath);
+        var serializer = new XmlSerializer(typeof(ProjectModel));
+        using var stringWriter = new StringWriter();
+        using XmlWriter writer = XmlWriter.Create(stringWriter, XmlSerializerConfiguration);
+        serializer.Serialize(writer, project, XmlEmptyNamespaces);
+        string data = stringWriter.ToString();
+        file.WriteLine(data);
     }
 }

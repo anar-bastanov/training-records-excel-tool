@@ -38,9 +38,8 @@ partial class MainForm
         _stripMenuFileSave = new ToolStripMenuItem();
         _stripMenuFileSaveAs = new ToolStripMenuItem();
         _stripMenuFileSaveAsExcel = new ToolStripMenuItem();
-        _stripMenuFileSaveAsPDF = new ToolStripMenuItem();
         _stripMenuFileSaveAsJson = new ToolStripMenuItem();
-        _stripMenuFileSaveAsCSV = new ToolStripMenuItem();
+        _stripMenuFileSaveAsXML = new ToolStripMenuItem();
         toolStripSeparator1 = new ToolStripSeparator();
         _stripMenuFileExit = new ToolStripMenuItem();
         _stripMenuHelp = new ToolStripMenuItem();
@@ -115,7 +114,7 @@ partial class MainForm
         // 
         // _stripMenuFileSaveAs
         // 
-        _stripMenuFileSaveAs.DropDownItems.AddRange(new ToolStripItem[] { _stripMenuFileSaveAsExcel, _stripMenuFileSaveAsPDF, _stripMenuFileSaveAsJson, _stripMenuFileSaveAsCSV });
+        _stripMenuFileSaveAs.DropDownItems.AddRange(new ToolStripItem[] { _stripMenuFileSaveAsExcel, _stripMenuFileSaveAsJson, _stripMenuFileSaveAsXML });
         _stripMenuFileSaveAs.Enabled = false;
         _stripMenuFileSaveAs.Image = (Image)resources.GetObject("_stripMenuFileSaveAs.Image");
         _stripMenuFileSaveAs.Name = "_stripMenuFileSaveAs";
@@ -128,24 +127,21 @@ partial class MainForm
         _stripMenuFileSaveAsExcel.ShortcutKeys = Keys.Control | Keys.S;
         _stripMenuFileSaveAsExcel.Size = new Size(357, 34);
         _stripMenuFileSaveAsExcel.Text = "Excel Workbook (*.xlsx)";
-        // 
-        // _stripMenuFileSaveAsPDF
-        // 
-        _stripMenuFileSaveAsPDF.Name = "_stripMenuFileSaveAsPDF";
-        _stripMenuFileSaveAsPDF.Size = new Size(357, 34);
-        _stripMenuFileSaveAsPDF.Text = "PDF (*.pdf)";
+        _stripMenuFileSaveAsExcel.Click += StripMenuFileSaveAsExcel_Click;
         // 
         // _stripMenuFileSaveAsJson
         // 
         _stripMenuFileSaveAsJson.Name = "_stripMenuFileSaveAsJson";
         _stripMenuFileSaveAsJson.Size = new Size(357, 34);
         _stripMenuFileSaveAsJson.Text = "JSON Format (*.json)";
+        _stripMenuFileSaveAsJson.Click += StripMenuFileSaveAsJson_Click;
         // 
-        // _stripMenuFileSaveAsCSV
+        // _stripMenuFileSaveAsXML
         // 
-        _stripMenuFileSaveAsCSV.Name = "_stripMenuFileSaveAsCSV";
-        _stripMenuFileSaveAsCSV.Size = new Size(357, 34);
-        _stripMenuFileSaveAsCSV.Text = "CSV (Comma delimited) (*.csv)";
+        _stripMenuFileSaveAsXML.Name = "_stripMenuFileSaveAsXML";
+        _stripMenuFileSaveAsXML.Size = new Size(357, 34);
+        _stripMenuFileSaveAsXML.Text = "XML (*.xml)";
+        _stripMenuFileSaveAsXML.Click += StripMenuFileSaveAsXML_Click;
         // 
         // toolStripSeparator1
         // 
@@ -261,8 +257,7 @@ partial class MainForm
     private ToolStripSeparator toolStripSeparator2;
     private ToolStripMenuItem _stripMenuFileSaveAsExcel;
     private ToolStripMenuItem _stripMenuFileSaveAsJson;
-    private ToolStripMenuItem _stripMenuFileSaveAsCSV;
-    private ToolStripMenuItem _stripMenuFileSaveAsPDF;
+    private ToolStripMenuItem _stripMenuFileSaveAsXML;
     private ToolStripMenuItem _stripMenuFileSave;
     private ProjectEditorUserControl _projectEditor;
     private StartMenuUserControl _startMenu;

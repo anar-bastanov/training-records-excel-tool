@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 namespace ExcelTool.Controllers;
 
@@ -48,6 +49,7 @@ public sealed class ProjectManager : INotifyPropertyChanged
         mainView.FileOpenRequested += OpenProject;
         mainView.FileCloseRequested += CloseCurrentProject;
         mainView.FileSaveRequested += () => SaveCurrentProject();
+        mainView.FileSaveAsRequested += SaveCurrentProjectAs;
         mainView.TaskDatabaseSelectRequested += SelectTaskDatabase;
         mainView.TaskDatabaseFilePathCopyRequested += CopyTaskDatabaseFilePath;
         mainView.ApplicationExitRequested += ExitApplication;
@@ -76,7 +78,7 @@ public sealed class ProjectManager : INotifyPropertyChanged
 
         _sourceFilePath = fullPath;
         _currentProject = new ProjectModel();
-        FileProcessor.LoadFromExcel(_currentProject, fullPath);
+        FileProcessor.LoadProjectFromExcel(_currentProject, fullPath);
         _currentProject.PropertyChanged += (_, _) => State = State.MarkUnsavedChanges();
         _mainView.BindProjectData(_currentProject);
         State = ApplicationState.OpenFile;
@@ -96,7 +98,7 @@ public sealed class ProjectManager : INotifyPropertyChanged
     {
         if (State is ApplicationState.OpenFileUnsavedChanges)
         {
-            FileProcessor.SaveToExcel(_currentProject!, _sourceFilePath);
+            FileProcessor.SaveProjectToExcel(_currentProject!, _sourceFilePath);
         }
         else
         {
@@ -104,11 +106,32 @@ public sealed class ProjectManager : INotifyPropertyChanged
                 return false;
 
             _sourceFilePath = fullPath;
-            FileProcessor.SaveToExcel(_currentProject!, fullPath);
+            FileProcessor.SaveProjectToExcel(_currentProject!, fullPath);
         }
 
         State = ApplicationState.OpenFile;
         return true;
+    }
+
+    public void SaveCurrentProjectAs(FileType fileType)
+    {
+        if (!MainForm.TryPromptSaveFileAs(ref fileType, out string fullPath))
+            return;
+
+        switch (fileType)
+        {
+            case FileType.Excel:
+                FileProcessor.SaveProjectToExcel(_currentProject!, fullPath);
+                break;
+            case FileType.Json:
+                FileProcessor.SaveProjectToJson(_currentProject!, fullPath);
+                break;
+            case FileType.XML:
+                FileProcessor.SaveProjectToXML(_currentProject!, fullPath);
+                break;
+            default:
+                throw new NotSupportedException("This is not supposed to happen!");
+        }
     }
 
     public void SelectTaskDatabase()
