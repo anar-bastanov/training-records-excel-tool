@@ -1,6 +1,10 @@
 using System;
+using System.Collections;
+using System.ComponentModel;
+using System.Data;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 
 namespace ExcelTool.Views;
 
@@ -19,6 +23,8 @@ public sealed partial class MainForm : Form
     public event Action? TaskDatabaseSelectRequested;
 
     public event Action? TaskDatabaseFilePathCopyRequested;
+    
+    public event Action<TaskModel>? AssignTaskFromDatabaseRequested;
 
     public event Action<FormClosingEventArgs>? ApplicationExitRequested;
 
@@ -75,11 +81,13 @@ public sealed partial class MainForm : Form
     private void StripMenuFileNew_Click(object sender, EventArgs e)
     {
         FileNewRequested?.Invoke();
+        FilterAvailableTasks();
     }
 
     private void StripMenuFileOpen_Click(object sender, EventArgs e)
     {
         FileOpenRequested?.Invoke();
+        FilterAvailableTasks();
     }
 
     private void StripMenuFileClose_Click(object sender, EventArgs e)
@@ -147,11 +155,28 @@ public sealed partial class MainForm : Form
     private void ProjectEditor_SelectDatabase(object sender, EventArgs e)
     {
         TaskDatabaseSelectRequested?.Invoke();
+        FilterAvailableTasks();
     }
 
     private void ProjectEditor_CopyTaskDatabaseFilePath(object sender, EventArgs e)
     {
         TaskDatabaseFilePathCopyRequested?.Invoke();
+    }
+
+    private void ProjectEditor_AssignTaskFromDatabase(object sender, DataGridViewSelectedRowCollection e)
+    {
+        var tasks = e[0].DataGridView!.DataSource as IList;
+
+        foreach (DataGridViewRow row in e)
+        {
+            if (!row.Visible)
+                continue;
+
+            var task = tasks![row.Index] as TaskModel;
+            AssignTaskFromDatabaseRequested?.Invoke(task!.Copy());
+        }
+
+        FilterAvailableTasks();
     }
 
     public void EnableEditor(bool enable)
@@ -206,7 +231,7 @@ public sealed partial class MainForm : Form
 
         string title = ApplicationName + " - ";
 
-        title += fullPath is "" ? DefaultFilename : Path.GetFileName(fullPath);
+        title += fullPath is "" ? DefaultFilename + ".xlsx" : Path.GetFileName(fullPath);
 
         if (state.HasUnsavedChanges())
             title += "*";
@@ -214,12 +239,12 @@ public sealed partial class MainForm : Form
         Text = title;
     }
 
-    public void BindProjectData(ProjectModel project)
+    public void BindProfileInfoData(ProfileModel profileInfo)
     {
         _projectEditor.HeaderInfoTrainee.DataBindings.Clear();
         _projectEditor.HeaderInfoTrainee.DataBindings.Add(
             propertyName: "Text",
-            dataSource: project.ProfileInfo,
+            dataSource: profileInfo,
             dataMember: "Trainee",
             formattingEnabled: true,
             updateMode: DataSourceUpdateMode.OnPropertyChanged);
@@ -227,7 +252,7 @@ public sealed partial class MainForm : Form
         _projectEditor.HeaderInfoCourse.DataBindings.Clear();
         _projectEditor.HeaderInfoCourse.DataBindings.Add(
             propertyName: "Text",
-            dataSource: project.ProfileInfo,
+            dataSource: profileInfo,
             dataMember: "Course",
             formattingEnabled: true,
             updateMode: DataSourceUpdateMode.OnPropertyChanged);
@@ -235,7 +260,7 @@ public sealed partial class MainForm : Form
         _projectEditor.HeaderInfoPosition.DataBindings.Clear();
         _projectEditor.HeaderInfoPosition.DataBindings.Add(
             propertyName: "Text",
-            dataSource: project.ProfileInfo,
+            dataSource: profileInfo,
             dataMember: "Position",
             formattingEnabled: true,
             updateMode: DataSourceUpdateMode.OnPropertyChanged);
@@ -243,10 +268,25 @@ public sealed partial class MainForm : Form
         _projectEditor.HeaderInfoManager.DataBindings.Clear();
         _projectEditor.HeaderInfoManager.DataBindings.Add(
             propertyName: "Text",
-            dataSource: project.ProfileInfo,
+            dataSource: profileInfo,
             dataMember: "Manager",
             formattingEnabled: true,
             updateMode: DataSourceUpdateMode.OnPropertyChanged);
+    }
+
+    public void BindAssignedTasks(BindingList<TaskModel> tasks)
+    {
+        _projectEditor.AssignedTasks.DataSource = tasks;
+        _projectEditor.AssignedTasks.Columns[0].ReadOnly = true;
+        _projectEditor.AssignedTasks.Columns[1].ReadOnly = true;
+        _projectEditor.AssignedTasks.Columns[2].ReadOnly = true;
+        _projectEditor.AssignedTasks.Columns[3].ReadOnly = true;
+        _projectEditor.AssignedTasks.Columns[9].ReadOnly = true;
+    }
+
+    public void BindAvailableTasks(BindingList<TaskModel> tasks)
+    {
+        _projectEditor.AvailableTasks.DataSource = tasks;
     }
 
     public void BindTaskDatabasePath(ProjectManager manager)
@@ -258,6 +298,25 @@ public sealed partial class MainForm : Form
             dataMember: "TaskDatabasePath",
             formattingEnabled: false,
             updateMode: DataSourceUpdateMode.OnPropertyChanged);
+    }
+
+    public void FilterAvailableTasks()
+    {
+        CurrencyManager currencyManager = (CurrencyManager)BindingContext![_projectEditor.AvailableTasks.DataSource];
+        currencyManager.SuspendBinding();
+
+        var assignedTasks = _projectEditor.AssignedTasks.Rows.Cast<object>();
+
+        foreach (DataGridViewRow row in _projectEditor.AvailableTasks.Rows)
+        {
+            bool isFiltered = assignedTasks
+                .Any(o => row.Cells[0].Value.Equals(((DataGridViewRow)o).Cells[0].Value));
+
+            row.Visible = !isFiltered;
+            row.Selected &= !isFiltered;
+        }
+
+        currencyManager.ResumeBinding();
     }
 
     public static void OpenWikiPageForHelp()

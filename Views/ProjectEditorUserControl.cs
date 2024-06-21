@@ -5,8 +5,6 @@ namespace ExcelTool.Views;
 
 public partial class ProjectEditorUserControl : UserControl
 {
-    public Label TaskDatabasePath => _taskDatabasePathLabel;
-
     public RichTextBox HeaderInfoTrainee => _traineeRichTextBox;
 
     public RichTextBox HeaderInfoCourse => _courseRichTextBox;
@@ -15,11 +13,20 @@ public partial class ProjectEditorUserControl : UserControl
 
     public RichTextBox HeaderInfoManager => _managerRichTextBox;
 
+    public DataGridView AssignedTasks => _assignedTasksDataGridView;
+
+    public DataGridView AvailableTasks => _availableTasksDataGridView;
+
+    public Label TaskDatabasePath => _taskDatabasePathLabel;
+
     [Browsable(true)]
     public event EventHandler? SelectTaskDatabase;
-    
+
     [Browsable(true)]
     public event EventHandler? CopyTaskDatabaseFilePath;
+
+    [Browsable(true)]
+    public event EventHandler<DataGridViewSelectedRowCollection>? AssignTaskFromDatabase;
 
     public ProjectEditorUserControl()
     {
@@ -34,5 +41,34 @@ public partial class ProjectEditorUserControl : UserControl
     private void CopyTaskDatabaseFilePathButton_Click(object sender, EventArgs e)
     {
         CopyTaskDatabaseFilePath?.Invoke(sender, e);
+    }
+
+    private void AssignedTasksDataGridView_ColumnAdded(object sender, DataGridViewColumnEventArgs e)
+    {
+        e.Column.SortMode = DataGridViewColumnSortMode.NotSortable;
+    }
+
+    private void AvailableTasksDataGridView_ColumnAdded(object sender, DataGridViewColumnEventArgs e)
+    {
+        e.Column.SortMode = DataGridViewColumnSortMode.NotSortable;
+    }
+
+    private void AvailableTasksDataGridView_KeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.KeyCode is not (Keys.Enter or Keys.Insert))
+            return;
+
+        if (_availableTasksDataGridView.SelectedRows.Count is 0)
+            return;
+
+        AssignTaskFromDatabase?.Invoke(sender, _availableTasksDataGridView.SelectedRows);
+    }
+
+    private void AvailableTasksDataGridView_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+    {
+        if (e.RowIndex is -1)
+            return;
+
+        AssignTaskFromDatabase?.Invoke(sender, _availableTasksDataGridView.SelectedRows);
     }
 }

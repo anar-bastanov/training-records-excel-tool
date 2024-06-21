@@ -4,6 +4,7 @@ using System.IO;
 using System.Text.Json;
 using System.Xml.Serialization;
 using System.Xml;
+using System.ComponentModel;
 
 namespace ExcelTool.Controllers;
 
@@ -37,6 +38,38 @@ public static class FileProcessor
             profile.Course = ws.Cells["B2"].Value?.ToString() ?? "";
             profile.Position = ws.Cells["E1"].Value?.ToString() ?? "";
             profile.Manager = ws.Cells["E2"].Value?.ToString() ?? "";
+        }
+    }
+    
+    public static void LoadTaskDatabaseFromExcel(BindingList<TaskModel> tasks, string fullPath)
+    {
+        using var package = new ExcelPackage(fullPath);
+        var worksheet = package.Workbook.Worksheets[0];
+
+        ImportTasks(worksheet, tasks);
+
+        static void ImportTasks(ExcelWorksheet ws, BindingList<TaskModel> tasks)
+        {
+            int rowCount = ws.Dimension.Rows;
+
+            for (int i = 2; i <= rowCount; ++i)
+            {
+                var task = new TaskModel()
+                {
+                    Reference = ws.Cells[i, 1].Value?.ToString() ?? "",
+                    Description = ws.Cells[i, 2].Value?.ToString() ?? "",
+                    TrainingCategory = ws.Cells[i, 3].Value?.ToString() ?? "",
+                    Type = ws.Cells[i, 4].Value?.ToString() ?? "",
+                    TrainingStarted = ws.Cells[i, 5].Value?.ToString() ?? "",
+                    TrainingCompleted = ws.Cells[i, 6].Value?.ToString() ?? "",
+                    TrainerInitials = ws.Cells[i, 7].Value?.ToString() ?? "",
+                    CertifierInitials = ws.Cells[i, 8].Value?.ToString() ?? "",
+                    CertifyingScore = ws.Cells[i, 9].Value?.ToString() ?? "",
+                    RequiredScore = ws.Cells[i, 10].Value?.ToString() ?? "",
+                };
+
+                tasks.Add(task);
+            }
         }
     }
 

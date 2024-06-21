@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Data;
 
 namespace ExcelTool.Controllers;
 
@@ -9,11 +10,16 @@ public sealed class ProjectManager : INotifyPropertyChanged
 
     private ApplicationState _applicationState = ApplicationState.Idle;
 
-    private ProjectModel? _currentProject;
-
     private string _sourceFilePath = "";
 
     private string _taskDatabasePath = "";
+
+    private ProjectModel? _currentProject;
+
+    private readonly BindingList<TaskModel> _availableTasks = new()
+    {
+        RaiseListChangedEvents = true
+    };
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -39,7 +45,12 @@ public sealed class ProjectManager : INotifyPropertyChanged
     public string TaskDatabasePath
     {
         get => _taskDatabasePath is "" ? "No database is selected" : _taskDatabasePath;
-        set => this.SetProperty(ref _taskDatabasePath, value, PropertyChanged);
+        set
+        {
+            _availableTasks.Clear();
+            FileProcessor.LoadTaskDatabaseFromExcel(_availableTasks, value);
+            this.SetProperty(ref _taskDatabasePath, value, PropertyChanged);
+        }
     }
 
     public ProjectManager(MainForm mainView)
@@ -52,8 +63,10 @@ public sealed class ProjectManager : INotifyPropertyChanged
         mainView.FileSaveAsRequested += SaveCurrentProjectAs;
         mainView.TaskDatabaseSelectRequested += SelectTaskDatabase;
         mainView.TaskDatabaseFilePathCopyRequested += CopyTaskDatabaseFilePath;
+        mainView.AssignTaskFromDatabaseRequested += AssignTask;
         mainView.ApplicationExitRequested += ExitApplication;
         mainView.BindTaskDatabasePath(this);
+        mainView.BindAvailableTasks(_availableTasks);
     }
 
     public void CreateNewProject()
@@ -63,8 +76,9 @@ public sealed class ProjectManager : INotifyPropertyChanged
 
         _sourceFilePath = "";
         _currentProject = new ProjectModel();
-        _currentProject.PropertyChanged += (_, _) => State = State.MarkUnsavedChanges();
-        _mainView.BindProjectData(_currentProject);
+        _currentProject.PropertyChanged += MarkUnsavedChanges;
+        _mainView.BindProfileInfoData(_currentProject.ProfileInfo);
+        _mainView.BindAssignedTasks(_currentProject.Tasks);
         State = ApplicationState.NewFile;
     }
 
@@ -79,8 +93,9 @@ public sealed class ProjectManager : INotifyPropertyChanged
         _sourceFilePath = fullPath;
         _currentProject = new ProjectModel();
         FileProcessor.LoadProjectFromExcel(_currentProject, fullPath);
-        _currentProject.PropertyChanged += (_, _) => State = State.MarkUnsavedChanges();
-        _mainView.BindProjectData(_currentProject);
+        _currentProject.PropertyChanged += MarkUnsavedChanges;
+        _mainView.BindProfileInfoData(_currentProject.ProfileInfo);
+        _mainView.BindAssignedTasks(_currentProject.Tasks);
         State = ApplicationState.OpenFile;
     }
 
@@ -141,13 +156,23 @@ public sealed class ProjectManager : INotifyPropertyChanged
 
         TaskDatabasePath = fullPath;
     }
-    
+
     public void CopyTaskDatabaseFilePath()
     {
         if (_taskDatabasePath is "")
             return;
 
         Clipboard.SetText(_taskDatabasePath);
+    }
+
+    public void AssignTask(TaskModel task)
+    {
+        _currentProject!.Tasks.Add(task);
+    }
+
+    public void MarkUnsavedChanges()
+    {
+        State = State.MarkUnsavedChanges();
     }
 
     public bool CheckUnsavedChanges()

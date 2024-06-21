@@ -58,7 +58,7 @@ partial class MainForm
         _menuStrip.Items.AddRange(new ToolStripItem[] { _stripMenuFile, _stripMenuHelp, _stripMenuLicense });
         _menuStrip.Location = new Point(0, 0);
         _menuStrip.Name = "_menuStrip";
-        _menuStrip.Size = new Size(1178, 33);
+        _menuStrip.Size = new Size(1278, 33);
         _menuStrip.TabIndex = 0;
         _menuStrip.Text = "menuStrip1";
         // 
@@ -74,7 +74,7 @@ partial class MainForm
         _stripMenuFileNew.Image = (Image)resources.GetObject("_stripMenuFileNew.Image");
         _stripMenuFileNew.Name = "_stripMenuFileNew";
         _stripMenuFileNew.ShortcutKeys = Keys.Control | Keys.N;
-        _stripMenuFileNew.Size = new Size(270, 34);
+        _stripMenuFileNew.Size = new Size(267, 34);
         _stripMenuFileNew.Text = "&New";
         _stripMenuFileNew.Click += StripMenuFileNew_Click;
         // 
@@ -83,7 +83,7 @@ partial class MainForm
         _stripMenuFileOpen.Image = (Image)resources.GetObject("_stripMenuFileOpen.Image");
         _stripMenuFileOpen.Name = "_stripMenuFileOpen";
         _stripMenuFileOpen.ShortcutKeys = Keys.Control | Keys.O;
-        _stripMenuFileOpen.Size = new Size(270, 34);
+        _stripMenuFileOpen.Size = new Size(267, 34);
         _stripMenuFileOpen.Text = "&Open";
         _stripMenuFileOpen.Click += StripMenuFileOpen_Click;
         // 
@@ -93,14 +93,14 @@ partial class MainForm
         _stripMenuFileClose.Image = (Image)resources.GetObject("_stripMenuFileClose.Image");
         _stripMenuFileClose.Name = "_stripMenuFileClose";
         _stripMenuFileClose.ShortcutKeys = Keys.Control | Keys.Shift | Keys.C;
-        _stripMenuFileClose.Size = new Size(270, 34);
+        _stripMenuFileClose.Size = new Size(267, 34);
         _stripMenuFileClose.Text = "&Close";
         _stripMenuFileClose.Click += StripMenuFileClose_Click;
         // 
         // toolStripSeparator2
         // 
         toolStripSeparator2.Name = "toolStripSeparator2";
-        toolStripSeparator2.Size = new Size(267, 6);
+        toolStripSeparator2.Size = new Size(264, 6);
         // 
         // _stripMenuFileSave
         // 
@@ -108,7 +108,7 @@ partial class MainForm
         _stripMenuFileSave.Image = (Image)resources.GetObject("_stripMenuFileSave.Image");
         _stripMenuFileSave.Name = "_stripMenuFileSave";
         _stripMenuFileSave.ShortcutKeys = Keys.Control | Keys.S;
-        _stripMenuFileSave.Size = new Size(270, 34);
+        _stripMenuFileSave.Size = new Size(267, 34);
         _stripMenuFileSave.Text = "&Save";
         _stripMenuFileSave.Click += StripMenuFileSave_Click;
         // 
@@ -118,7 +118,7 @@ partial class MainForm
         _stripMenuFileSaveAs.Enabled = false;
         _stripMenuFileSaveAs.Image = (Image)resources.GetObject("_stripMenuFileSaveAs.Image");
         _stripMenuFileSaveAs.Name = "_stripMenuFileSaveAs";
-        _stripMenuFileSaveAs.Size = new Size(270, 34);
+        _stripMenuFileSaveAs.Size = new Size(267, 34);
         _stripMenuFileSaveAs.Text = "Save &As";
         // 
         // _stripMenuFileSaveAsExcel
@@ -146,14 +146,14 @@ partial class MainForm
         // toolStripSeparator1
         // 
         toolStripSeparator1.Name = "toolStripSeparator1";
-        toolStripSeparator1.Size = new Size(267, 6);
+        toolStripSeparator1.Size = new Size(264, 6);
         // 
         // _stripMenuFileExit
         // 
         _stripMenuFileExit.Image = (Image)resources.GetObject("_stripMenuFileExit.Image");
         _stripMenuFileExit.Name = "_stripMenuFileExit";
         _stripMenuFileExit.ShortcutKeys = Keys.Alt | Keys.F4;
-        _stripMenuFileExit.Size = new Size(270, 34);
+        _stripMenuFileExit.Size = new Size(267, 34);
         _stripMenuFileExit.Text = "&Exit";
         _stripMenuFileExit.Click += StripMenuFileExit_Click;
         // 
@@ -175,9 +175,9 @@ partial class MainForm
         // 
         _stripStatus.ImageScalingSize = new Size(24, 24);
         _stripStatus.Items.AddRange(new ToolStripItem[] { _stripStatusWatermark });
-        _stripStatus.Location = new Point(0, 708);
+        _stripStatus.Location = new Point(0, 808);
         _stripStatus.Name = "_stripStatus";
-        _stripStatus.Size = new Size(1178, 36);
+        _stripStatus.Size = new Size(1278, 36);
         _stripStatus.TabIndex = 5;
         _stripStatus.Text = "statusStrip1";
         // 
@@ -197,10 +197,11 @@ partial class MainForm
         _projectEditor.Location = new Point(0, 0);
         _projectEditor.Margin = new Padding(0);
         _projectEditor.Name = "_projectEditor";
-        _projectEditor.Size = new Size(1178, 744);
+        _projectEditor.Size = new Size(1278, 844);
         _projectEditor.TabIndex = 6;
         _projectEditor.SelectTaskDatabase += ProjectEditor_SelectDatabase;
         _projectEditor.CopyTaskDatabaseFilePath += ProjectEditor_CopyTaskDatabaseFilePath;
+        _projectEditor.AssignTaskFromDatabase += ProjectEditor_AssignTaskFromDatabase;
         // 
         // _startMenu
         // 
@@ -209,7 +210,7 @@ partial class MainForm
         _startMenu.Location = new Point(0, 0);
         _startMenu.Margin = new Padding(5);
         _startMenu.Name = "_startMenu";
-        _startMenu.Size = new Size(1178, 744);
+        _startMenu.Size = new Size(1278, 844);
         _startMenu.TabIndex = 7;
         _startMenu.NewFileClick += StartMenu_NewFileClick;
         _startMenu.OpenFileClick += StartMenu_OpenFileClick;
@@ -219,7 +220,7 @@ partial class MainForm
         // 
         AutoScaleDimensions = new SizeF(20F, 48F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(1178, 744);
+        ClientSize = new Size(1278, 844);
         Controls.Add(_stripStatus);
         Controls.Add(_menuStrip);
         Controls.Add(_startMenu);
@@ -228,7 +229,7 @@ partial class MainForm
         Icon = (Icon)resources.GetObject("$this.Icon");
         MainMenuStrip = _menuStrip;
         Margin = new Padding(6);
-        MinimumSize = new Size(1200, 800);
+        MinimumSize = new Size(1300, 900);
         Name = "MainForm";
         Text = "Master Training Records";
         FormClosing += MainForm_FormClosing;

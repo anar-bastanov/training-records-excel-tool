@@ -1,14 +1,22 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 namespace ExcelTool.Models;
 
-public sealed class ProjectModel : INotifyPropertyChanged
+public sealed class ProjectModel
 {
     public ProfileModel ProfileInfo { get; set; } = new();
 
-    public event PropertyChangedEventHandler? PropertyChanged
+    public BindingList<TaskModel> Tasks { get; set; } = new()
     {
-        add => ProfileInfo.PropertyChanged += value;
-        remove => ProfileInfo.PropertyChanged -= value;
+        RaiseListChangedEvents = true
+    };
+
+    public ProjectModel()
+    {
+        ProfileInfo.PropertyChanged += (_, _) => PropertyChanged?.Invoke();
+        Tasks.ListChanged += (_, _) => PropertyChanged?.Invoke();
     }
+
+    public event Action? PropertyChanged;
 }
