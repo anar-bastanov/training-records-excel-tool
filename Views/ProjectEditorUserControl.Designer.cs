@@ -52,6 +52,7 @@ partial class ProjectEditorUserControl
         _selectTaskDatabaseButton = new Button();
         _copyTaskDatabaseButtonFilePath = new Button();
         _assignedTasksDataGridView = new DataGridView();
+        UnassignButtons = new DataGridViewButtonColumn();
         tableLayoutPanel1 = new TableLayoutPanel();
         _availableTasksDataGridView = new DataGridView();
         headerTableLayout = new TableLayoutPanel();
@@ -313,11 +314,12 @@ partial class ProjectEditorUserControl
         dataGridViewCellStyle1.BackColor = SystemColors.Control;
         dataGridViewCellStyle1.Font = new Font("Bahnschrift SemiCondensed", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
         dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-        dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+        dataGridViewCellStyle1.SelectionBackColor = SystemColors.Control;
         dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
         dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
         _assignedTasksDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
         _assignedTasksDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+        _assignedTasksDataGridView.Columns.AddRange(new DataGridViewColumn[] { UnassignButtons });
         dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
         dataGridViewCellStyle2.BackColor = SystemColors.Window;
         dataGridViewCellStyle2.Font = new Font("Bahnschrift SemiCondensed", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -327,16 +329,35 @@ partial class ProjectEditorUserControl
         dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
         _assignedTasksDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
         _assignedTasksDataGridView.Dock = DockStyle.Fill;
+        _assignedTasksDataGridView.EnableHeadersVisualStyles = false;
         _assignedTasksDataGridView.Location = new Point(0, 50);
         _assignedTasksDataGridView.Margin = new Padding(0);
         _assignedTasksDataGridView.MultiSelect = false;
         _assignedTasksDataGridView.Name = "_assignedTasksDataGridView";
+        _assignedTasksDataGridView.RowHeadersVisible = false;
         _assignedTasksDataGridView.RowHeadersWidth = 62;
         _assignedTasksDataGridView.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+        _assignedTasksDataGridView.ScrollBars = ScrollBars.Vertical;
         _assignedTasksDataGridView.SelectionMode = DataGridViewSelectionMode.CellSelect;
+        _assignedTasksDataGridView.ShowCellErrors = false;
+        _assignedTasksDataGridView.ShowCellToolTips = false;
+        _assignedTasksDataGridView.ShowEditingIcon = false;
+        _assignedTasksDataGridView.ShowRowErrors = false;
         _assignedTasksDataGridView.Size = new Size(1125, 210);
         _assignedTasksDataGridView.TabIndex = 18;
+        _assignedTasksDataGridView.CellClick += AssignedTasksDataGridView_CellClick;
         _assignedTasksDataGridView.ColumnAdded += AssignedTasksDataGridView_ColumnAdded;
+        // 
+        // UnassignButtons
+        // 
+        UnassignButtons.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+        UnassignButtons.FillWeight = 1F;
+        UnassignButtons.HeaderText = "";
+        UnassignButtons.MinimumWidth = 8;
+        UnassignButtons.Name = "UnassignButtons";
+        UnassignButtons.Text = "✖";
+        UnassignButtons.UseColumnTextForButtonValue = true;
+        UnassignButtons.Width = 35;
         // 
         // tableLayoutPanel1
         // 
@@ -388,7 +409,12 @@ partial class ProjectEditorUserControl
         _availableTasksDataGridView.ReadOnly = true;
         _availableTasksDataGridView.RowHeadersVisible = false;
         _availableTasksDataGridView.RowHeadersWidth = 62;
+        _availableTasksDataGridView.ScrollBars = ScrollBars.Vertical;
         _availableTasksDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+        _availableTasksDataGridView.ShowCellErrors = false;
+        _availableTasksDataGridView.ShowCellToolTips = false;
+        _availableTasksDataGridView.ShowEditingIcon = false;
+        _availableTasksDataGridView.ShowRowErrors = false;
         _availableTasksDataGridView.Size = new Size(1125, 210);
         _availableTasksDataGridView.TabIndex = 19;
         _availableTasksDataGridView.CellMouseDoubleClick += AvailableTasksDataGridView_CellMouseDoubleClick;
@@ -440,4 +466,5 @@ partial class ProjectEditorUserControl
     private DataGridView _assignedTasksDataGridView;
     private TableLayoutPanel tableLayoutPanel1;
     private DataGridView _availableTasksDataGridView;
+    private DataGridViewButtonColumn UnassignButtons;
 }

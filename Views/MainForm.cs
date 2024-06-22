@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
@@ -23,8 +23,10 @@ public sealed partial class MainForm : Form
     public event Action? TaskDatabaseSelectRequested;
 
     public event Action? TaskDatabaseFilePathCopyRequested;
-    
+
     public event Action<TaskModel>? AssignTaskFromDatabaseRequested;
+    
+    public event Action<int>? UnassignTaskRequested;
 
     public event Action<FormClosingEventArgs>? ApplicationExitRequested;
 
@@ -179,6 +181,12 @@ public sealed partial class MainForm : Form
         FilterAvailableTasks();
     }
 
+    private void ProjectEditor_UnassignTask(object sender, int e)
+    {
+        UnassignTaskRequested?.Invoke(e);
+        FilterAvailableTasks();
+    }
+
     public void EnableEditor(bool enable)
     {
         if (enable)
@@ -277,11 +285,11 @@ public sealed partial class MainForm : Form
     public void BindAssignedTasks(BindingList<TaskModel> tasks)
     {
         _projectEditor.AssignedTasks.DataSource = tasks;
-        _projectEditor.AssignedTasks.Columns[0].ReadOnly = true;
         _projectEditor.AssignedTasks.Columns[1].ReadOnly = true;
         _projectEditor.AssignedTasks.Columns[2].ReadOnly = true;
         _projectEditor.AssignedTasks.Columns[3].ReadOnly = true;
-        _projectEditor.AssignedTasks.Columns[9].ReadOnly = true;
+        _projectEditor.AssignedTasks.Columns[4].ReadOnly = true;
+        _projectEditor.AssignedTasks.Columns[10].ReadOnly = true;
     }
 
     public void BindAvailableTasks(BindingList<TaskModel> tasks)
@@ -300,7 +308,7 @@ public sealed partial class MainForm : Form
             updateMode: DataSourceUpdateMode.OnPropertyChanged);
     }
 
-    public void FilterAvailableTasks()
+    public void FilterAvailableTasks() // implement for one task
     {
         CurrencyManager currencyManager = (CurrencyManager)BindingContext![_projectEditor.AvailableTasks.DataSource];
         currencyManager.SuspendBinding();
@@ -310,7 +318,7 @@ public sealed partial class MainForm : Form
         foreach (DataGridViewRow row in _projectEditor.AvailableTasks.Rows)
         {
             bool isFiltered = assignedTasks
-                .Any(o => row.Cells[0].Value.Equals(((DataGridViewRow)o).Cells[0].Value));
+                .Any(o => row.Cells[0].Value.Equals(((DataGridViewRow)o).Cells[0 + 1].Value));
 
             row.Visible = !isFiltered;
             row.Selected &= !isFiltered;

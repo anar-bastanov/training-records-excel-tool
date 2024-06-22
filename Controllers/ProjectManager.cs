@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Data;
 
 namespace ExcelTool.Controllers;
 
@@ -64,6 +63,7 @@ public sealed class ProjectManager : INotifyPropertyChanged
         mainView.TaskDatabaseSelectRequested += SelectTaskDatabase;
         mainView.TaskDatabaseFilePathCopyRequested += CopyTaskDatabaseFilePath;
         mainView.AssignTaskFromDatabaseRequested += AssignTask;
+        mainView.UnassignTaskRequested += UnassignTask;
         mainView.ApplicationExitRequested += ExitApplication;
         mainView.BindTaskDatabasePath(this);
         mainView.BindAvailableTasks(_availableTasks);
@@ -168,6 +168,11 @@ public sealed class ProjectManager : INotifyPropertyChanged
     public void AssignTask(TaskModel task)
     {
         _currentProject!.Tasks.Add(task);
+    }
+
+    public void UnassignTask(int index)
+    {
+        _currentProject!.Tasks.RemoveAt(index);
     }
 
     public void MarkUnsavedChanges()

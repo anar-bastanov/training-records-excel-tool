@@ -202,6 +202,7 @@ partial class MainForm
         _projectEditor.SelectTaskDatabase += ProjectEditor_SelectDatabase;
         _projectEditor.CopyTaskDatabaseFilePath += ProjectEditor_CopyTaskDatabaseFilePath;
         _projectEditor.AssignTaskFromDatabase += ProjectEditor_AssignTaskFromDatabase;
+        _projectEditor.UnassignTask += ProjectEditor_UnassignTask;
         // 
         // _startMenu
         // 

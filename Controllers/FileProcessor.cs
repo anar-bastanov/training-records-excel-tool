@@ -5,6 +5,8 @@ using System.Text.Json;
 using System.Xml.Serialization;
 using System.Xml;
 using System.ComponentModel;
+using System.Security.Cryptography.Xml;
+using System;
 
 namespace ExcelTool.Controllers;
 
@@ -31,6 +33,7 @@ public static class FileProcessor
         var worksheet = package.Workbook.Worksheets[0];
 
         ImportProfileInfo(worksheet, project.ProfileInfo);
+        ImportTasks(worksheet, project.Tasks);
 
         static void ImportProfileInfo(ExcelWorksheet ws, ProfileModel profile)
         {
@@ -39,8 +42,32 @@ public static class FileProcessor
             profile.Position = ws.Cells["E1"].Value?.ToString() ?? "";
             profile.Manager = ws.Cells["E2"].Value?.ToString() ?? "";
         }
+
+        static void ImportTasks(ExcelWorksheet ws, BindingList<TaskModel> tasks)
+        {
+            int rowCount = ws.Dimension.Rows;
+
+            for (int i = 4; i <= rowCount; ++i)
+            {
+                var task = new TaskModel()
+                {
+                    Reference = ws.Cells[i, 1].Value?.ToString() ?? "",
+                    Description = ws.Cells[i, 2].Value?.ToString() ?? "",
+                    TrainingCategory = ws.Cells[i, 3].Value?.ToString() ?? "",
+                    Type = ws.Cells[i, 4].Value?.ToString() ?? "",
+                    TrainingStarted = ws.Cells[i, 5].Value?.ToString() ?? "",
+                    TrainingCompleted = ws.Cells[i, 6].Value?.ToString() ?? "",
+                    TrainerInitials = ws.Cells[i, 7].Value?.ToString() ?? "",
+                    CertifierInitials = ws.Cells[i, 8].Value?.ToString() ?? "",
+                    CertifyingScore = ws.Cells[i, 9].Value?.ToString() ?? "",
+                    RequiredScore = ws.Cells[i, 10].Value?.ToString() ?? "",
+                };
+
+                tasks.Add(task);
+            }
+        }
     }
-    
+
     public static void LoadTaskDatabaseFromExcel(BindingList<TaskModel> tasks, string fullPath)
     {
         using var package = new ExcelPackage(fullPath);
@@ -82,7 +109,7 @@ public static class FileProcessor
 
         ConfigureTemplate(worksheet);
         ExportProfileInfo(worksheet, project.ProfileInfo);
-        ExportTasks(worksheet);
+        ExportTasks(worksheet, project.Tasks);
 
         package.Save();
 
@@ -135,7 +162,7 @@ public static class FileProcessor
             ws.Cells["E2"].Value = profile.Manager;
         }
 
-        static void ExportTasks(ExcelWorksheet ws)
+        static void ExportTasks(ExcelWorksheet ws, BindingList<TaskModel> tasks)
         {
             // Define static labels
             ws.Cells["A3"].Value = "Reference";
@@ -148,6 +175,25 @@ public static class FileProcessor
             ws.Cells["H3"].Value = "Certifier Initials";
             ws.Cells["I3"].Value = "Certifying Score";
             ws.Cells["J3"].Value = "Required Score";
+
+            // Write data
+            int row = 4;
+
+            foreach (var task in tasks)
+            {
+                ws.Cells[row, 1].Value = task.Reference;
+                ws.Cells[row, 2].Value = task.Description;
+                ws.Cells[row, 3].Value = task.TrainingCategory;
+                ws.Cells[row, 4].Value = task.Type;
+                ws.Cells[row, 5].Value = task.TrainingStarted;
+                ws.Cells[row, 6].Value = task.TrainingCompleted;
+                ws.Cells[row, 7].Value = task.TrainerInitials;
+                ws.Cells[row, 8].Value = task.CertifierInitials;
+                ws.Cells[row, 9].Value = task.CertifyingScore;
+                ws.Cells[row, 10].Value = task.RequiredScore;
+
+                ++row;
+            }
         }
     }
 
