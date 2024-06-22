@@ -34,11 +34,16 @@ partial class ProjectEditorUserControl
         Panel positionPanel;
         Panel traineePanel;
         Panel taskDatabasePathPanel;
-        System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProjectEditorUserControl));
+        TableLayoutPanel tasksTableLayoutPanel;
+        TableLayoutPanel tableLayoutPanel1;
+        Panel _availableTaskSearchPatternPanel;
         DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
         DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
         DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
         DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+        TableLayoutPanel assignedTaskSearchTableLayoutPanel;
+        Panel _assignedTaskSearchPatternPanel;
+        System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProjectEditorUserControl));
         _managerRichTextBox = new RichTextBox();
         _courseRichTextBox = new RichTextBox();
         _positionRichTextBox = new RichTextBox();
@@ -48,28 +53,44 @@ partial class ProjectEditorUserControl
         _positionLabel = new Label();
         _managerLabel = new Label();
         _taskDatabasePathLabel = new Label();
+        _availableTaskSearchPatternRichTextBox = new RichTextBox();
+        _availableTaskSearchPatternLabel = new Label();
+        _availableTaskSearchByLabel = new Label();
+        _availableTaskSearchByComboBox = new ComboBox();
+        _assignedTasksDataGridView = new DataGridView();
+        UnassignButtons = new DataGridViewButtonColumn();
+        _availableTasksDataGridView = new DataGridView();
+        _assignedTaskSearchPatternRichTextBox = new RichTextBox();
+        _assignedTaskSearchPatternLabel = new Label();
+        _assignedTaskSearchByLabel = new Label();
+        _assignedTaskSearchByComboBox = new ComboBox();
         _taskDatabaseLabel = new Label();
         _selectTaskDatabaseButton = new Button();
         _copyTaskDatabaseButtonFilePath = new Button();
-        _assignedTasksDataGridView = new DataGridView();
-        UnassignButtons = new DataGridViewButtonColumn();
-        tableLayoutPanel1 = new TableLayoutPanel();
-        _availableTasksDataGridView = new DataGridView();
         headerTableLayout = new TableLayoutPanel();
         managerPanel = new Panel();
         coursePanel = new Panel();
         positionPanel = new Panel();
         traineePanel = new Panel();
         taskDatabasePathPanel = new Panel();
+        tasksTableLayoutPanel = new TableLayoutPanel();
+        tableLayoutPanel1 = new TableLayoutPanel();
+        _availableTaskSearchPatternPanel = new Panel();
+        assignedTaskSearchTableLayoutPanel = new TableLayoutPanel();
+        _assignedTaskSearchPatternPanel = new Panel();
         headerTableLayout.SuspendLayout();
         managerPanel.SuspendLayout();
         coursePanel.SuspendLayout();
         positionPanel.SuspendLayout();
         traineePanel.SuspendLayout();
         taskDatabasePathPanel.SuspendLayout();
-        ((System.ComponentModel.ISupportInitialize)_assignedTasksDataGridView).BeginInit();
+        tasksTableLayoutPanel.SuspendLayout();
         tableLayoutPanel1.SuspendLayout();
+        _availableTaskSearchPatternPanel.SuspendLayout();
+        ((System.ComponentModel.ISupportInitialize)_assignedTasksDataGridView).BeginInit();
         ((System.ComponentModel.ISupportInitialize)_availableTasksDataGridView).BeginInit();
+        assignedTaskSearchTableLayoutPanel.SuspendLayout();
+        _assignedTaskSearchPatternPanel.SuspendLayout();
         SuspendLayout();
         // 
         // headerTableLayout
@@ -93,7 +114,7 @@ partial class ProjectEditorUserControl
         headerTableLayout.RowCount = 2;
         headerTableLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
         headerTableLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-        headerTableLayout.Size = new Size(1135, 122);
+        headerTableLayout.Size = new Size(1235, 122);
         headerTableLayout.TabIndex = 13;
         // 
         // managerPanel
@@ -102,10 +123,10 @@ partial class ProjectEditorUserControl
         managerPanel.BackColor = SystemColors.Window;
         managerPanel.BorderStyle = BorderStyle.FixedSingle;
         managerPanel.Controls.Add(_managerRichTextBox);
-        managerPanel.Location = new Point(720, 64);
+        managerPanel.Location = new Point(770, 64);
         managerPanel.Name = "managerPanel";
         managerPanel.Padding = new Padding(10, 5, 10, 0);
-        managerPanel.Size = new Size(412, 55);
+        managerPanel.Size = new Size(462, 55);
         managerPanel.TabIndex = 17;
         // 
         // _managerRichTextBox
@@ -117,7 +138,7 @@ partial class ProjectEditorUserControl
         _managerRichTextBox.Multiline = false;
         _managerRichTextBox.Name = "_managerRichTextBox";
         _managerRichTextBox.ScrollBars = RichTextBoxScrollBars.None;
-        _managerRichTextBox.Size = new Size(390, 48);
+        _managerRichTextBox.Size = new Size(440, 48);
         _managerRichTextBox.TabIndex = 21;
         _managerRichTextBox.Text = "";
         _managerRichTextBox.WordWrap = false;
@@ -131,7 +152,7 @@ partial class ProjectEditorUserControl
         coursePanel.Location = new Point(143, 64);
         coursePanel.Name = "coursePanel";
         coursePanel.Padding = new Padding(10, 5, 10, 0);
-        coursePanel.Size = new Size(411, 55);
+        coursePanel.Size = new Size(461, 55);
         coursePanel.TabIndex = 16;
         // 
         // _courseRichTextBox
@@ -143,7 +164,7 @@ partial class ProjectEditorUserControl
         _courseRichTextBox.Multiline = false;
         _courseRichTextBox.Name = "_courseRichTextBox";
         _courseRichTextBox.ScrollBars = RichTextBoxScrollBars.None;
-        _courseRichTextBox.Size = new Size(389, 48);
+        _courseRichTextBox.Size = new Size(439, 48);
         _courseRichTextBox.TabIndex = 18;
         _courseRichTextBox.Text = "";
         _courseRichTextBox.WordWrap = false;
@@ -154,10 +175,10 @@ partial class ProjectEditorUserControl
         positionPanel.BackColor = SystemColors.Window;
         positionPanel.BorderStyle = BorderStyle.FixedSingle;
         positionPanel.Controls.Add(_positionRichTextBox);
-        positionPanel.Location = new Point(720, 3);
+        positionPanel.Location = new Point(770, 3);
         positionPanel.Name = "positionPanel";
         positionPanel.Padding = new Padding(10, 5, 10, 0);
-        positionPanel.Size = new Size(412, 55);
+        positionPanel.Size = new Size(462, 55);
         positionPanel.TabIndex = 15;
         // 
         // _positionRichTextBox
@@ -169,7 +190,7 @@ partial class ProjectEditorUserControl
         _positionRichTextBox.Multiline = false;
         _positionRichTextBox.Name = "_positionRichTextBox";
         _positionRichTextBox.ScrollBars = RichTextBoxScrollBars.None;
-        _positionRichTextBox.Size = new Size(390, 48);
+        _positionRichTextBox.Size = new Size(440, 48);
         _positionRichTextBox.TabIndex = 20;
         _positionRichTextBox.Text = "";
         _positionRichTextBox.WordWrap = false;
@@ -183,7 +204,7 @@ partial class ProjectEditorUserControl
         traineePanel.Location = new Point(143, 3);
         traineePanel.Name = "traineePanel";
         traineePanel.Padding = new Padding(10, 5, 10, 0);
-        traineePanel.Size = new Size(411, 55);
+        traineePanel.Size = new Size(461, 55);
         traineePanel.TabIndex = 14;
         // 
         // _traineeRichTextBox
@@ -195,7 +216,7 @@ partial class ProjectEditorUserControl
         _traineeRichTextBox.Multiline = false;
         _traineeRichTextBox.Name = "_traineeRichTextBox";
         _traineeRichTextBox.ScrollBars = RichTextBoxScrollBars.None;
-        _traineeRichTextBox.Size = new Size(389, 48);
+        _traineeRichTextBox.Size = new Size(439, 48);
         _traineeRichTextBox.TabIndex = 19;
         _traineeRichTextBox.Text = "";
         _traineeRichTextBox.WordWrap = false;
@@ -223,7 +244,7 @@ partial class ProjectEditorUserControl
         // _positionLabel
         // 
         _positionLabel.Anchor = AnchorStyles.Top;
-        _positionLabel.Location = new Point(566, 0);
+        _positionLabel.Location = new Point(616, 0);
         _positionLabel.Margin = new Padding(5, 0, 5, 0);
         _positionLabel.Name = "_positionLabel";
         _positionLabel.Size = new Size(142, 43);
@@ -234,7 +255,7 @@ partial class ProjectEditorUserControl
         // _managerLabel
         // 
         _managerLabel.Anchor = AnchorStyles.Top;
-        _managerLabel.Location = new Point(566, 61);
+        _managerLabel.Location = new Point(616, 61);
         _managerLabel.Margin = new Padding(5, 0, 5, 0);
         _managerLabel.Name = "_managerLabel";
         _managerLabel.Size = new Size(142, 43);
@@ -248,11 +269,11 @@ partial class ProjectEditorUserControl
         taskDatabasePathPanel.BackColor = SystemColors.Control;
         taskDatabasePathPanel.BorderStyle = BorderStyle.FixedSingle;
         taskDatabasePathPanel.Controls.Add(_taskDatabasePathLabel);
-        taskDatabasePathPanel.Location = new Point(254, 725);
+        taskDatabasePathPanel.Location = new Point(254, 825);
         taskDatabasePathPanel.Margin = new Padding(3, 3, 0, 3);
         taskDatabasePathPanel.Name = "taskDatabasePathPanel";
         taskDatabasePathPanel.Padding = new Padding(10, 2, 10, 0);
-        taskDatabasePathPanel.Size = new Size(668, 51);
+        taskDatabasePathPanel.Size = new Size(768, 51);
         taskDatabasePathPanel.TabIndex = 17;
         // 
         // _taskDatabasePathLabel
@@ -262,45 +283,113 @@ partial class ProjectEditorUserControl
         _taskDatabasePathLabel.ForeColor = SystemColors.GrayText;
         _taskDatabasePathLabel.Location = new Point(10, 2);
         _taskDatabasePathLabel.Name = "_taskDatabasePathLabel";
-        _taskDatabasePathLabel.Size = new Size(646, 47);
+        _taskDatabasePathLabel.Size = new Size(746, 47);
         _taskDatabasePathLabel.TabIndex = 18;
         // 
-        // _taskDatabaseLabel
+        // tasksTableLayoutPanel
         // 
-        _taskDatabaseLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-        _taskDatabaseLabel.AutoSize = true;
-        _taskDatabaseLabel.Location = new Point(25, 725);
-        _taskDatabaseLabel.Margin = new Padding(5, 0, 5, 0);
-        _taskDatabaseLabel.Name = "_taskDatabaseLabel";
-        _taskDatabaseLabel.Size = new Size(221, 43);
-        _taskDatabaseLabel.TabIndex = 0;
-        _taskDatabaseLabel.Text = "Task Database";
-        _taskDatabaseLabel.TextAlign = ContentAlignment.MiddleLeft;
+        tasksTableLayoutPanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+        tasksTableLayoutPanel.ColumnCount = 1;
+        tasksTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+        tasksTableLayoutPanel.Controls.Add(tableLayoutPanel1, 0, 2);
+        tasksTableLayoutPanel.Controls.Add(_assignedTasksDataGridView, 0, 1);
+        tasksTableLayoutPanel.Controls.Add(_availableTasksDataGridView, 0, 3);
+        tasksTableLayoutPanel.Controls.Add(assignedTaskSearchTableLayoutPanel, 0, 0);
+        tasksTableLayoutPanel.Location = new Point(35, 175);
+        tasksTableLayoutPanel.Name = "tasksTableLayoutPanel";
+        tasksTableLayoutPanel.RowCount = 4;
+        tasksTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
+        tasksTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+        tasksTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
+        tasksTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+        tasksTableLayoutPanel.Size = new Size(1225, 620);
+        tasksTableLayoutPanel.TabIndex = 20;
         // 
-        // _selectTaskDatabaseButton
+        // tableLayoutPanel1
         // 
-        _selectTaskDatabaseButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-        _selectTaskDatabaseButton.AutoSize = true;
-        _selectTaskDatabaseButton.Location = new Point(979, 725);
-        _selectTaskDatabaseButton.Name = "_selectTaskDatabaseButton";
-        _selectTaskDatabaseButton.Size = new Size(186, 53);
-        _selectTaskDatabaseButton.TabIndex = 1;
-        _selectTaskDatabaseButton.Text = "Select File";
-        _selectTaskDatabaseButton.UseVisualStyleBackColor = true;
-        _selectTaskDatabaseButton.Click += SelectTaskDatabaseButton_Click;
+        tableLayoutPanel1.ColumnCount = 6;
+        tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 188F));
+        tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 359F));
+        tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 36F));
+        tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 132F));
+        tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 221F));
+        tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 258F));
+        tableLayoutPanel1.Controls.Add(_availableTaskSearchPatternPanel, 1, 0);
+        tableLayoutPanel1.Controls.Add(_availableTaskSearchPatternLabel, 0, 0);
+        tableLayoutPanel1.Controls.Add(_availableTaskSearchByLabel, 3, 0);
+        tableLayoutPanel1.Controls.Add(_availableTaskSearchByComboBox, 4, 0);
+        tableLayoutPanel1.Dock = DockStyle.Fill;
+        tableLayoutPanel1.Location = new Point(3, 313);
+        tableLayoutPanel1.Name = "tableLayoutPanel1";
+        tableLayoutPanel1.RowCount = 1;
+        tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+        tableLayoutPanel1.Size = new Size(1219, 44);
+        tableLayoutPanel1.TabIndex = 21;
         // 
-        // _copyTaskDatabaseButtonFilePath
+        // _availableTaskSearchPatternPanel
         // 
-        _copyTaskDatabaseButtonFilePath.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-        _copyTaskDatabaseButtonFilePath.BackgroundImage = (Image)resources.GetObject("_copyTaskDatabaseButtonFilePath.BackgroundImage");
-        _copyTaskDatabaseButtonFilePath.BackgroundImageLayout = ImageLayout.Zoom;
-        _copyTaskDatabaseButtonFilePath.Location = new Point(922, 725);
-        _copyTaskDatabaseButtonFilePath.Margin = new Padding(0, 3, 3, 3);
-        _copyTaskDatabaseButtonFilePath.Name = "_copyTaskDatabaseButtonFilePath";
-        _copyTaskDatabaseButtonFilePath.Size = new Size(51, 51);
-        _copyTaskDatabaseButtonFilePath.TabIndex = 4;
-        _copyTaskDatabaseButtonFilePath.UseVisualStyleBackColor = true;
-        _copyTaskDatabaseButtonFilePath.Click += CopyTaskDatabaseFilePathButton_Click;
+        _availableTaskSearchPatternPanel.BackColor = SystemColors.Window;
+        _availableTaskSearchPatternPanel.BorderStyle = BorderStyle.FixedSingle;
+        _availableTaskSearchPatternPanel.Controls.Add(_availableTaskSearchPatternRichTextBox);
+        _availableTaskSearchPatternPanel.Dock = DockStyle.Fill;
+        _availableTaskSearchPatternPanel.Location = new Point(191, 3);
+        _availableTaskSearchPatternPanel.Name = "_availableTaskSearchPatternPanel";
+        _availableTaskSearchPatternPanel.Padding = new Padding(10, 0, 10, 0);
+        _availableTaskSearchPatternPanel.Size = new Size(353, 38);
+        _availableTaskSearchPatternPanel.TabIndex = 21;
+        // 
+        // _availableTaskSearchPatternRichTextBox
+        // 
+        _availableTaskSearchPatternRichTextBox.BorderStyle = BorderStyle.None;
+        _availableTaskSearchPatternRichTextBox.DetectUrls = false;
+        _availableTaskSearchPatternRichTextBox.Dock = DockStyle.Fill;
+        _availableTaskSearchPatternRichTextBox.Font = new Font("Bahnschrift SemiCondensed", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        _availableTaskSearchPatternRichTextBox.Location = new Point(10, 0);
+        _availableTaskSearchPatternRichTextBox.Multiline = false;
+        _availableTaskSearchPatternRichTextBox.Name = "_availableTaskSearchPatternRichTextBox";
+        _availableTaskSearchPatternRichTextBox.ScrollBars = RichTextBoxScrollBars.None;
+        _availableTaskSearchPatternRichTextBox.Size = new Size(331, 36);
+        _availableTaskSearchPatternRichTextBox.TabIndex = 19;
+        _availableTaskSearchPatternRichTextBox.Text = "";
+        _availableTaskSearchPatternRichTextBox.WordWrap = false;
+        _availableTaskSearchPatternRichTextBox.TextChanged += AvailableTaskSearchPatternRichTextBox_TextChanged;
+        // 
+        // _availableTaskSearchPatternLabel
+        // 
+        _availableTaskSearchPatternLabel.AutoSize = true;
+        _availableTaskSearchPatternLabel.Dock = DockStyle.Fill;
+        _availableTaskSearchPatternLabel.Font = new Font("Bahnschrift SemiCondensed", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        _availableTaskSearchPatternLabel.Location = new Point(3, 0);
+        _availableTaskSearchPatternLabel.Name = "_availableTaskSearchPatternLabel";
+        _availableTaskSearchPatternLabel.Size = new Size(182, 44);
+        _availableTaskSearchPatternLabel.TabIndex = 20;
+        _availableTaskSearchPatternLabel.Text = "Search Pattern";
+        _availableTaskSearchPatternLabel.TextAlign = ContentAlignment.MiddleCenter;
+        // 
+        // _availableTaskSearchByLabel
+        // 
+        _availableTaskSearchByLabel.AutoSize = true;
+        _availableTaskSearchByLabel.Dock = DockStyle.Fill;
+        _availableTaskSearchByLabel.Font = new Font("Bahnschrift SemiCondensed", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        _availableTaskSearchByLabel.Location = new Point(586, 0);
+        _availableTaskSearchByLabel.Name = "_availableTaskSearchByLabel";
+        _availableTaskSearchByLabel.Size = new Size(126, 44);
+        _availableTaskSearchByLabel.TabIndex = 21;
+        _availableTaskSearchByLabel.Text = "Search By";
+        _availableTaskSearchByLabel.TextAlign = ContentAlignment.MiddleCenter;
+        // 
+        // _availableTaskSearchByComboBox
+        // 
+        _availableTaskSearchByComboBox.Dock = DockStyle.Fill;
+        _availableTaskSearchByComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+        _availableTaskSearchByComboBox.Font = new Font("Bahnschrift SemiCondensed", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        _availableTaskSearchByComboBox.ItemHeight = 29;
+        _availableTaskSearchByComboBox.Items.AddRange(new object[] { "Reference", "Description", "Training Category", "Type", "Training Started", "Training Completed", "Trainer Initials", "Certifier Initials", "Certifying Score", "Required Score" });
+        _availableTaskSearchByComboBox.Location = new Point(718, 3);
+        _availableTaskSearchByComboBox.Name = "_availableTaskSearchByComboBox";
+        _availableTaskSearchByComboBox.Size = new Size(215, 37);
+        _availableTaskSearchByComboBox.TabIndex = 22;
+        _availableTaskSearchByComboBox.SelectedIndexChanged += AvailableTaskSearchByComboBox_SelectedIndexChanged;
         // 
         // _assignedTasksDataGridView
         // 
@@ -343,7 +432,7 @@ partial class ProjectEditorUserControl
         _assignedTasksDataGridView.ShowCellToolTips = false;
         _assignedTasksDataGridView.ShowEditingIcon = false;
         _assignedTasksDataGridView.ShowRowErrors = false;
-        _assignedTasksDataGridView.Size = new Size(1125, 210);
+        _assignedTasksDataGridView.Size = new Size(1225, 260);
         _assignedTasksDataGridView.TabIndex = 18;
         _assignedTasksDataGridView.CellClick += AssignedTasksDataGridView_CellClick;
         _assignedTasksDataGridView.ColumnAdded += AssignedTasksDataGridView_ColumnAdded;
@@ -358,23 +447,6 @@ partial class ProjectEditorUserControl
         UnassignButtons.Text = "✖";
         UnassignButtons.UseColumnTextForButtonValue = true;
         UnassignButtons.Width = 35;
-        // 
-        // tableLayoutPanel1
-        // 
-        tableLayoutPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-        tableLayoutPanel1.ColumnCount = 1;
-        tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-        tableLayoutPanel1.Controls.Add(_assignedTasksDataGridView, 0, 1);
-        tableLayoutPanel1.Controls.Add(_availableTasksDataGridView, 0, 3);
-        tableLayoutPanel1.Location = new Point(35, 175);
-        tableLayoutPanel1.Name = "tableLayoutPanel1";
-        tableLayoutPanel1.RowCount = 4;
-        tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
-        tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-        tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
-        tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-        tableLayoutPanel1.Size = new Size(1125, 520);
-        tableLayoutPanel1.TabIndex = 20;
         // 
         // _availableTasksDataGridView
         // 
@@ -403,7 +475,7 @@ partial class ProjectEditorUserControl
         _availableTasksDataGridView.DefaultCellStyle = dataGridViewCellStyle4;
         _availableTasksDataGridView.Dock = DockStyle.Fill;
         _availableTasksDataGridView.EnableHeadersVisualStyles = false;
-        _availableTasksDataGridView.Location = new Point(0, 310);
+        _availableTasksDataGridView.Location = new Point(0, 360);
         _availableTasksDataGridView.Margin = new Padding(0);
         _availableTasksDataGridView.Name = "_availableTasksDataGridView";
         _availableTasksDataGridView.ReadOnly = true;
@@ -415,18 +487,141 @@ partial class ProjectEditorUserControl
         _availableTasksDataGridView.ShowCellToolTips = false;
         _availableTasksDataGridView.ShowEditingIcon = false;
         _availableTasksDataGridView.ShowRowErrors = false;
-        _availableTasksDataGridView.Size = new Size(1125, 210);
+        _availableTasksDataGridView.Size = new Size(1225, 260);
         _availableTasksDataGridView.TabIndex = 19;
         _availableTasksDataGridView.CellMouseDoubleClick += AvailableTasksDataGridView_CellMouseDoubleClick;
         _availableTasksDataGridView.ColumnAdded += AvailableTasksDataGridView_ColumnAdded;
         _availableTasksDataGridView.KeyDown += AvailableTasksDataGridView_KeyDown;
+        // 
+        // assignedTaskSearchTableLayoutPanel
+        // 
+        assignedTaskSearchTableLayoutPanel.ColumnCount = 6;
+        assignedTaskSearchTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 188F));
+        assignedTaskSearchTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 359F));
+        assignedTaskSearchTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 36F));
+        assignedTaskSearchTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 132F));
+        assignedTaskSearchTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 221F));
+        assignedTaskSearchTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 258F));
+        assignedTaskSearchTableLayoutPanel.Controls.Add(_assignedTaskSearchPatternPanel, 1, 0);
+        assignedTaskSearchTableLayoutPanel.Controls.Add(_assignedTaskSearchPatternLabel, 0, 0);
+        assignedTaskSearchTableLayoutPanel.Controls.Add(_assignedTaskSearchByLabel, 3, 0);
+        assignedTaskSearchTableLayoutPanel.Controls.Add(_assignedTaskSearchByComboBox, 4, 0);
+        assignedTaskSearchTableLayoutPanel.Dock = DockStyle.Fill;
+        assignedTaskSearchTableLayoutPanel.Location = new Point(3, 3);
+        assignedTaskSearchTableLayoutPanel.Name = "assignedTaskSearchTableLayoutPanel";
+        assignedTaskSearchTableLayoutPanel.RowCount = 1;
+        assignedTaskSearchTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+        assignedTaskSearchTableLayoutPanel.Size = new Size(1219, 44);
+        assignedTaskSearchTableLayoutPanel.TabIndex = 20;
+        // 
+        // _assignedTaskSearchPatternPanel
+        // 
+        _assignedTaskSearchPatternPanel.BackColor = SystemColors.Window;
+        _assignedTaskSearchPatternPanel.BorderStyle = BorderStyle.FixedSingle;
+        _assignedTaskSearchPatternPanel.Controls.Add(_assignedTaskSearchPatternRichTextBox);
+        _assignedTaskSearchPatternPanel.Dock = DockStyle.Fill;
+        _assignedTaskSearchPatternPanel.Location = new Point(191, 3);
+        _assignedTaskSearchPatternPanel.Name = "_assignedTaskSearchPatternPanel";
+        _assignedTaskSearchPatternPanel.Padding = new Padding(10, 0, 10, 0);
+        _assignedTaskSearchPatternPanel.Size = new Size(353, 38);
+        _assignedTaskSearchPatternPanel.TabIndex = 21;
+        // 
+        // _assignedTaskSearchPatternRichTextBox
+        // 
+        _assignedTaskSearchPatternRichTextBox.BorderStyle = BorderStyle.None;
+        _assignedTaskSearchPatternRichTextBox.DetectUrls = false;
+        _assignedTaskSearchPatternRichTextBox.Dock = DockStyle.Fill;
+        _assignedTaskSearchPatternRichTextBox.Font = new Font("Bahnschrift SemiCondensed", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        _assignedTaskSearchPatternRichTextBox.Location = new Point(10, 0);
+        _assignedTaskSearchPatternRichTextBox.Multiline = false;
+        _assignedTaskSearchPatternRichTextBox.Name = "_assignedTaskSearchPatternRichTextBox";
+        _assignedTaskSearchPatternRichTextBox.ScrollBars = RichTextBoxScrollBars.None;
+        _assignedTaskSearchPatternRichTextBox.Size = new Size(331, 36);
+        _assignedTaskSearchPatternRichTextBox.TabIndex = 19;
+        _assignedTaskSearchPatternRichTextBox.Text = "";
+        _assignedTaskSearchPatternRichTextBox.WordWrap = false;
+        _assignedTaskSearchPatternRichTextBox.TextChanged += AssignedTaskSearchPatternRichTextBox_TextChanged;
+        // 
+        // _assignedTaskSearchPatternLabel
+        // 
+        _assignedTaskSearchPatternLabel.AutoSize = true;
+        _assignedTaskSearchPatternLabel.Dock = DockStyle.Fill;
+        _assignedTaskSearchPatternLabel.Font = new Font("Bahnschrift SemiCondensed", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        _assignedTaskSearchPatternLabel.Location = new Point(3, 0);
+        _assignedTaskSearchPatternLabel.Name = "_assignedTaskSearchPatternLabel";
+        _assignedTaskSearchPatternLabel.Size = new Size(182, 44);
+        _assignedTaskSearchPatternLabel.TabIndex = 20;
+        _assignedTaskSearchPatternLabel.Text = "Search Pattern";
+        _assignedTaskSearchPatternLabel.TextAlign = ContentAlignment.MiddleCenter;
+        // 
+        // _assignedTaskSearchByLabel
+        // 
+        _assignedTaskSearchByLabel.AutoSize = true;
+        _assignedTaskSearchByLabel.Dock = DockStyle.Fill;
+        _assignedTaskSearchByLabel.Font = new Font("Bahnschrift SemiCondensed", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        _assignedTaskSearchByLabel.Location = new Point(586, 0);
+        _assignedTaskSearchByLabel.Name = "_assignedTaskSearchByLabel";
+        _assignedTaskSearchByLabel.Size = new Size(126, 44);
+        _assignedTaskSearchByLabel.TabIndex = 21;
+        _assignedTaskSearchByLabel.Text = "Search By";
+        _assignedTaskSearchByLabel.TextAlign = ContentAlignment.MiddleCenter;
+        // 
+        // _assignedTaskSearchByComboBox
+        // 
+        _assignedTaskSearchByComboBox.Dock = DockStyle.Fill;
+        _assignedTaskSearchByComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+        _assignedTaskSearchByComboBox.Font = new Font("Bahnschrift SemiCondensed", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        _assignedTaskSearchByComboBox.ItemHeight = 29;
+        _assignedTaskSearchByComboBox.Items.AddRange(new object[] { "Reference", "Description", "Training Category", "Type", "Training Started", "Training Completed", "Trainer Initials", "Certifier Initials", "Certifying Score", "Required Score" });
+        _assignedTaskSearchByComboBox.Location = new Point(718, 3);
+        _assignedTaskSearchByComboBox.Name = "_assignedTaskSearchByComboBox";
+        _assignedTaskSearchByComboBox.Size = new Size(215, 37);
+        _assignedTaskSearchByComboBox.TabIndex = 22;
+        _assignedTaskSearchByComboBox.SelectedIndexChanged += AssignedTaskSearchByComboBox_SelectedIndexChanged;
+        // 
+        // _taskDatabaseLabel
+        // 
+        _taskDatabaseLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+        _taskDatabaseLabel.AutoSize = true;
+        _taskDatabaseLabel.Location = new Point(25, 825);
+        _taskDatabaseLabel.Margin = new Padding(5, 0, 5, 0);
+        _taskDatabaseLabel.Name = "_taskDatabaseLabel";
+        _taskDatabaseLabel.Size = new Size(221, 43);
+        _taskDatabaseLabel.TabIndex = 0;
+        _taskDatabaseLabel.Text = "Task Database";
+        _taskDatabaseLabel.TextAlign = ContentAlignment.MiddleLeft;
+        // 
+        // _selectTaskDatabaseButton
+        // 
+        _selectTaskDatabaseButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+        _selectTaskDatabaseButton.AutoSize = true;
+        _selectTaskDatabaseButton.Location = new Point(1079, 825);
+        _selectTaskDatabaseButton.Name = "_selectTaskDatabaseButton";
+        _selectTaskDatabaseButton.Size = new Size(186, 53);
+        _selectTaskDatabaseButton.TabIndex = 1;
+        _selectTaskDatabaseButton.Text = "Select File";
+        _selectTaskDatabaseButton.UseVisualStyleBackColor = true;
+        _selectTaskDatabaseButton.Click += SelectTaskDatabaseButton_Click;
+        // 
+        // _copyTaskDatabaseButtonFilePath
+        // 
+        _copyTaskDatabaseButtonFilePath.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+        _copyTaskDatabaseButtonFilePath.BackgroundImage = (Image)resources.GetObject("_copyTaskDatabaseButtonFilePath.BackgroundImage");
+        _copyTaskDatabaseButtonFilePath.BackgroundImageLayout = ImageLayout.Zoom;
+        _copyTaskDatabaseButtonFilePath.Location = new Point(1022, 825);
+        _copyTaskDatabaseButtonFilePath.Margin = new Padding(0, 3, 3, 3);
+        _copyTaskDatabaseButtonFilePath.Name = "_copyTaskDatabaseButtonFilePath";
+        _copyTaskDatabaseButtonFilePath.Size = new Size(51, 51);
+        _copyTaskDatabaseButtonFilePath.TabIndex = 4;
+        _copyTaskDatabaseButtonFilePath.UseVisualStyleBackColor = true;
+        _copyTaskDatabaseButtonFilePath.Click += CopyTaskDatabaseFilePathButton_Click;
         // 
         // ProjectEditorUserControl
         // 
         AutoScaleDimensions = new SizeF(17F, 43F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = SystemColors.Control;
-        Controls.Add(tableLayoutPanel1);
+        Controls.Add(tasksTableLayoutPanel);
         Controls.Add(taskDatabasePathPanel);
         Controls.Add(headerTableLayout);
         Controls.Add(_copyTaskDatabaseButtonFilePath);
@@ -435,16 +630,23 @@ partial class ProjectEditorUserControl
         Font = new Font("Bahnschrift SemiCondensed", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
         Margin = new Padding(5);
         Name = "ProjectEditorUserControl";
-        Size = new Size(1200, 800);
+        Size = new Size(1300, 900);
+        Load += ProjectEditorUserControl_Load;
         headerTableLayout.ResumeLayout(false);
         managerPanel.ResumeLayout(false);
         coursePanel.ResumeLayout(false);
         positionPanel.ResumeLayout(false);
         traineePanel.ResumeLayout(false);
         taskDatabasePathPanel.ResumeLayout(false);
-        ((System.ComponentModel.ISupportInitialize)_assignedTasksDataGridView).EndInit();
+        tasksTableLayoutPanel.ResumeLayout(false);
         tableLayoutPanel1.ResumeLayout(false);
+        tableLayoutPanel1.PerformLayout();
+        _availableTaskSearchPatternPanel.ResumeLayout(false);
+        ((System.ComponentModel.ISupportInitialize)_assignedTasksDataGridView).EndInit();
         ((System.ComponentModel.ISupportInitialize)_availableTasksDataGridView).EndInit();
+        assignedTaskSearchTableLayoutPanel.ResumeLayout(false);
+        assignedTaskSearchTableLayoutPanel.PerformLayout();
+        _assignedTaskSearchPatternPanel.ResumeLayout(false);
         ResumeLayout(false);
         PerformLayout();
     }
@@ -464,7 +666,14 @@ partial class ProjectEditorUserControl
     private RichTextBox _managerRichTextBox;
     private RichTextBox _traineeRichTextBox;
     private DataGridView _assignedTasksDataGridView;
-    private TableLayoutPanel tableLayoutPanel1;
     private DataGridView _availableTasksDataGridView;
     private DataGridViewButtonColumn UnassignButtons;
+    private Label _assignedTaskSearchPatternLabel;
+    private RichTextBox _assignedTaskSearchPatternRichTextBox;
+    private Label _assignedTaskSearchByLabel;
+    private ComboBox _assignedTaskSearchByComboBox;
+    private RichTextBox _availableTaskSearchPatternRichTextBox;
+    private Label _availableTaskSearchPatternLabel;
+    private Label _availableTaskSearchByLabel;
+    private ComboBox _availableTaskSearchByComboBox;
 }

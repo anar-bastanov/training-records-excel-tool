@@ -5,11 +5,20 @@ using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace ExcelTool.Views;
 
 public sealed partial class MainForm : Form
 {
+    private Regex? _assignedTaskSearchPattern;
+
+    private int _assignedTaskSearchBy;
+
+    private Regex? _availableTaskSearchPattern;
+
+    private int _availableTaskSearchBy;
+
     public event Action? FileNewRequested;
 
     public event Action? FileOpenRequested;
@@ -25,7 +34,7 @@ public sealed partial class MainForm : Form
     public event Action? TaskDatabaseFilePathCopyRequested;
 
     public event Action<TaskModel>? AssignTaskFromDatabaseRequested;
-    
+
     public event Action<int>? UnassignTaskRequested;
 
     public event Action<FormClosingEventArgs>? ApplicationExitRequested;
@@ -83,12 +92,14 @@ public sealed partial class MainForm : Form
     private void StripMenuFileNew_Click(object sender, EventArgs e)
     {
         FileNewRequested?.Invoke();
+        FilterAssignedTasks();
         FilterAvailableTasks();
     }
 
     private void StripMenuFileOpen_Click(object sender, EventArgs e)
     {
         FileOpenRequested?.Invoke();
+        FilterAssignedTasks();
         FilterAvailableTasks();
     }
 
@@ -184,6 +195,20 @@ public sealed partial class MainForm : Form
     private void ProjectEditor_UnassignTask(object sender, int e)
     {
         UnassignTaskRequested?.Invoke(e);
+        FilterAvailableTasks();
+    }
+
+    private void ProjectEditor_AssignedTasksSearchPatternBy(Regex regex, int searchBy)
+    {
+        _assignedTaskSearchPattern = regex;
+        _assignedTaskSearchBy = searchBy + 1;
+        FilterAssignedTasks();
+    }
+
+    private void ProjectEditor_AvailableTasksSearchPatternBy(Regex regex, int searchBy)
+    {
+        _availableTaskSearchPattern = regex;
+        _availableTaskSearchBy = searchBy;
         FilterAvailableTasks();
     }
 
@@ -308,17 +333,53 @@ public sealed partial class MainForm : Form
             updateMode: DataSourceUpdateMode.OnPropertyChanged);
     }
 
-    public void FilterAvailableTasks() // implement for one task
+    private void FilterAssignedTasks()
     {
+        if (_projectEditor.AssignedTasks.DataSource is null)
+            return;
+
+        CurrencyManager currencyManager = (CurrencyManager)BindingContext![_projectEditor.AssignedTasks.DataSource];
+        currencyManager.SuspendBinding();
+
+        var regex = _assignedTaskSearchPattern;
+        var searchIndex = _assignedTaskSearchBy;
+
+        foreach (DataGridViewRow row in _projectEditor.AssignedTasks.Rows)
+        {
+            bool isFiltered =
+                regex is not null &&
+                !regex.IsMatch(row.Cells[searchIndex].Value?.ToString() ?? "");
+
+            row.Visible = !isFiltered;
+            row.Selected &= !isFiltered;
+        }
+
+        currencyManager.ResumeBinding();
+    }
+
+    private void FilterAvailableTasks() // implement for one task
+    {
+        if (_projectEditor.AvailableTasks.DataSource is null)
+            return;
+
         CurrencyManager currencyManager = (CurrencyManager)BindingContext![_projectEditor.AvailableTasks.DataSource];
         currencyManager.SuspendBinding();
 
         var assignedTasks = _projectEditor.AssignedTasks.Rows.Cast<object>();
+        var regex = _availableTaskSearchPattern;
+        var searchIndex = _availableTaskSearchBy;
 
         foreach (DataGridViewRow row in _projectEditor.AvailableTasks.Rows)
         {
-            bool isFiltered = assignedTasks
-                .Any(o => row.Cells[0].Value.Equals(((DataGridViewRow)o).Cells[0 + 1].Value));
+            bool isFiltered =
+                assignedTasks.Any(t =>
+                {
+                    var rowDescription = row.Cells[0].Value;
+                    var otherRowDescription = ((DataGridViewRow)t).Cells[1].Value;
+                    return Equals(rowDescription, otherRowDescription);
+                }) ||
+                regex is not null &&
+                !regex.IsMatch(row.Cells[searchIndex].Value?.ToString() ?? "");
 
             row.Visible = !isFiltered;
             row.Selected &= !isFiltered;

@@ -41,7 +41,7 @@ partial class StartMenuUserControl
         _azercosmosLogo.Anchor = AnchorStyles.None;
         _azercosmosLogo.BackgroundImage = (Image)resources.GetObject("_azercosmosLogo.BackgroundImage");
         _azercosmosLogo.BackgroundImageLayout = ImageLayout.Zoom;
-        _azercosmosLogo.Location = new Point(400, 188);
+        _azercosmosLogo.Location = new Point(450, 238);
         _azercosmosLogo.Margin = new Padding(0);
         _azercosmosLogo.Name = "_azercosmosLogo";
         _azercosmosLogo.Size = new Size(400, 100);
@@ -56,7 +56,7 @@ partial class StartMenuUserControl
         _startMenuHelpButton.ButtonIcon = (Image)resources.GetObject("_startMenuHelpButton.ButtonIcon");
         _startMenuHelpButton.ButtonText = "Help";
         _startMenuHelpButton.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        _startMenuHelpButton.Location = new Point(750, 338);
+        _startMenuHelpButton.Location = new Point(800, 388);
         _startMenuHelpButton.Margin = new Padding(6);
         _startMenuHelpButton.MinimumSize = new Size(200, 275);
         _startMenuHelpButton.Name = "_startMenuHelpButton";
@@ -72,7 +72,7 @@ partial class StartMenuUserControl
         _startMenuOpenButton.ButtonIcon = (Image)resources.GetObject("_startMenuOpenButton.ButtonIcon");
         _startMenuOpenButton.ButtonText = "Open";
         _startMenuOpenButton.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        _startMenuOpenButton.Location = new Point(500, 338);
+        _startMenuOpenButton.Location = new Point(550, 388);
         _startMenuOpenButton.Margin = new Padding(6);
         _startMenuOpenButton.MinimumSize = new Size(200, 275);
         _startMenuOpenButton.Name = "_startMenuOpenButton";
@@ -88,7 +88,7 @@ partial class StartMenuUserControl
         _startMenuNewButton.ButtonIcon = (Image)resources.GetObject("_startMenuNewButton.ButtonIcon");
         _startMenuNewButton.ButtonText = "New";
         _startMenuNewButton.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        _startMenuNewButton.Location = new Point(250, 338);
+        _startMenuNewButton.Location = new Point(300, 388);
         _startMenuNewButton.Margin = new Padding(6);
         _startMenuNewButton.MinimumSize = new Size(200, 275);
         _startMenuNewButton.Name = "_startMenuNewButton";
@@ -96,7 +96,7 @@ partial class StartMenuUserControl
         _startMenuNewButton.TabIndex = 5;
         _startMenuNewButton.Click += StartMenuNewFileButton_Click;
         // 
-        // StartMenu
+        // StartMenuUserControl
         // 
         AutoScaleDimensions = new SizeF(17F, 43F);
         AutoScaleMode = AutoScaleMode.Font;
@@ -106,8 +106,8 @@ partial class StartMenuUserControl
         Controls.Add(_startMenuNewButton);
         Font = new Font("Bahnschrift SemiCondensed", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
         Margin = new Padding(5);
-        Name = "StartMenu";
-        Size = new Size(1200, 800);
+        Name = "StartMenuUserControl";
+        Size = new Size(1300, 900);
         ((System.ComponentModel.ISupportInitialize)_azercosmosLogo).EndInit();
         ResumeLayout(false);
     }

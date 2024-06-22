@@ -1,10 +1,15 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Text.RegularExpressions;
 
 namespace ExcelTool.Views;
 
 public partial class ProjectEditorUserControl : UserControl
 {
+    private Regex? _assignedTaskSearchPattern;
+
+    private Regex? _availableTaskSearchPattern;
+
     public RichTextBox HeaderInfoTrainee => _traineeRichTextBox;
 
     public RichTextBox HeaderInfoCourse => _courseRichTextBox;
@@ -31,9 +36,21 @@ public partial class ProjectEditorUserControl : UserControl
     [Browsable(true)]
     public event EventHandler<int>? UnassignTask;
 
+    [Browsable(true)]
+    public event Action<Regex?, int>? AssignedTasksSearchPatternBy;
+
+    [Browsable(true)]
+    public event Action<Regex?, int>? AvailableTasksSearchPatternBy;
+
     public ProjectEditorUserControl()
     {
         InitializeComponent();
+    }
+
+    private void ProjectEditorUserControl_Load(object sender, EventArgs e)
+    {
+        _assignedTaskSearchByComboBox.SelectedIndex = 1;
+        _availableTaskSearchByComboBox.SelectedIndex = 1;
     }
 
     private void SelectTaskDatabaseButton_Click(object sender, EventArgs e)
@@ -83,5 +100,57 @@ public partial class ProjectEditorUserControl : UserControl
             return;
 
         AssignTaskFromDatabase?.Invoke(sender, _availableTasksDataGridView.SelectedRows);
+    }
+
+    private void AssignedTaskSearchPatternRichTextBox_TextChanged(object sender, EventArgs e)
+    {
+        string pattern = _assignedTaskSearchPatternRichTextBox.Text;
+        int searchBy = _assignedTaskSearchByComboBox.SelectedIndex;
+        var regex = CreateRegex(pattern);
+
+        _assignedTaskSearchPattern = regex;
+        AssignedTasksSearchPatternBy?.Invoke(regex, searchBy);
+    }
+
+    private void AssignedTaskSearchByComboBox_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        int searchBy = _assignedTaskSearchByComboBox.SelectedIndex;
+        var regex = _assignedTaskSearchPattern;
+
+        AssignedTasksSearchPatternBy?.Invoke(regex, searchBy);
+    }
+
+    private void AvailableTaskSearchPatternRichTextBox_TextChanged(object sender, EventArgs e)
+    {
+        string pattern = _availableTaskSearchPatternRichTextBox.Text;
+        int searchBy = _availableTaskSearchByComboBox.SelectedIndex;
+        var regex = CreateRegex(pattern);
+
+        _availableTaskSearchPattern = regex;
+        AvailableTasksSearchPatternBy?.Invoke(regex, searchBy);
+    }
+
+    private void AvailableTaskSearchByComboBox_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        int searchBy = _availableTaskSearchByComboBox.SelectedIndex;
+        var regex = _availableTaskSearchPattern;
+
+        AvailableTasksSearchPatternBy?.Invoke(regex, searchBy);
+    }
+
+    private static Regex? CreateRegex(string pattern)
+    {
+        if (pattern is "")
+            return null;
+
+        try
+        {
+            var regex = new Regex(pattern);
+            return regex;
+        }
+        catch
+        {
+            return null;
+        }
     }
 }
