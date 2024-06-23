@@ -145,7 +145,7 @@ public partial class ProjectEditorUserControl : UserControl
 
         try
         {
-            var regex = new Regex(pattern);
+            var regex = new Regex(pattern, RegexOptions.IgnoreCase);
             return regex;
         }
         catch

@@ -189,12 +189,14 @@ public sealed partial class MainForm : Form
             AssignTaskFromDatabaseRequested?.Invoke(task!.Copy());
         }
 
+        FilterAssignedTasks();
         FilterAvailableTasks();
     }
 
     private void ProjectEditor_UnassignTask(object sender, int e)
     {
         UnassignTaskRequested?.Invoke(e);
+        FilterAssignedTasks();
         FilterAvailableTasks();
     }
 
@@ -357,7 +359,7 @@ public sealed partial class MainForm : Form
         currencyManager.ResumeBinding();
     }
 
-    private void FilterAvailableTasks() // implement for one task
+    private void FilterAvailableTasks()
     {
         if (_projectEditor.AvailableTasks.DataSource is null)
             return;
