@@ -22,6 +22,10 @@ public partial class ProjectEditorUserControl : UserControl
 
     public DataGridView AvailableTasks => _availableTasksDataGridView;
 
+    public Label AssignedTasksSearchCount => _assignedTaskSearchCountLabel;
+
+    public Label AvailableTasksSearchCount => _availableTaskSearchCountLabel;
+
     public Label TaskDatabasePath => _taskDatabasePathLabel;
 
     [Browsable(true)]

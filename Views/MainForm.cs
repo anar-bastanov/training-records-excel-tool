@@ -344,17 +344,24 @@ public sealed partial class MainForm : Form
         currencyManager.SuspendBinding();
 
         var regex = _assignedTaskSearchPattern;
-        var searchIndex = _assignedTaskSearchBy;
+        int searchIndex = _assignedTaskSearchBy;
+        int itemCount = 0;
+        int matchCount = 0;
 
         foreach (DataGridViewRow row in _projectEditor.AssignedTasks.Rows)
         {
-            bool isFiltered =
-                regex is not null &&
-                !regex.IsMatch(row.Cells[searchIndex].Value?.ToString() ?? "");
+            bool isMatch = regex is null ||
+                regex.IsMatch(row.Cells[searchIndex].Value?.ToString() ?? "");
 
-            row.Visible = !isFiltered;
-            row.Selected &= !isFiltered;
+            ++itemCount;
+            if (isMatch)
+                ++matchCount;
+
+            row.Visible = isMatch;
+            row.Selected &= isMatch;
         }
+
+        _projectEditor.AssignedTasksSearchCount.Text = GetSearchCountText(itemCount, matchCount);
 
         currencyManager.ResumeBinding();
     }
@@ -369,25 +376,58 @@ public sealed partial class MainForm : Form
 
         var assignedTasks = _projectEditor.AssignedTasks.Rows.Cast<object>();
         var regex = _availableTaskSearchPattern;
-        var searchIndex = _availableTaskSearchBy;
+        int searchIndex = _availableTaskSearchBy;
+        int itemCount = 0;
+        int matchCount = 0;
 
         foreach (DataGridViewRow row in _projectEditor.AvailableTasks.Rows)
         {
-            bool isFiltered =
+            bool isAssigned =
                 assignedTasks.Any(t =>
                 {
                     var rowDescription = row.Cells[0].Value;
                     var otherRowDescription = ((DataGridViewRow)t).Cells[1].Value;
                     return Equals(rowDescription, otherRowDescription);
-                }) ||
-                regex is not null &&
-                !regex.IsMatch(row.Cells[searchIndex].Value?.ToString() ?? "");
+                });
 
-            row.Visible = !isFiltered;
-            row.Selected &= !isFiltered;
+            if (isAssigned)
+            {
+                row.Visible = false;
+                row.Selected = false;
+                continue;
+            }
+
+            bool isMatch = regex is null ||
+                regex.IsMatch(row.Cells[searchIndex].Value?.ToString() ?? "");
+
+            ++itemCount;
+            if (isMatch)
+                ++matchCount;
+
+            row.Visible = isMatch;
+            row.Selected &= isMatch;
         }
 
+        _projectEditor.AvailableTasksSearchCount.Text = GetSearchCountText(itemCount, matchCount);
+
         currencyManager.ResumeBinding();
+    }
+
+    private static string GetSearchCountText(int itemCount, int matchCount)
+    {
+        if (itemCount is 0)
+            return "Out of Tasks";
+
+        if (matchCount is 0)
+            return "No Matches";
+
+        if (itemCount is 1)
+            return "1 Task";
+
+        if (itemCount == matchCount)
+            return $"{itemCount} Tasks";
+
+        return $"{matchCount} / {itemCount} Matches";
     }
 
     public static void OpenWikiPageForHelp()
