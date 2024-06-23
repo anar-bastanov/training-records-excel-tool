@@ -28,43 +28,47 @@ partial class MainForm
     /// </summary>
     private void InitializeComponent()
     {
+        MenuStrip stripMenu;
         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-        _menuStrip = new MenuStrip();
+        ToolStripSeparator stripMenuSeparator2;
+        ToolStripSeparator stripMenuSeparator1;
+        StatusStrip stripStatus;
+        ToolStripStatusLabel stripStatusCompanyName;
         _stripMenuFile = new ToolStripMenuItem();
         _stripMenuFileNew = new ToolStripMenuItem();
         _stripMenuFileOpen = new ToolStripMenuItem();
         _stripMenuFileClose = new ToolStripMenuItem();
-        toolStripSeparator2 = new ToolStripSeparator();
         _stripMenuFileSave = new ToolStripMenuItem();
         _stripMenuFileSaveAs = new ToolStripMenuItem();
         _stripMenuFileSaveAsExcel = new ToolStripMenuItem();
         _stripMenuFileSaveAsJson = new ToolStripMenuItem();
         _stripMenuFileSaveAsXML = new ToolStripMenuItem();
-        toolStripSeparator1 = new ToolStripSeparator();
         _stripMenuFileExit = new ToolStripMenuItem();
         _stripMenuHelp = new ToolStripMenuItem();
         _stripMenuLicense = new ToolStripMenuItem();
-        _stripStatus = new StatusStrip();
-        _stripStatusWatermark = new ToolStripStatusLabel();
         _projectEditor = new ProjectEditorUserControl();
         _startMenu = new StartMenuUserControl();
-        _menuStrip.SuspendLayout();
-        _stripStatus.SuspendLayout();
+        stripMenu = new MenuStrip();
+        stripMenuSeparator2 = new ToolStripSeparator();
+        stripMenuSeparator1 = new ToolStripSeparator();
+        stripStatus = new StatusStrip();
+        stripStatusCompanyName = new ToolStripStatusLabel();
+        stripMenu.SuspendLayout();
+        stripStatus.SuspendLayout();
         SuspendLayout();
         // 
-        // _menuStrip
+        // stripMenu
         // 
-        _menuStrip.ImageScalingSize = new Size(24, 24);
-        _menuStrip.Items.AddRange(new ToolStripItem[] { _stripMenuFile, _stripMenuHelp, _stripMenuLicense });
-        _menuStrip.Location = new Point(0, 0);
-        _menuStrip.Name = "_menuStrip";
-        _menuStrip.Size = new Size(1278, 33);
-        _menuStrip.TabIndex = 0;
-        _menuStrip.Text = "menuStrip1";
+        stripMenu.ImageScalingSize = new Size(24, 24);
+        stripMenu.Items.AddRange(new ToolStripItem[] { _stripMenuFile, _stripMenuHelp, _stripMenuLicense });
+        stripMenu.Location = new Point(0, 0);
+        stripMenu.Name = "stripMenu";
+        stripMenu.Size = new Size(1278, 33);
+        stripMenu.TabIndex = 0;
         // 
         // _stripMenuFile
         // 
-        _stripMenuFile.DropDownItems.AddRange(new ToolStripItem[] { _stripMenuFileNew, _stripMenuFileOpen, _stripMenuFileClose, toolStripSeparator2, _stripMenuFileSave, _stripMenuFileSaveAs, toolStripSeparator1, _stripMenuFileExit });
+        _stripMenuFile.DropDownItems.AddRange(new ToolStripItem[] { _stripMenuFileNew, _stripMenuFileOpen, _stripMenuFileClose, stripMenuSeparator2, _stripMenuFileSave, _stripMenuFileSaveAs, stripMenuSeparator1, _stripMenuFileExit });
         _stripMenuFile.Name = "_stripMenuFile";
         _stripMenuFile.Size = new Size(54, 29);
         _stripMenuFile.Text = "&File";
@@ -97,10 +101,10 @@ partial class MainForm
         _stripMenuFileClose.Text = "&Close";
         _stripMenuFileClose.Click += StripMenuFileClose_Click;
         // 
-        // toolStripSeparator2
+        // stripMenuSeparator2
         // 
-        toolStripSeparator2.Name = "toolStripSeparator2";
-        toolStripSeparator2.Size = new Size(264, 6);
+        stripMenuSeparator2.Name = "stripMenuSeparator2";
+        stripMenuSeparator2.Size = new Size(264, 6);
         // 
         // _stripMenuFileSave
         // 
@@ -143,10 +147,10 @@ partial class MainForm
         _stripMenuFileSaveAsXML.Text = "XML (*.xml)";
         _stripMenuFileSaveAsXML.Click += StripMenuFileSaveAsXML_Click;
         // 
-        // toolStripSeparator1
+        // stripMenuSeparator1
         // 
-        toolStripSeparator1.Name = "toolStripSeparator1";
-        toolStripSeparator1.Size = new Size(264, 6);
+        stripMenuSeparator1.Name = "stripMenuSeparator1";
+        stripMenuSeparator1.Size = new Size(264, 6);
         // 
         // _stripMenuFileExit
         // 
@@ -171,23 +175,22 @@ partial class MainForm
         _stripMenuLicense.Text = "&License";
         _stripMenuLicense.Click += StripMenuLicense_Click;
         // 
-        // _stripStatus
+        // stripStatus
         // 
-        _stripStatus.ImageScalingSize = new Size(24, 24);
-        _stripStatus.Items.AddRange(new ToolStripItem[] { _stripStatusWatermark });
-        _stripStatus.Location = new Point(0, 808);
-        _stripStatus.Name = "_stripStatus";
-        _stripStatus.Size = new Size(1278, 36);
-        _stripStatus.TabIndex = 5;
-        _stripStatus.Text = "statusStrip1";
+        stripStatus.ImageScalingSize = new Size(24, 24);
+        stripStatus.Items.AddRange(new ToolStripItem[] { stripStatusCompanyName });
+        stripStatus.Location = new Point(0, 808);
+        stripStatus.Name = "stripStatus";
+        stripStatus.Size = new Size(1278, 36);
+        stripStatus.TabIndex = 0;
         // 
-        // _stripStatusWatermark
+        // stripStatusCompanyName
         // 
-        _stripStatusWatermark.BorderSides = ToolStripStatusLabelBorderSides.Right;
-        _stripStatusWatermark.BorderStyle = Border3DStyle.Etched;
-        _stripStatusWatermark.Name = "_stripStatusWatermark";
-        _stripStatusWatermark.Size = new Size(167, 29);
-        _stripStatusWatermark.Text = "Powered by Silisoft";
+        stripStatusCompanyName.BorderSides = ToolStripStatusLabelBorderSides.Right;
+        stripStatusCompanyName.BorderStyle = Border3DStyle.Etched;
+        stripStatusCompanyName.Name = "stripStatusCompanyName";
+        stripStatusCompanyName.Size = new Size(167, 29);
+        stripStatusCompanyName.Text = "Powered by Silisoft";
         // 
         // _projectEditor
         // 
@@ -198,7 +201,8 @@ partial class MainForm
         _projectEditor.Margin = new Padding(0);
         _projectEditor.Name = "_projectEditor";
         _projectEditor.Size = new Size(1278, 844);
-        _projectEditor.TabIndex = 6;
+        _projectEditor.TabIndex = 0;
+        _projectEditor.TabStop = false;
         _projectEditor.SelectTaskDatabase += ProjectEditor_SelectDatabase;
         _projectEditor.CopyTaskDatabaseFilePath += ProjectEditor_CopyTaskDatabaseFilePath;
         _projectEditor.AssignTaskFromDatabase += ProjectEditor_AssignTaskFromDatabase;
@@ -214,7 +218,8 @@ partial class MainForm
         _startMenu.Margin = new Padding(5);
         _startMenu.Name = "_startMenu";
         _startMenu.Size = new Size(1278, 844);
-        _startMenu.TabIndex = 7;
+        _startMenu.TabIndex = 0;
+        _startMenu.TabStop = false;
         _startMenu.NewFileClick += StartMenu_NewFileClick;
         _startMenu.OpenFileClick += StartMenu_OpenFileClick;
         _startMenu.HelpClick += StartMenu_HelpClick;
@@ -224,41 +229,36 @@ partial class MainForm
         AutoScaleDimensions = new SizeF(20F, 48F);
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize = new Size(1278, 844);
-        Controls.Add(_stripStatus);
-        Controls.Add(_menuStrip);
+        Controls.Add(stripStatus);
+        Controls.Add(stripMenu);
         Controls.Add(_startMenu);
         Controls.Add(_projectEditor);
         Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
         Icon = (Icon)resources.GetObject("$this.Icon");
-        MainMenuStrip = _menuStrip;
+        MainMenuStrip = stripMenu;
         Margin = new Padding(6);
         MinimumSize = new Size(1300, 900);
         Name = "MainForm";
         Text = "Master Training Records";
         FormClosing += MainForm_FormClosing;
-        _menuStrip.ResumeLayout(false);
-        _menuStrip.PerformLayout();
-        _stripStatus.ResumeLayout(false);
-        _stripStatus.PerformLayout();
+        stripMenu.ResumeLayout(false);
+        stripMenu.PerformLayout();
+        stripStatus.ResumeLayout(false);
+        stripStatus.PerformLayout();
         ResumeLayout(false);
         PerformLayout();
     }
 
     #endregion
 
-    private MenuStrip _menuStrip;
     private ToolStripMenuItem _stripMenuFile;
     private ToolStripMenuItem _stripMenuFileNew;
     private ToolStripMenuItem _stripMenuFileOpen;
-    private ToolStripSeparator toolStripSeparator1;
     private ToolStripMenuItem _stripMenuFileExit;
     private ToolStripMenuItem _stripMenuFileClose;
     private ToolStripMenuItem _stripMenuHelp;
-    private StatusStrip _stripStatus;
-    private ToolStripStatusLabel _stripStatusWatermark;
     private ToolStripMenuItem _stripMenuLicense;
     private ToolStripMenuItem _stripMenuFileSaveAs;
-    private ToolStripSeparator toolStripSeparator2;
     private ToolStripMenuItem _stripMenuFileSaveAsExcel;
     private ToolStripMenuItem _stripMenuFileSaveAsJson;
     private ToolStripMenuItem _stripMenuFileSaveAsXML;

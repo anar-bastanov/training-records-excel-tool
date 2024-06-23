@@ -117,8 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="azercosmosLogo.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="_azercosmosLogo.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="azercosmosLogo.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAuEAAACgCAYAAACi27JyAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
         DAAACwwBP0AiyAAALWlJREFUeF7tnc2Z3TaThb8QHIJ239YhOARFMI9DUAgKwSE4BC1nqRAcgkJwBp5z
@@ -318,7 +321,10 @@
         A3d5jLsrJwAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="_startMenuHelpButton.ButtonIcon" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <metadata name="startMenuHelpButton.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <data name="startMenuHelpButton.ButtonIcon" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAABGdBTUEAALGPC/xhBQAAIQxJREFUeF7t
         nQm0FcW1hs2kCQQn5lFFIQ4ooIAYCSARUCZFQcSAiAKiLiIkDiEoKKAmBgOJSkSDgEGQQUWBSAQJk6Dg
@@ -465,7 +471,10 @@
         VwAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="_startMenuOpenButton.ButtonIcon" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <metadata name="startMenuOpenButton.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <data name="startMenuOpenButton.ButtonIcon" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAABGdBTUEAALGPC/xhBQAAFCZJREFUeF7t
         3Xnw1dMfx3FtKtWkmlIqRfuKYsiYhn4jMUJlkmWILBlSppmajAaljTTaKEUlbdIkoikaSaSFUIkWVNqj
@@ -557,7 +566,10 @@
         AAAASUVORK5CYII=
 </value>
   </data>
-  <data name="_startMenuNewButton.ButtonIcon" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <metadata name="startMenuNewButton.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <data name="startMenuNewButton.ButtonIcon" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAABGdBTUEAALGPC/xhBQAAFlRJREFUeF7t
         nXeQFMX/hpUk+fDAI4qCJIlKNIGoJLFAFK1CLTKCIEoqMqIEUQxooYIFigIWQTACEgQFLQQp8QhVEgQE

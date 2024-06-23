@@ -9,7 +9,6 @@ public partial class StartMenuButtonUserControl : UserControl
     public StartMenuButtonUserControl()
     {
         InitializeComponent();
-
     }
 
     [Browsable(true)]
@@ -32,6 +31,7 @@ public partial class StartMenuButtonUserControl : UserControl
         add
         {
             base.Click += value;
+
             foreach (Control control in Controls)
             {
                 control.Click += value;
@@ -40,6 +40,7 @@ public partial class StartMenuButtonUserControl : UserControl
         remove
         {
             base.Click -= value;
+
             foreach (Control control in Controls)
             {
                 control.Click -= value;
