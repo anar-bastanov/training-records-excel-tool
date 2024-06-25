@@ -105,13 +105,13 @@ public static class FileProcessor
         using var package = new ExcelPackage(fullPath);
         var worksheet = package.Workbook.Worksheets.Add("Main");
 
-        ConfigureTemplate(worksheet);
+        ConfigureTemplate(worksheet, project.Tasks.Count);
         ExportProfileInfo(worksheet, project.ProfileInfo);
         ExportTasks(worksheet, project.Tasks);
 
         package.Save();
 
-        static void ConfigureTemplate(ExcelWorksheet ws)
+        static void ConfigureTemplate(ExcelWorksheet ws, int taskCount)
         {
             // Define merged cells
             ws.Cells["C1:D1"].Merge = true;
@@ -125,6 +125,21 @@ public static class FileProcessor
             ws.Columns[3, 4].Width = 5.0;
             ws.Columns[5, 10].Width = 10.0;
             ws.Rows[3].Height = 45.0;
+
+            // Set background color
+            var blue = Color.FromArgb(0x538DD5);
+            var green = Color.FromArgb(0x00B050);
+            var yellow = Color.FromArgb(0xFFFF00);
+            var red = Color.FromArgb(0xFF0000);
+
+            ws.Cells["A1:J3"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+            ws.Cells["A1:J3"].Style.Fill.BackgroundColor.SetColor(blue);
+
+            // Set borders
+            ws.Cells[1, 1, 3 + taskCount, 10].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+            ws.Cells[1, 1, 3 + taskCount, 10].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+            ws.Cells[1, 1, 3 + taskCount, 10].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+            ws.Cells[1, 1, 3 + taskCount, 10].Style.Border.Left.Style = ExcelBorderStyle.Thin;
 
             // Adjust font
             ws.Rows[3].Style.Font.Size = 9;
@@ -187,11 +202,16 @@ public static class FileProcessor
                 ws.Cells[row, 6].Value = task.TrainingCompleted;
                 ws.Cells[row, 7].Value = task.TrainerInitials;
                 ws.Cells[row, 8].Value = task.CertifierInitials;
-                ws.Cells[row, 9].Value = task.CertifyingScore;
-                ws.Cells[row, 10].Value = task.RequiredScore;
+                ws.Cells[row, 9].Value = AsIntOrString(task.CertifyingScore);
+                ws.Cells[row, 10].Value = AsIntOrString(task.RequiredScore);
 
                 ++row;
             }
+        }
+
+        static object AsIntOrString(string value)
+        {
+            return int.TryParse(value, out int result) ? result : value;
         }
     }
 

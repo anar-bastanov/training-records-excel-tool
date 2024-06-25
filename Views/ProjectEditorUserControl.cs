@@ -67,17 +67,55 @@ public partial class ProjectEditorUserControl : UserControl
         CopyTaskDatabaseFilePath?.Invoke(sender, e);
     }
 
+    private void AssignedTasksDataGridView_CellValidated(object sender, DataGridViewCellEventArgs e)
+    {
+        var cell = _assignedTasksDataGridView[e.ColumnIndex, e.RowIndex];
+        cell.Value ??= "";
+    }
+
+    private void AssignedTasksDataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+    {
+        if (_assignedTasksDataGridView.Tag is "")
+            return;
+
+        _assignedTasksDataGridView.Tag = "";
+
+        string text = _assignedTasksDataGridView[e.ColumnIndex, e.RowIndex].Value?.ToString() ?? "";
+
+        foreach (DataGridViewCell cell in _assignedTasksDataGridView.SelectedCells)
+        {
+            cell.Value = text;
+        }
+
+        _assignedTasksDataGridView.Tag = null;
+    }
+
     private void AssignedTasksDataGridView_ColumnAdded(object sender, DataGridViewColumnEventArgs e)
     {
         e.Column.SortMode = DataGridViewColumnSortMode.NotSortable;
     }
 
-    private void AssignedTasksDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+    private void AssignedTasksDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
     {
-        if (e.ColumnIndex is not 0)
+        if (e.ColumnIndex is not 0 || e.RowIndex is -1)
             return;
 
         UnassignTask?.Invoke(sender, e.RowIndex);
+    }
+
+    private void AssignedTasksDataGridView_KeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.KeyCode is not Keys.Enter)
+            return;
+
+        foreach (DataGridViewCell selection in _assignedTasksDataGridView.SelectedCells)
+            if (selection.ColumnIndex is not 0 || selection.RowIndex is -1)
+                return;
+
+        foreach (DataGridViewCell cell in _assignedTasksDataGridView.SelectedCells)
+            UnassignTask?.Invoke(sender, cell.RowIndex);
+
+        e.Handled = true;
     }
 
     private void AvailableTasksDataGridView_ColumnAdded(object sender, DataGridViewColumnEventArgs e)

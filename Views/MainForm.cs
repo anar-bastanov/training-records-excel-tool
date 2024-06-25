@@ -224,36 +224,10 @@ public sealed partial class MainForm : Form
 
     public void EnableStripMenuItems(ApplicationState state)
     {
-        switch (state)
-        {
-            case ApplicationState.Idle:
-                _stripMenuFileClose.Enabled = false;
-                _stripMenuFileSave.Enabled = false;
-                _stripMenuFileSaveAs.Enabled = false;
-                break;
-            case ApplicationState.NewFile:
-                _stripMenuFileClose.Enabled = false;
-                _stripMenuFileSave.Enabled = true;
-                _stripMenuFileSaveAs.Enabled = true;
-                break;
-            case ApplicationState.OpenFile:
-                _stripMenuFileClose.Enabled = true;
-                _stripMenuFileSave.Enabled = false;
-                _stripMenuFileSaveAs.Enabled = true;
-                break;
-            case ApplicationState.NewFileUnsavedChanges:
-                _stripMenuFileClose.Enabled = true;
-                _stripMenuFileSave.Enabled = true;
-                _stripMenuFileSaveAs.Enabled = true;
-                break;
-            case ApplicationState.OpenFileUnsavedChanges:
-                _stripMenuFileClose.Enabled = true;
-                _stripMenuFileSave.Enabled = true;
-                _stripMenuFileSaveAs.Enabled = true;
-                break;
-            default:
-                throw new NotSupportedException("This is not supposed to happen.");
-        }
+        bool isEditing = state is not ApplicationState.Idle;
+        _stripMenuFileClose.Enabled = isEditing;
+        _stripMenuFileSave.Enabled = isEditing && state is not ApplicationState.OpenFile;
+        _stripMenuFileSaveAs.Enabled = isEditing;
     }
 
     public void EnableTitleFilename(ApplicationState state, string fullPath)
@@ -266,7 +240,7 @@ public sealed partial class MainForm : Form
 
         string title = ApplicationName + " - ";
 
-        title += fullPath is "" ? DefaultFilename + ".xlsx" : Path.GetFileName(fullPath);
+        title += fullPath is "" ? $"{DefaultFilename}.xlsx" : Path.GetFileName(fullPath);
 
         if (state.HasUnsavedChanges())
             title += "*";
@@ -312,11 +286,11 @@ public sealed partial class MainForm : Form
     public void BindAssignedTasks(BindingList<TaskModel> tasks)
     {
         _projectEditor.AssignedTasks.DataSource = tasks;
-        _projectEditor.AssignedTasks.Columns[1].ReadOnly = true;
-        _projectEditor.AssignedTasks.Columns[2].ReadOnly = true;
-        _projectEditor.AssignedTasks.Columns[3].ReadOnly = true;
-        _projectEditor.AssignedTasks.Columns[4].ReadOnly = true;
-        _projectEditor.AssignedTasks.Columns[10].ReadOnly = true;
+        // _projectEditor.AssignedTasks.Columns[1].ReadOnly = true;
+        // _projectEditor.AssignedTasks.Columns[2].ReadOnly = true;
+        // _projectEditor.AssignedTasks.Columns[3].ReadOnly = true;
+        // _projectEditor.AssignedTasks.Columns[4].ReadOnly = true;
+        // _projectEditor.AssignedTasks.Columns[10].ReadOnly = true;
     }
 
     public void BindAvailableTasks(BindingList<TaskModel> tasks)

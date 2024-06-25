@@ -348,7 +348,6 @@ partial class ProjectEditorUserControl
         _assignedTasksDataGridView.EnableHeadersVisualStyles = false;
         _assignedTasksDataGridView.Location = new Point(0, 50);
         _assignedTasksDataGridView.Margin = new Padding(0);
-        _assignedTasksDataGridView.MultiSelect = false;
         _assignedTasksDataGridView.Name = "_assignedTasksDataGridView";
         _assignedTasksDataGridView.RowHeadersVisible = false;
         _assignedTasksDataGridView.RowHeadersWidth = 62;
@@ -361,8 +360,11 @@ partial class ProjectEditorUserControl
         _assignedTasksDataGridView.ShowRowErrors = false;
         _assignedTasksDataGridView.Size = new Size(1225, 247);
         _assignedTasksDataGridView.TabIndex = 7;
-        _assignedTasksDataGridView.CellClick += AssignedTasksDataGridView_CellClick;
+        _assignedTasksDataGridView.CellContentClick += AssignedTasksDataGridView_CellContentClick;
+        _assignedTasksDataGridView.CellValidated += AssignedTasksDataGridView_CellValidated;
+        _assignedTasksDataGridView.CellValueChanged += AssignedTasksDataGridView_CellValueChanged;
         _assignedTasksDataGridView.ColumnAdded += AssignedTasksDataGridView_ColumnAdded;
+        _assignedTasksDataGridView.KeyDown += AssignedTasksDataGridView_KeyDown;
         // 
         // unassignButtons
         // 
