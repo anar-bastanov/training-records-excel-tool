@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 
 namespace ExcelTool.Controllers;
 
@@ -37,7 +38,7 @@ public sealed class ProjectManager : INotifyPropertyChanged
             _applicationState = value;
             _mainView.EnableEditor(value is not ApplicationState.Idle);
             _mainView.EnableStripMenuItems(value);
-            _mainView.EnableTitleFilename(value, _sourceFilePath);
+            _mainView.EnableTitleFileName(value, _sourceFilePath);
         }
     }
 
@@ -111,6 +112,14 @@ public sealed class ProjectManager : INotifyPropertyChanged
 
     public bool SaveCurrentProject()
     {
+        string packedNames = _currentProject!.ProfileInfo.Trainee;
+
+        string[] trainees = packedNames
+            .Split(';', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+
+        if (trainees.Length > 1 && !MainForm.WarnPackedNames())
+            return false;
+
         if (State is ApplicationState.OpenFileUnsavedChanges)
         {
             FileProcessor.SaveProjectToExcel(_currentProject!, _sourceFilePath);
@@ -130,23 +139,38 @@ public sealed class ProjectManager : INotifyPropertyChanged
 
     public void SaveCurrentProjectAs(FileType fileType)
     {
-        if (!MainForm.TryPromptSaveFileAs(ref fileType, out string fullPath))
-            return;
+        string packedNames = _currentProject!.ProfileInfo.Trainee;
 
-        switch (fileType)
+        string[] trainees = packedNames
+            .Split(';', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+
+        if (trainees.Length is 0)
+            trainees = [packedNames];
+
+        foreach (string trainee in trainees)
         {
-            case FileType.Excel:
-                FileProcessor.SaveProjectToExcel(_currentProject!, fullPath);
-                break;
-            case FileType.Json:
-                FileProcessor.SaveProjectToJson(_currentProject!, fullPath);
-                break;
-            case FileType.XML:
-                FileProcessor.SaveProjectToXML(_currentProject!, fullPath);
-                break;
-            default:
-                throw new NotSupportedException("This is not supposed to happen!");
+            _currentProject!.ProfileInfo.Trainee = trainee;
+
+            if (!MainForm.TryPromptSaveFileAs(ref fileType, trainee, out string fullPath))
+                return;
+
+            switch (fileType)
+            {
+                case FileType.Excel:
+                    FileProcessor.SaveProjectToExcel(_currentProject!, fullPath);
+                    break;
+                case FileType.Json:
+                    FileProcessor.SaveProjectToJson(_currentProject!, fullPath);
+                    break;
+                case FileType.XML:
+                    FileProcessor.SaveProjectToXML(_currentProject!, fullPath);
+                    break;
+                default:
+                    throw new NotSupportedException("This is not supposed to happen!");
+            }
         }
+
+        _currentProject!.ProfileInfo.Trainee = packedNames;
     }
 
     public void SelectTaskDatabase()

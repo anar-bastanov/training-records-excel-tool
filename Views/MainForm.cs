@@ -41,7 +41,7 @@ public sealed partial class MainForm : Form
 
     private const string ApplicationName = "Master Training Records";
 
-    private const string DefaultFilename = "TrainingRecords";
+    private const string DefaultFileName = "TrainingRecords";
 
     private const string LinkToWiki = "https://github.com/anar-bastanov/training-records-excel-tool/wiki";
 
@@ -57,7 +57,7 @@ public sealed partial class MainForm : Form
         Filter = "Excel File (*.xlsx)|*.xlsx",
         DefaultExt = "xlsx",
         AddExtension = true,
-        FileName = DefaultFilename,
+        FileName = DefaultFileName,
     };
 
     private static readonly SaveFileDialog SaveAsFilePrompt = new()
@@ -230,7 +230,7 @@ public sealed partial class MainForm : Form
         _stripMenuFileSaveAs.Enabled = isEditing;
     }
 
-    public void EnableTitleFilename(ApplicationState state, string fullPath)
+    public void EnableTitleFileName(ApplicationState state, string fullPath)
     {
         if (state is ApplicationState.Idle)
         {
@@ -240,7 +240,7 @@ public sealed partial class MainForm : Form
 
         string title = ApplicationName + " - ";
 
-        title += fullPath is "" ? $"{DefaultFilename}.xlsx" : Path.GetFileName(fullPath);
+        title += fullPath is "" ? $"{DefaultFileName}.xlsx" : Path.GetFileName(fullPath);
 
         if (state.HasUnsavedChanges())
             title += "*";
@@ -286,11 +286,6 @@ public sealed partial class MainForm : Form
     public void BindAssignedTasks(BindingList<TaskModel> tasks)
     {
         _projectEditor.AssignedTasks.DataSource = tasks;
-        // _projectEditor.AssignedTasks.Columns[1].ReadOnly = true;
-        // _projectEditor.AssignedTasks.Columns[2].ReadOnly = true;
-        // _projectEditor.AssignedTasks.Columns[3].ReadOnly = true;
-        // _projectEditor.AssignedTasks.Columns[4].ReadOnly = true;
-        // _projectEditor.AssignedTasks.Columns[10].ReadOnly = true;
     }
 
     public void BindAvailableTasks(BindingList<TaskModel> tasks)
@@ -431,11 +426,32 @@ public sealed partial class MainForm : Form
 
     public static bool TryPromptSaveFileAs(ref FileType fileType, out string fullPath)
     {
+        return TryPromptSaveFileAs(ref fileType, DefaultFileName, out fullPath);
+    }
+    
+    public static bool TryPromptSaveFileAs(ref FileType fileType, string fileName, out string fullPath)
+    {
         SaveAsFilePrompt.FilterIndex = (int)fileType;
-        SaveAsFilePrompt.FileName = DefaultFilename;
+        SaveAsFilePrompt.FileName = IsValidFilename(fileName) ? fileName : DefaultFileName;
         bool success = TryPrompt(SaveAsFilePrompt, out fullPath);
         fileType = (FileType)SaveAsFilePrompt.FilterIndex;
         return success;
+
+        static bool IsValidFilename(string filename)
+        {
+            try
+            {
+                File.OpenRead(filename).Close();
+            }
+            catch (ArgumentException)
+            {
+                return false;
+            }
+            catch (Exception) 
+            {
+            }
+            return true;
+        }
     }
 
     public static bool TryPromptOpenFile(out string fullPath)
@@ -463,5 +479,16 @@ public sealed partial class MainForm : Form
             buttons: MessageBoxButtons.YesNoCancel,
             icon: MessageBoxIcon.Exclamation,
             defaultButton: MessageBoxDefaultButton.Button1);
+    }
+
+    public static bool WarnPackedNames()
+    {
+        return MessageBox.Show(
+            text: "The field named `Trainee` contains packed names delimited with semicolons. In order to unpack this field and save files separately, use `Save As` instead. Do you want to continue saving to a single file?",
+            caption: "Packed Names",
+            buttons: MessageBoxButtons.YesNo,
+            icon: MessageBoxIcon.Asterisk,
+            defaultButton: MessageBoxDefaultButton.Button2) 
+            is DialogResult.Yes;
     }
 }

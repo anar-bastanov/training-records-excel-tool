@@ -328,7 +328,7 @@ partial class ProjectEditorUserControl
         _assignedTasksDataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
         dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
         dataGridViewCellStyle1.BackColor = SystemColors.Control;
-        dataGridViewCellStyle1.Font = new Font("Bahnschrift SemiCondensed", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        dataGridViewCellStyle1.Font = new Font("Bahnschrift SemiCondensed", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
         dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
         dataGridViewCellStyle1.SelectionBackColor = SystemColors.Control;
         dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
@@ -487,7 +487,7 @@ partial class ProjectEditorUserControl
         _availableTasksDataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
         dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
         dataGridViewCellStyle3.BackColor = SystemColors.Control;
-        dataGridViewCellStyle3.Font = new Font("Bahnschrift SemiCondensed", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        dataGridViewCellStyle3.Font = new Font("Bahnschrift SemiCondensed", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
         dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
         dataGridViewCellStyle3.SelectionBackColor = SystemColors.Control;
         dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;

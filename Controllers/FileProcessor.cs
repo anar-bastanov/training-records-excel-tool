@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Xml.Serialization;
 using System.Xml;
 using System.ComponentModel;
+using System;
 
 namespace ExcelTool.Controllers;
 
@@ -194,24 +195,33 @@ public static class FileProcessor
 
             foreach (var task in tasks)
             {
-                ws.Cells[row, 1].Value = task.Reference;
-                ws.Cells[row, 2].Value = task.Description;
-                ws.Cells[row, 3].Value = task.TrainingCategory;
-                ws.Cells[row, 4].Value = task.Type;
-                ws.Cells[row, 5].Value = task.TrainingStarted;
-                ws.Cells[row, 6].Value = task.TrainingCompleted;
-                ws.Cells[row, 7].Value = task.TrainerInitials;
-                ws.Cells[row, 8].Value = task.CertifierInitials;
-                ws.Cells[row, 9].Value = AsIntOrString(task.CertifyingScore);
-                ws.Cells[row, 10].Value = AsIntOrString(task.RequiredScore);
+                ws.Cells[row, 1].Value = ParseType(task.Reference);
+                ws.Cells[row, 2].Value = ParseType(task.Description);
+                ws.Cells[row, 3].Value = ParseType(task.TrainingCategory);
+                ws.Cells[row, 4].Value = ParseType(task.Type);
+                ws.Cells[row, 5].Value = ParseType(task.TrainingStarted);
+                ws.Cells[row, 6].Value = ParseType(task.TrainingCompleted);
+                ws.Cells[row, 7].Value = ParseType(task.TrainerInitials);
+                ws.Cells[row, 8].Value = ParseType(task.CertifierInitials);
+                ws.Cells[row, 9].Value = ParseType(task.CertifyingScore);
+                ws.Cells[row, 10].Value = ParseType(task.RequiredScore);
 
                 ++row;
             }
         }
 
-        static object AsIntOrString(string value)
+        static object ParseType(string value)
         {
-            return int.TryParse(value, out int result) ? result : value;
+            if (int.TryParse(value, out int a))
+                return a;
+            
+            if (double.TryParse(value, out var b))
+                return b;
+
+            if (DateOnly.TryParse(value, out var c))
+                return c;
+
+            return value;
         }
     }
 

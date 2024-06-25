@@ -70,7 +70,20 @@ public partial class ProjectEditorUserControl : UserControl
     private void AssignedTasksDataGridView_CellValidated(object sender, DataGridViewCellEventArgs e)
     {
         var cell = _assignedTasksDataGridView[e.ColumnIndex, e.RowIndex];
-        cell.Value ??= "";
+
+        if (cell.Value is null)
+        {
+            cell.Value = "";
+            return;
+        }
+
+        string value = cell.FormattedValue.ToString()!;
+        string trimmed = value.Trim();
+
+        if (value == trimmed)
+            return;
+
+        cell.Value = trimmed;
     }
 
     private void AssignedTasksDataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
