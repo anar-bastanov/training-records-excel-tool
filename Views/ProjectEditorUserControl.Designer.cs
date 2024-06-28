@@ -454,6 +454,7 @@ partial class ProjectEditorUserControl
         // 
         // _assignedTaskSearchByComboBox
         // 
+        _assignedTaskSearchByComboBox.Cursor = Cursors.Hand;
         _assignedTaskSearchByComboBox.Dock = DockStyle.Fill;
         _assignedTaskSearchByComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
         _assignedTaskSearchByComboBox.Font = new Font("Bahnschrift SemiCondensed", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -599,6 +600,7 @@ partial class ProjectEditorUserControl
         // 
         // _availableTaskSearchByComboBox
         // 
+        _availableTaskSearchByComboBox.Cursor = Cursors.Hand;
         _availableTaskSearchByComboBox.Dock = DockStyle.Fill;
         _availableTaskSearchByComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
         _availableTaskSearchByComboBox.Font = new Font("Bahnschrift SemiCondensed", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -639,6 +641,7 @@ partial class ProjectEditorUserControl
         copyTaskDatabaseFilePathButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
         copyTaskDatabaseFilePathButton.BackgroundImage = (Image)resources.GetObject("copyTaskDatabaseFilePathButton.BackgroundImage");
         copyTaskDatabaseFilePathButton.BackgroundImageLayout = ImageLayout.Zoom;
+        copyTaskDatabaseFilePathButton.Cursor = Cursors.Hand;
         copyTaskDatabaseFilePathButton.Location = new Point(1022, 825);
         copyTaskDatabaseFilePathButton.Margin = new Padding(0, 3, 3, 3);
         copyTaskDatabaseFilePathButton.Name = "copyTaskDatabaseFilePathButton";
@@ -651,6 +654,7 @@ partial class ProjectEditorUserControl
         // 
         _selectTaskDatabaseButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
         _selectTaskDatabaseButton.AutoSize = true;
+        _selectTaskDatabaseButton.Cursor = Cursors.Hand;
         _selectTaskDatabaseButton.Location = new Point(1079, 825);
         _selectTaskDatabaseButton.Name = "_selectTaskDatabaseButton";
         _selectTaskDatabaseButton.Size = new Size(186, 53);

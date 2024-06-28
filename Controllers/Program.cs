@@ -8,12 +8,21 @@ using OfficeOpenXml;
 
 namespace ExcelTool;
 
+/// <summary>
+/// The application entry point.
+/// </summary>
 internal static class Program
 {
     [STAThread]
     private static void Main()
     {
+        // The source code of this software was supposed to follow a design pattern called MVC,
+        // which means Model-View-Controller. But I might have been carried away or lost patience
+        // at some point in the middle of the development process, hence I do not claim anything
+        // about clean code or code architecture. It works in the end, and I am happy with it.
+
         ApplicationConfiguration.Initialize();
+        // The library we use to process Excel files is not free for commercial uses.
         ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
         var mainForm = new MainForm();

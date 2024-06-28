@@ -27,7 +27,7 @@ public sealed partial class MainForm : Form
 
     public event Action? FileSaveRequested;
 
-    public event Action<FileType>? FileSaveAsRequested;
+    public event Action<FileFormat>? FileSaveAsRequested;
 
     public event Action? TaskDatabaseSelectRequested;
 
@@ -115,17 +115,17 @@ public sealed partial class MainForm : Form
 
     private void StripMenuFileSaveAsExcel_Click(object sender, EventArgs e)
     {
-        FileSaveAsRequested?.Invoke(FileType.Excel);
+        FileSaveAsRequested?.Invoke(FileFormat.Excel);
     }
 
     private void StripMenuFileSaveAsJson_Click(object sender, EventArgs e)
     {
-        FileSaveAsRequested?.Invoke(FileType.Json);
+        FileSaveAsRequested?.Invoke(FileFormat.Json);
     }
 
     private void StripMenuFileSaveAsXML_Click(object sender, EventArgs e)
     {
-        FileSaveAsRequested?.Invoke(FileType.XML);
+        FileSaveAsRequested?.Invoke(FileFormat.XML);
     }
 
     private void StripMenuFileExit_Click(object sender, EventArgs e)
@@ -186,7 +186,8 @@ public sealed partial class MainForm : Form
                 continue;
 
             var task = tasks![row.Index] as TaskModel;
-            AssignTaskFromDatabaseRequested?.Invoke(task!.Copy());
+            var copy = new TaskModel(task!);
+            AssignTaskFromDatabaseRequested?.Invoke(copy);
         }
 
         FilterAssignedTasks();
@@ -424,34 +425,18 @@ public sealed partial class MainForm : Form
         return TryPrompt(SaveFilePrompt, out fullPath);
     }
 
-    public static bool TryPromptSaveFileAs(ref FileType fileType, out string fullPath)
+    public static bool TryPromptSaveFileAs(ref FileFormat fileFormat, out string fullPath)
     {
-        return TryPromptSaveFileAs(ref fileType, DefaultFileName, out fullPath);
+        return TryPromptSaveFileAs(ref fileFormat, DefaultFileName, out fullPath);
     }
     
-    public static bool TryPromptSaveFileAs(ref FileType fileType, string fileName, out string fullPath)
+    public static bool TryPromptSaveFileAs(ref FileFormat fileFormat, string fileName, out string fullPath)
     {
-        SaveAsFilePrompt.FilterIndex = (int)fileType;
-        SaveAsFilePrompt.FileName = IsValidFilename(fileName) ? fileName : DefaultFileName;
+        SaveAsFilePrompt.FilterIndex = (int)fileFormat;
+        SaveAsFilePrompt.FileName = fileName;
         bool success = TryPrompt(SaveAsFilePrompt, out fullPath);
-        fileType = (FileType)SaveAsFilePrompt.FilterIndex;
+        fileFormat = (FileFormat)SaveAsFilePrompt.FilterIndex;
         return success;
-
-        static bool IsValidFilename(string filename)
-        {
-            try
-            {
-                File.OpenRead(filename).Close();
-            }
-            catch (ArgumentException)
-            {
-                return false;
-            }
-            catch (Exception) 
-            {
-            }
-            return true;
-        }
     }
 
     public static bool TryPromptOpenFile(out string fullPath)
@@ -487,7 +472,7 @@ public sealed partial class MainForm : Form
             text: "The field named `Trainee` contains packed names delimited with semicolons. In order to unpack this field and save files separately, use `Save As` instead. Do you want to continue saving to a single file?",
             caption: "Packed Names",
             buttons: MessageBoxButtons.YesNo,
-            icon: MessageBoxIcon.Asterisk,
+            icon: MessageBoxIcon.Question,
             defaultButton: MessageBoxDefaultButton.Button2) 
             is DialogResult.Yes;
     }

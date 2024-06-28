@@ -69,6 +69,7 @@ public partial class ProjectEditorUserControl : UserControl
 
     private void AssignedTasksDataGridView_CellValidated(object sender, DataGridViewCellEventArgs e)
     {
+        return;
         var cell = _assignedTasksDataGridView[e.ColumnIndex, e.RowIndex];
 
         if (cell.Value is null)

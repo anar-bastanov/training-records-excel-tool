@@ -9,14 +9,24 @@ using System;
 
 namespace ExcelTool.Controllers;
 
+/// <summary>
+/// A <see langword="static"/> class that contains methods for <see cref="ProjectModel"/> to save to and load
+/// from a few files formats such as Excel (.xlsx), JSON (.json), and XML (.xml).
+/// </summary>
 public static class FileProcessor
 {
+    /// <summary>
+    /// A cached instance used to determine the style of output JSON files.
+    /// </summary>
     private static readonly JsonSerializerOptions JsonSerializerConfiguration = new()
     {
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         WriteIndented = true
     };
-    
+
+    /// <summary>
+    /// A cached instance used to determine the style of output XML files.
+    /// </summary>
     private static readonly XmlWriterSettings XmlSerializerConfiguration = new()
     {
         Indent = true,
@@ -24,11 +34,25 @@ public static class FileProcessor
         NewLineOnAttributes = true
     };
 
+    /// <summary>
+    /// A cached instance used to avoid generating other unnecessary lines in output XML files.
+    /// </summary>
     private static readonly XmlSerializerNamespaces XmlEmptyNamespaces = new([XmlQualifiedName.Empty]);
 
+    /// <summary>
+    /// Opens an Excel file at a location specified by <paramref name="fullPath"/> and modifies <paramref name="project"/> with
+    /// values extracted from cells representing <see cref="ProjectModel"/>.
+    /// </summary>
+    /// <param name="project">The project to write to.</param>
+    /// <param name="fullPath">Absolute path to the Excel file.</param>
     public static void LoadProjectFromExcel(ProjectModel project, string fullPath)
     {
         using var package = new ExcelPackage(fullPath);
+
+        // For some reason, you can have Excel files with no worksheets...
+        if (package.Workbook.Worksheets.Count is 0)
+            return;
+
         var worksheet = package.Workbook.Worksheets[0];
 
         ImportProfileInfo(worksheet, project.ProfileInfo);
@@ -44,7 +68,8 @@ public static class FileProcessor
 
         static void ImportTasks(ExcelWorksheet ws, BindingList<TaskModel> tasks)
         {
-            int rowCount = ws.Dimension.Rows;
+            // `Dimension` returns null if the worksheet contains no cells
+            int rowCount = ws.Dimension?.Rows ?? 0;
 
             for (int i = 4; i <= rowCount; ++i)
             {
@@ -67,16 +92,27 @@ public static class FileProcessor
         }
     }
 
+    /// <summary>
+    /// Opens an Excel file at a location specified by <paramref name="fullPath"/> and adds rows of tasks from the file to <paramref name="tasks"/>.
+    /// </summary>
+    /// <param name="tasks">The collection to populate.</param>
+    /// <param name="fullPath">Absolute path to the Excel file.</param>
     public static void LoadTaskDatabaseFromExcel(BindingList<TaskModel> tasks, string fullPath)
     {
         using var package = new ExcelPackage(fullPath);
+
+        // For some reason, you can have Excel files with no worksheets...
+        if (package.Workbook.Worksheets.Count is 0)
+            return;
+
         var worksheet = package.Workbook.Worksheets[0];
 
         ImportTasks(worksheet, tasks);
 
         static void ImportTasks(ExcelWorksheet ws, BindingList<TaskModel> tasks)
         {
-            int rowCount = ws.Dimension.Rows;
+            // `Dimension` returns null if the worksheet contains no cells
+            int rowCount = ws.Dimension?.Rows ?? 0;
 
             for (int i = 2; i <= rowCount; ++i)
             {
@@ -99,8 +135,15 @@ public static class FileProcessor
         }
     }
 
+    /// <summary>
+    /// Creates or replaces an Excel file at a location specified by <paramref name="fullPath"/> and
+    /// writes all necessary data from <paramref name="project"/> to the Excel file after formatting it.
+    /// </summary>
+    /// <param name="project">The project to read from.</param>
+    /// <param name="fullPath">Absolute path to the Excel file.</param>
     public static void SaveProjectToExcel(ProjectModel project, string fullPath)
     {
+        // Update the file by replacing it with a new one if it already exists
         File.Delete(fullPath);
 
         using var package = new ExcelPackage(fullPath);
@@ -129,10 +172,9 @@ public static class FileProcessor
 
             // Set background color
             var blue = Color.FromArgb(0x538DD5);
-            var green = Color.FromArgb(0x00B050);
-            var yellow = Color.FromArgb(0xFFFF00);
-            var red = Color.FromArgb(0xFF0000);
-
+            //  var green = Color.FromArgb(0x00B050);
+            //  var yellow = Color.FromArgb(0xFFFF00);
+            //  var red = Color.FromArgb(0xFF0000);
             ws.Cells["A1:J3"].Style.Fill.PatternType = ExcelFillStyle.Solid;
             ws.Cells["A1:J3"].Style.Fill.BackgroundColor.SetColor(blue);
 
@@ -144,16 +186,14 @@ public static class FileProcessor
 
             // Adjust font
             ws.Rows[3].Style.Font.Size = 9;
-            ws.Cells["A1"].Style.Font.Bold = true;
-            ws.Cells["A2"].Style.Font.Bold = true;
-            ws.Cells["C1"].Style.Font.Bold = true;
-            ws.Cells["C2"].Style.Font.Bold = true;
             ws.Rows[3].Style.Font.Bold = true;
+            ws.Cells["A1:A2"].Style.Font.Bold = true;
+            ws.Cells["C1:C2"].Style.Font.Bold = true;
 
             // Adjust text alignment
             ws.Cells["A1:J3"].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
             ws.Cells["A3:J3"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-            
+
             // Enable world wrap
             ws.Cells["C3:J3"].Style.WrapText = true;
 
@@ -195,6 +235,9 @@ public static class FileProcessor
 
             foreach (var task in tasks)
             {
+                // If we just set `Value` to our string values, Excel will not automatically
+                // format numbers or dates but will treat them as plain text, which causes
+                // warnings in the worksheet for cells containing numbers that are written as strings
                 ws.Cells[row, 1].Value = ParseType(task.Reference);
                 ws.Cells[row, 2].Value = ParseType(task.Description);
                 ws.Cells[row, 3].Value = ParseType(task.TrainingCategory);
@@ -212,9 +255,12 @@ public static class FileProcessor
 
         static object ParseType(string value)
         {
+            // If you did not understand what this is for, delete this method and run
+            // the program without it. After saving the Excel file, try to open it and
+            // you will see warnings on cells that contain "potentially integer" values
             if (int.TryParse(value, out int a))
                 return a;
-            
+
             if (double.TryParse(value, out var b))
                 return b;
 
@@ -225,6 +271,12 @@ public static class FileProcessor
         }
     }
 
+    /// <summary>
+    /// Writes all necessary data from <paramref name="project"/> to a newly created JSON file
+    /// at a location specified by <paramref name="fullPath"/>.
+    /// </summary>
+    /// <param name="project">The project to read from.</param>
+    /// <param name="fullPath">Absolute path to the JSON file.</param>
     public static void SaveProjectToJson(ProjectModel project, string fullPath)
     {
         using var file = File.CreateText(fullPath);
@@ -232,8 +284,15 @@ public static class FileProcessor
         file.WriteLine(data);
     }
 
+    /// <summary>
+    /// Writes all necessary data from <paramref name="project"/> to a newly created XML file
+    /// at a location specified by <paramref name="fullPath"/>.
+    /// </summary>
+    /// <param name="project">The project to read from.</param>
+    /// <param name="fullPath">Absolute path to the XML file.</param>
     public static void SaveProjectToXML(ProjectModel project, string fullPath)
     {
+        // Don't bother reading it, I just copied it from the internet and it works
         using var file = File.CreateText(fullPath);
         var serializer = new XmlSerializer(typeof(ProjectModel));
         using var stringWriter = new StringWriter();
