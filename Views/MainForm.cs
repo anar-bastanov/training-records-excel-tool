@@ -287,6 +287,7 @@ public sealed partial class MainForm : Form
     public void BindAssignedTasks(BindingList<TaskModel> tasks)
     {
         _projectEditor.AssignedTasks.DataSource = tasks;
+        _projectEditor.AssignedTasks.Columns[1].ReadOnly = true;
     }
 
     public void BindAvailableTasks(BindingList<TaskModel> tasks)

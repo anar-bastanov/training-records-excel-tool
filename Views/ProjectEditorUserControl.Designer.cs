@@ -362,6 +362,7 @@ partial class ProjectEditorUserControl
         _assignedTasksDataGridView.Size = new Size(1225, 247);
         _assignedTasksDataGridView.TabIndex = 7;
         _assignedTasksDataGridView.CellContentClick += AssignedTasksDataGridView_CellContentClick;
+        _assignedTasksDataGridView.CellEnter += AssignedTasksDataGridView_CellEnter;
         _assignedTasksDataGridView.CellValueChanged += AssignedTasksDataGridView_CellValueChanged;
         _assignedTasksDataGridView.ColumnAdded += AssignedTasksDataGridView_ColumnAdded;
         _assignedTasksDataGridView.KeyDown += AssignedTasksDataGridView_KeyDown;

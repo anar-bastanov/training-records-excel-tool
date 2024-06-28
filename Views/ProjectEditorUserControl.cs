@@ -67,6 +67,11 @@ public partial class ProjectEditorUserControl : UserControl
         CopyTaskDatabaseFilePath?.Invoke(sender, e);
     }
 
+    private void AssignedTasksDataGridView_CellEnter(object sender, DataGridViewCellEventArgs e)
+    {
+        _assignedTasksDataGridView.BeginEdit(true);
+    }
+
     private void AssignedTasksDataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
     {
         if (_assignedTasksDataGridView.Tag is not null)
@@ -74,10 +79,11 @@ public partial class ProjectEditorUserControl : UserControl
 
         _assignedTasksDataGridView.Tag = this;
 
-        var currentCell = _assignedTasksDataGridView[e.ColumnIndex, e.RowIndex];
+        var value = _assignedTasksDataGridView[e.ColumnIndex, e.RowIndex].Value;
 
         foreach (DataGridViewCell cell in _assignedTasksDataGridView.SelectedCells)
-            cell.Value = currentCell.Value;
+            if (!cell.ReadOnly)
+                cell.Value = value;
 
         _assignedTasksDataGridView.Tag = null;
     }
