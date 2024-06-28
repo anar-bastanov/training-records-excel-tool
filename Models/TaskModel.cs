@@ -65,7 +65,7 @@ public sealed class TaskModel : INotifyPropertyChanged
     public string Reference
     {
         get => _reference;
-        set => this.SetProperty(ref _reference, value, PropertyChanged);
+        set => this.SetProperty(ref _reference, value.ParseEntry(), PropertyChanged);
     }
 
     /// <summary>
@@ -74,7 +74,7 @@ public sealed class TaskModel : INotifyPropertyChanged
     public string Description
     {
         get => _description;
-        set => this.SetProperty(ref _description, value, PropertyChanged);
+        set => this.SetProperty(ref _description, value.ParseEntry(), PropertyChanged);
     }
 
     /// <summary>
@@ -84,7 +84,7 @@ public sealed class TaskModel : INotifyPropertyChanged
     public string TrainingCategory
     {
         get => _trainingCategory;
-        set => this.SetProperty(ref _trainingCategory, value, PropertyChanged);
+        set => this.SetProperty(ref _trainingCategory, value.ParseEntry(), PropertyChanged);
     }
 
     /// <summary>
@@ -93,7 +93,7 @@ public sealed class TaskModel : INotifyPropertyChanged
     public string Type
     {
         get => _type;
-        set => this.SetProperty(ref _type, value, PropertyChanged);
+        set => this.SetProperty(ref _type, value.ParseEntry(), PropertyChanged);
     }
 
     /// <summary>
@@ -103,7 +103,7 @@ public sealed class TaskModel : INotifyPropertyChanged
     public string TrainingStarted
     {
         get => _trainingStarted;
-        set => this.SetProperty(ref _trainingStarted, value, PropertyChanged);
+        set => this.SetProperty(ref _trainingStarted, value.ParseEntry(), PropertyChanged);
     }
 
     /// <summary>
@@ -113,7 +113,7 @@ public sealed class TaskModel : INotifyPropertyChanged
     public string TrainingCompleted
     {
         get => _trainingCompleted;
-        set => this.SetProperty(ref _trainingCompleted, value, PropertyChanged);
+        set => this.SetProperty(ref _trainingCompleted, value.ParseEntry(), PropertyChanged);
     }
 
     /// <summary>
@@ -123,7 +123,7 @@ public sealed class TaskModel : INotifyPropertyChanged
     public string TrainerInitials
     {
         get => _trainerInitials;
-        set => this.SetProperty(ref _trainerInitials, value, PropertyChanged);
+        set => this.SetProperty(ref _trainerInitials, value.ParseEntry(), PropertyChanged);
     }
 
     /// <summary>
@@ -133,7 +133,7 @@ public sealed class TaskModel : INotifyPropertyChanged
     public string CertifierInitials
     {
         get => _certifierInitials;
-        set => this.SetProperty(ref _certifierInitials, value, PropertyChanged);
+        set => this.SetProperty(ref _certifierInitials, value.ParseEntry(), PropertyChanged);
     }
 
     /// <summary>
@@ -143,7 +143,7 @@ public sealed class TaskModel : INotifyPropertyChanged
     public string CertifyingScore
     {
         get => _certifyingScore;
-        set => this.SetProperty(ref _certifyingScore, value, PropertyChanged);
+        set => this.SetProperty(ref _certifyingScore, value.ParseEntry(), PropertyChanged);
     }
 
     /// <summary>
@@ -153,6 +153,6 @@ public sealed class TaskModel : INotifyPropertyChanged
     public string RequiredScore
     {
         get => _requiredScore;
-        set => this.SetProperty(ref _requiredScore, value, PropertyChanged);
+        set => this.SetProperty(ref _requiredScore, value.ParseEntry(), PropertyChanged);
     }
 }

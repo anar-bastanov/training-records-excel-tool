@@ -26,7 +26,7 @@ public sealed class ProfileModel : INotifyPropertyChanged
     public string Trainee
     {
         get => _trainee;
-        set => this.SetProperty(ref _trainee, value, PropertyChanged);
+        set => this.SetProperty(ref _trainee, value.ParseEntry(), PropertyChanged);
     }
 
     /// <summary>
@@ -35,7 +35,7 @@ public sealed class ProfileModel : INotifyPropertyChanged
     public string Course
     {
         get => _course;
-        set => this.SetProperty(ref _course, value, PropertyChanged);
+        set => this.SetProperty(ref _course, value.ParseEntry(), PropertyChanged);
     }
 
     /// <summary>
@@ -44,7 +44,7 @@ public sealed class ProfileModel : INotifyPropertyChanged
     public string Position
     {
         get => _position;
-        set => this.SetProperty(ref _position, value, PropertyChanged);
+        set => this.SetProperty(ref _position, value.ParseEntry(), PropertyChanged);
     }
 
     /// <summary>
@@ -53,6 +53,6 @@ public sealed class ProfileModel : INotifyPropertyChanged
     public string Manager
     {
         get => _manager;
-        set => this.SetProperty(ref _manager, value, PropertyChanged);
+        set => this.SetProperty(ref _manager, value.ParseEntry(), PropertyChanged);
     }
 }

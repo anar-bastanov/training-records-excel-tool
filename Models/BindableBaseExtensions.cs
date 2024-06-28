@@ -34,4 +34,16 @@ public static class BindableBaseExtensions
         property = value;
         @event?.Invoke(obj, new PropertyChangedEventArgs(propertyName));
     }
+
+    /// <summary>
+    /// Parses the input <see langword="string"/> before using it in data binding to
+    /// disallow <see langword="null"/> values and untrimmed entries.
+    /// </summary>
+    /// <param name="value">The entry to parse.</param>
+    /// <returns>
+    /// An empty <see langword="string"/> if <paramref name="value"/> is <see langword="null"/>;
+    /// otherwise, a trimmed <see langword="string"/>.
+    /// </returns>
+    public static string ParseEntry(this string? value) =>
+        value?.Trim() ?? "";
 }

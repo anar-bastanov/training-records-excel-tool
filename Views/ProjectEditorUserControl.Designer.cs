@@ -281,6 +281,7 @@ partial class ProjectEditorUserControl
         taskDatabasePathPanel.BackColor = SystemColors.Control;
         taskDatabasePathPanel.BorderStyle = BorderStyle.FixedSingle;
         taskDatabasePathPanel.Controls.Add(_taskDatabasePathLabel);
+        taskDatabasePathPanel.Cursor = Cursors.No;
         taskDatabasePathPanel.Location = new Point(254, 825);
         taskDatabasePathPanel.Margin = new Padding(3, 3, 0, 3);
         taskDatabasePathPanel.Name = "taskDatabasePathPanel";
@@ -361,7 +362,6 @@ partial class ProjectEditorUserControl
         _assignedTasksDataGridView.Size = new Size(1225, 247);
         _assignedTasksDataGridView.TabIndex = 7;
         _assignedTasksDataGridView.CellContentClick += AssignedTasksDataGridView_CellContentClick;
-        _assignedTasksDataGridView.CellValidated += AssignedTasksDataGridView_CellValidated;
         _assignedTasksDataGridView.CellValueChanged += AssignedTasksDataGridView_CellValueChanged;
         _assignedTasksDataGridView.ColumnAdded += AssignedTasksDataGridView_ColumnAdded;
         _assignedTasksDataGridView.KeyDown += AssignedTasksDataGridView_KeyDown;

@@ -67,39 +67,17 @@ public partial class ProjectEditorUserControl : UserControl
         CopyTaskDatabaseFilePath?.Invoke(sender, e);
     }
 
-    private void AssignedTasksDataGridView_CellValidated(object sender, DataGridViewCellEventArgs e)
-    {
-        return;
-        var cell = _assignedTasksDataGridView[e.ColumnIndex, e.RowIndex];
-
-        if (cell.Value is null)
-        {
-            cell.Value = "";
-            return;
-        }
-
-        string value = cell.FormattedValue.ToString()!;
-        string trimmed = value.Trim();
-
-        if (value == trimmed)
-            return;
-
-        cell.Value = trimmed;
-    }
-
     private void AssignedTasksDataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
     {
-        if (_assignedTasksDataGridView.Tag is "")
+        if (_assignedTasksDataGridView.Tag is not null)
             return;
 
-        _assignedTasksDataGridView.Tag = "";
+        _assignedTasksDataGridView.Tag = this;
 
-        string text = _assignedTasksDataGridView[e.ColumnIndex, e.RowIndex].Value?.ToString() ?? "";
+        var currentCell = _assignedTasksDataGridView[e.ColumnIndex, e.RowIndex];
 
         foreach (DataGridViewCell cell in _assignedTasksDataGridView.SelectedCells)
-        {
-            cell.Value = text;
-        }
+            cell.Value = currentCell.Value;
 
         _assignedTasksDataGridView.Tag = null;
     }
