@@ -9,6 +9,8 @@
     <ImplicitUsings>disable</ImplicitUsings>
     <ApplicationIcon>Resources\AppIcon.ico</ApplicationIcon>
     <Title>Master Training Records</Title>
+    <ForceDesignerDpiUnaware>true</ForceDesignerDpiUnaware>
+    <ApplicationHighDpiMode>DpiUnawareGdiScaled</ApplicationHighDpiMode>
   </PropertyGroup>
 
   <ItemGroup>

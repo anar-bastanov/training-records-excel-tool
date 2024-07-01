@@ -108,9 +108,9 @@ partial class ProjectEditorUserControl
         // 
         profileTableLayout.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
         profileTableLayout.ColumnCount = 4;
-        profileTableLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 140F));
+        profileTableLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 94F));
         profileTableLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-        profileTableLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 160F));
+        profileTableLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 107F));
         profileTableLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
         profileTableLayout.Controls.Add(managerPanel, 3, 1);
         profileTableLayout.Controls.Add(coursePanel, 1, 1);
@@ -120,12 +120,12 @@ partial class ProjectEditorUserControl
         profileTableLayout.Controls.Add(courseLabel, 0, 1);
         profileTableLayout.Controls.Add(positionLabel, 2, 0);
         profileTableLayout.Controls.Add(managerLabel, 2, 1);
-        profileTableLayout.Location = new Point(25, 25);
+        profileTableLayout.Location = new Point(20, 24);
         profileTableLayout.Name = "profileTableLayout";
         profileTableLayout.RowCount = 2;
         profileTableLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
         profileTableLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-        profileTableLayout.Size = new Size(1235, 122);
+        profileTableLayout.Size = new Size(823, 80);
         profileTableLayout.TabIndex = 1;
         // 
         // managerPanel
@@ -134,10 +134,11 @@ partial class ProjectEditorUserControl
         managerPanel.BackColor = SystemColors.Window;
         managerPanel.BorderStyle = BorderStyle.FixedSingle;
         managerPanel.Controls.Add(_managerRichTextBox);
-        managerPanel.Location = new Point(770, 64);
+        managerPanel.Location = new Point(514, 40);
+        managerPanel.Margin = new Padding(2, 0, 2, 2);
         managerPanel.Name = "managerPanel";
-        managerPanel.Padding = new Padding(10, 5, 10, 0);
-        managerPanel.Size = new Size(462, 55);
+        managerPanel.Padding = new Padding(5, 5, 5, 0);
+        managerPanel.Size = new Size(307, 38);
         managerPanel.TabIndex = 4;
         // 
         // _managerRichTextBox
@@ -145,11 +146,12 @@ partial class ProjectEditorUserControl
         _managerRichTextBox.BorderStyle = BorderStyle.None;
         _managerRichTextBox.DetectUrls = false;
         _managerRichTextBox.Dock = DockStyle.Fill;
-        _managerRichTextBox.Location = new Point(10, 5);
+        _managerRichTextBox.Location = new Point(5, 5);
+        _managerRichTextBox.Margin = new Padding(5, 5, 5, 0);
         _managerRichTextBox.Multiline = false;
         _managerRichTextBox.Name = "_managerRichTextBox";
         _managerRichTextBox.ScrollBars = RichTextBoxScrollBars.None;
-        _managerRichTextBox.Size = new Size(440, 48);
+        _managerRichTextBox.Size = new Size(295, 31);
         _managerRichTextBox.TabIndex = 0;
         _managerRichTextBox.Text = "";
         _managerRichTextBox.WordWrap = false;
@@ -160,10 +162,11 @@ partial class ProjectEditorUserControl
         coursePanel.BackColor = SystemColors.Window;
         coursePanel.BorderStyle = BorderStyle.FixedSingle;
         coursePanel.Controls.Add(_courseRichTextBox);
-        coursePanel.Location = new Point(143, 64);
+        coursePanel.Location = new Point(96, 40);
+        coursePanel.Margin = new Padding(2, 0, 2, 2);
         coursePanel.Name = "coursePanel";
-        coursePanel.Padding = new Padding(10, 5, 10, 0);
-        coursePanel.Size = new Size(461, 55);
+        coursePanel.Padding = new Padding(5, 5, 5, 0);
+        coursePanel.Size = new Size(307, 38);
         coursePanel.TabIndex = 3;
         // 
         // _courseRichTextBox
@@ -171,11 +174,11 @@ partial class ProjectEditorUserControl
         _courseRichTextBox.BorderStyle = BorderStyle.None;
         _courseRichTextBox.DetectUrls = false;
         _courseRichTextBox.Dock = DockStyle.Fill;
-        _courseRichTextBox.Location = new Point(10, 5);
+        _courseRichTextBox.Location = new Point(5, 5);
         _courseRichTextBox.Multiline = false;
         _courseRichTextBox.Name = "_courseRichTextBox";
         _courseRichTextBox.ScrollBars = RichTextBoxScrollBars.None;
-        _courseRichTextBox.Size = new Size(439, 48);
+        _courseRichTextBox.Size = new Size(295, 31);
         _courseRichTextBox.TabIndex = 0;
         _courseRichTextBox.Text = "";
         _courseRichTextBox.WordWrap = false;
@@ -186,10 +189,11 @@ partial class ProjectEditorUserControl
         positionPanel.BackColor = SystemColors.Window;
         positionPanel.BorderStyle = BorderStyle.FixedSingle;
         positionPanel.Controls.Add(_positionRichTextBox);
-        positionPanel.Location = new Point(770, 3);
+        positionPanel.Location = new Point(514, 0);
+        positionPanel.Margin = new Padding(2, 0, 2, 2);
         positionPanel.Name = "positionPanel";
-        positionPanel.Padding = new Padding(10, 5, 10, 0);
-        positionPanel.Size = new Size(462, 55);
+        positionPanel.Padding = new Padding(5, 5, 5, 0);
+        positionPanel.Size = new Size(307, 38);
         positionPanel.TabIndex = 2;
         // 
         // _positionRichTextBox
@@ -197,11 +201,11 @@ partial class ProjectEditorUserControl
         _positionRichTextBox.BorderStyle = BorderStyle.None;
         _positionRichTextBox.DetectUrls = false;
         _positionRichTextBox.Dock = DockStyle.Fill;
-        _positionRichTextBox.Location = new Point(10, 5);
+        _positionRichTextBox.Location = new Point(5, 5);
         _positionRichTextBox.Multiline = false;
         _positionRichTextBox.Name = "_positionRichTextBox";
         _positionRichTextBox.ScrollBars = RichTextBoxScrollBars.None;
-        _positionRichTextBox.Size = new Size(440, 48);
+        _positionRichTextBox.Size = new Size(295, 31);
         _positionRichTextBox.TabIndex = 0;
         _positionRichTextBox.Text = "";
         _positionRichTextBox.WordWrap = false;
@@ -212,10 +216,11 @@ partial class ProjectEditorUserControl
         traineePanel.BackColor = SystemColors.Window;
         traineePanel.BorderStyle = BorderStyle.FixedSingle;
         traineePanel.Controls.Add(_traineeRichTextBox);
-        traineePanel.Location = new Point(143, 3);
+        traineePanel.Location = new Point(96, 0);
+        traineePanel.Margin = new Padding(2, 0, 2, 2);
         traineePanel.Name = "traineePanel";
-        traineePanel.Padding = new Padding(10, 5, 10, 0);
-        traineePanel.Size = new Size(461, 55);
+        traineePanel.Padding = new Padding(5, 5, 5, 0);
+        traineePanel.Size = new Size(307, 38);
         traineePanel.TabIndex = 1;
         // 
         // _traineeRichTextBox
@@ -223,31 +228,31 @@ partial class ProjectEditorUserControl
         _traineeRichTextBox.BorderStyle = BorderStyle.None;
         _traineeRichTextBox.DetectUrls = false;
         _traineeRichTextBox.Dock = DockStyle.Fill;
-        _traineeRichTextBox.Location = new Point(10, 5);
+        _traineeRichTextBox.Location = new Point(5, 5);
         _traineeRichTextBox.Multiline = false;
         _traineeRichTextBox.Name = "_traineeRichTextBox";
         _traineeRichTextBox.ScrollBars = RichTextBoxScrollBars.None;
-        _traineeRichTextBox.Size = new Size(439, 48);
+        _traineeRichTextBox.Size = new Size(295, 31);
         _traineeRichTextBox.TabIndex = 0;
         _traineeRichTextBox.Text = "";
         _traineeRichTextBox.WordWrap = false;
         // 
         // traineeLabel
         // 
-        traineeLabel.Location = new Point(5, 0);
-        traineeLabel.Margin = new Padding(5, 0, 5, 0);
+        traineeLabel.Location = new Point(6, 0);
+        traineeLabel.Margin = new Padding(6, 0, 6, 0);
         traineeLabel.Name = "traineeLabel";
-        traineeLabel.Size = new Size(130, 43);
+        traineeLabel.Size = new Size(82, 40);
         traineeLabel.TabIndex = 0;
         traineeLabel.Text = "Trainee";
         traineeLabel.TextAlign = ContentAlignment.MiddleCenter;
         // 
         // courseLabel
         // 
-        courseLabel.Location = new Point(5, 61);
-        courseLabel.Margin = new Padding(5, 0, 5, 0);
+        courseLabel.Location = new Point(6, 40);
+        courseLabel.Margin = new Padding(6, 0, 6, 0);
         courseLabel.Name = "courseLabel";
-        courseLabel.Size = new Size(130, 43);
+        courseLabel.Size = new Size(82, 40);
         courseLabel.TabIndex = 0;
         courseLabel.Text = "Course";
         courseLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -255,10 +260,10 @@ partial class ProjectEditorUserControl
         // positionLabel
         // 
         positionLabel.Anchor = AnchorStyles.Top;
-        positionLabel.Location = new Point(616, 0);
-        positionLabel.Margin = new Padding(5, 0, 5, 0);
+        positionLabel.Location = new Point(411, 0);
+        positionLabel.Margin = new Padding(6, 0, 6, 0);
         positionLabel.Name = "positionLabel";
-        positionLabel.Size = new Size(142, 43);
+        positionLabel.Size = new Size(95, 40);
         positionLabel.TabIndex = 0;
         positionLabel.Text = "Position";
         positionLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -266,10 +271,10 @@ partial class ProjectEditorUserControl
         // managerLabel
         // 
         managerLabel.Anchor = AnchorStyles.Top;
-        managerLabel.Location = new Point(616, 61);
-        managerLabel.Margin = new Padding(5, 0, 5, 0);
+        managerLabel.Location = new Point(411, 40);
+        managerLabel.Margin = new Padding(6, 0, 6, 0);
         managerLabel.Name = "managerLabel";
-        managerLabel.Size = new Size(142, 43);
+        managerLabel.Size = new Size(95, 40);
         managerLabel.TabIndex = 0;
         managerLabel.Text = "Manager";
         managerLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -281,11 +286,11 @@ partial class ProjectEditorUserControl
         taskDatabasePathPanel.BorderStyle = BorderStyle.FixedSingle;
         taskDatabasePathPanel.Controls.Add(_taskDatabasePathLabel);
         taskDatabasePathPanel.Cursor = Cursors.No;
-        taskDatabasePathPanel.Location = new Point(254, 825);
-        taskDatabasePathPanel.Margin = new Padding(3, 3, 0, 3);
+        taskDatabasePathPanel.Location = new Point(174, 549);
+        taskDatabasePathPanel.Margin = new Padding(2, 2, 0, 2);
         taskDatabasePathPanel.Name = "taskDatabasePathPanel";
         taskDatabasePathPanel.Padding = new Padding(10, 2, 10, 0);
-        taskDatabasePathPanel.Size = new Size(768, 51);
+        taskDatabasePathPanel.Size = new Size(508, 34);
         taskDatabasePathPanel.TabIndex = 0;
         // 
         // _taskDatabasePathLabel
@@ -295,7 +300,7 @@ partial class ProjectEditorUserControl
         _taskDatabasePathLabel.ForeColor = SystemColors.GrayText;
         _taskDatabasePathLabel.Location = new Point(10, 2);
         _taskDatabasePathLabel.Name = "_taskDatabasePathLabel";
-        _taskDatabasePathLabel.Size = new Size(746, 47);
+        _taskDatabasePathLabel.Size = new Size(486, 30);
         _taskDatabasePathLabel.TabIndex = 0;
         // 
         // tasksTableLayoutPanel
@@ -307,15 +312,15 @@ partial class ProjectEditorUserControl
         tasksTableLayoutPanel.Controls.Add(assignedTaskSearchTableLayoutPanel, 0, 0);
         tasksTableLayoutPanel.Controls.Add(_availableTasksDataGridView, 0, 4);
         tasksTableLayoutPanel.Controls.Add(availableTaskSearchTableLayoutPanel, 0, 3);
-        tasksTableLayoutPanel.Location = new Point(35, 175);
+        tasksTableLayoutPanel.Location = new Point(26, 120);
         tasksTableLayoutPanel.Name = "tasksTableLayoutPanel";
         tasksTableLayoutPanel.RowCount = 5;
-        tasksTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
+        tasksTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
         tasksTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-        tasksTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
-        tasksTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
+        tasksTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 18F));
+        tasksTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
         tasksTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-        tasksTableLayoutPanel.Size = new Size(1225, 620);
+        tasksTableLayoutPanel.Size = new Size(817, 406);
         tasksTableLayoutPanel.TabIndex = 4;
         // 
         // _assignedTasksDataGridView
@@ -345,7 +350,7 @@ partial class ProjectEditorUserControl
         _assignedTasksDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
         _assignedTasksDataGridView.Dock = DockStyle.Fill;
         _assignedTasksDataGridView.EnableHeadersVisualStyles = false;
-        _assignedTasksDataGridView.Location = new Point(0, 50);
+        _assignedTasksDataGridView.Location = new Point(0, 35);
         _assignedTasksDataGridView.Margin = new Padding(0);
         _assignedTasksDataGridView.Name = "_assignedTasksDataGridView";
         _assignedTasksDataGridView.RowHeadersVisible = false;
@@ -357,7 +362,7 @@ partial class ProjectEditorUserControl
         _assignedTasksDataGridView.ShowCellToolTips = false;
         _assignedTasksDataGridView.ShowEditingIcon = false;
         _assignedTasksDataGridView.ShowRowErrors = false;
-        _assignedTasksDataGridView.Size = new Size(1225, 247);
+        _assignedTasksDataGridView.Size = new Size(817, 159);
         _assignedTasksDataGridView.TabIndex = 7;
         _assignedTasksDataGridView.CellEnter += AssignedTasksDataGridView_CellEnter;
         _assignedTasksDataGridView.CellValueChanged += AssignedTasksDataGridView_CellValueChanged;
@@ -367,13 +372,13 @@ partial class ProjectEditorUserControl
         // assignedTaskSearchTableLayoutPanel
         // 
         assignedTaskSearchTableLayoutPanel.ColumnCount = 7;
-        assignedTaskSearchTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 188F));
+        assignedTaskSearchTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 130F));
         assignedTaskSearchTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 65F));
-        assignedTaskSearchTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 25F));
-        assignedTaskSearchTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 132F));
-        assignedTaskSearchTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
+        assignedTaskSearchTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 16F));
+        assignedTaskSearchTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 90F));
+        assignedTaskSearchTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 147F));
         assignedTaskSearchTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 35F));
-        assignedTaskSearchTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 235F));
+        assignedTaskSearchTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 160F));
         assignedTaskSearchTableLayoutPanel.Controls.Add(assignedTaskSearchPatternPanel, 1, 0);
         assignedTaskSearchTableLayoutPanel.Controls.Add(assignedTaskSearchPatternLabel, 0, 0);
         assignedTaskSearchTableLayoutPanel.Controls.Add(assignedTaskSearchByLabel, 3, 0);
@@ -384,7 +389,7 @@ partial class ProjectEditorUserControl
         assignedTaskSearchTableLayoutPanel.Name = "assignedTaskSearchTableLayoutPanel";
         assignedTaskSearchTableLayoutPanel.RowCount = 1;
         assignedTaskSearchTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-        assignedTaskSearchTableLayoutPanel.Size = new Size(1219, 44);
+        assignedTaskSearchTableLayoutPanel.Size = new Size(811, 29);
         assignedTaskSearchTableLayoutPanel.TabIndex = 0;
         // 
         // assignedTaskSearchPatternPanel
@@ -393,10 +398,11 @@ partial class ProjectEditorUserControl
         assignedTaskSearchPatternPanel.BorderStyle = BorderStyle.FixedSingle;
         assignedTaskSearchPatternPanel.Controls.Add(_assignedTaskSearchPatternRichTextBox);
         assignedTaskSearchPatternPanel.Dock = DockStyle.Fill;
-        assignedTaskSearchPatternPanel.Location = new Point(191, 3);
+        assignedTaskSearchPatternPanel.Location = new Point(132, 2);
+        assignedTaskSearchPatternPanel.Margin = new Padding(2);
         assignedTaskSearchPatternPanel.Name = "assignedTaskSearchPatternPanel";
-        assignedTaskSearchPatternPanel.Padding = new Padding(10, 0, 10, 0);
-        assignedTaskSearchPatternPanel.Size = new Size(266, 38);
+        assignedTaskSearchPatternPanel.Padding = new Padding(7, 0, 7, 0);
+        assignedTaskSearchPatternPanel.Size = new Size(170, 25);
         assignedTaskSearchPatternPanel.TabIndex = 0;
         // 
         // _assignedTaskSearchPatternRichTextBox
@@ -405,11 +411,11 @@ partial class ProjectEditorUserControl
         _assignedTaskSearchPatternRichTextBox.DetectUrls = false;
         _assignedTaskSearchPatternRichTextBox.Dock = DockStyle.Fill;
         _assignedTaskSearchPatternRichTextBox.Font = new Font("Bahnschrift SemiCondensed", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        _assignedTaskSearchPatternRichTextBox.Location = new Point(10, 0);
+        _assignedTaskSearchPatternRichTextBox.Location = new Point(7, 0);
         _assignedTaskSearchPatternRichTextBox.Multiline = false;
         _assignedTaskSearchPatternRichTextBox.Name = "_assignedTaskSearchPatternRichTextBox";
         _assignedTaskSearchPatternRichTextBox.ScrollBars = RichTextBoxScrollBars.None;
-        _assignedTaskSearchPatternRichTextBox.Size = new Size(244, 36);
+        _assignedTaskSearchPatternRichTextBox.Size = new Size(154, 23);
         _assignedTaskSearchPatternRichTextBox.TabIndex = 9;
         _assignedTaskSearchPatternRichTextBox.Text = "";
         _assignedTaskSearchPatternRichTextBox.WordWrap = false;
@@ -422,7 +428,7 @@ partial class ProjectEditorUserControl
         assignedTaskSearchPatternLabel.Font = new Font("Bahnschrift SemiCondensed", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
         assignedTaskSearchPatternLabel.Location = new Point(3, 0);
         assignedTaskSearchPatternLabel.Name = "assignedTaskSearchPatternLabel";
-        assignedTaskSearchPatternLabel.Size = new Size(182, 44);
+        assignedTaskSearchPatternLabel.Size = new Size(124, 29);
         assignedTaskSearchPatternLabel.TabIndex = 0;
         assignedTaskSearchPatternLabel.Text = "Search Pattern";
         assignedTaskSearchPatternLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -432,9 +438,9 @@ partial class ProjectEditorUserControl
         assignedTaskSearchByLabel.AutoSize = true;
         assignedTaskSearchByLabel.Dock = DockStyle.Fill;
         assignedTaskSearchByLabel.Font = new Font("Bahnschrift SemiCondensed", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        assignedTaskSearchByLabel.Location = new Point(488, 0);
+        assignedTaskSearchByLabel.Location = new Point(323, 0);
         assignedTaskSearchByLabel.Name = "assignedTaskSearchByLabel";
-        assignedTaskSearchByLabel.Size = new Size(126, 44);
+        assignedTaskSearchByLabel.Size = new Size(84, 29);
         assignedTaskSearchByLabel.TabIndex = 21;
         assignedTaskSearchByLabel.Text = "Search By";
         assignedTaskSearchByLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -445,11 +451,12 @@ partial class ProjectEditorUserControl
         _assignedTaskSearchByComboBox.Dock = DockStyle.Fill;
         _assignedTaskSearchByComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
         _assignedTaskSearchByComboBox.Font = new Font("Bahnschrift SemiCondensed", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        _assignedTaskSearchByComboBox.ItemHeight = 29;
+        _assignedTaskSearchByComboBox.ItemHeight = 19;
         _assignedTaskSearchByComboBox.Items.AddRange(new object[] { "Reference", "Description", "Training Category", "Type", "Training Started", "Training Completed", "Trainer Initials", "Certifier Initials", "Certifying Score", "Required Score" });
-        _assignedTaskSearchByComboBox.Location = new Point(620, 3);
+        _assignedTaskSearchByComboBox.Location = new Point(412, 2);
+        _assignedTaskSearchByComboBox.Margin = new Padding(2);
         _assignedTaskSearchByComboBox.Name = "_assignedTaskSearchByComboBox";
-        _assignedTaskSearchByComboBox.Size = new Size(214, 37);
+        _assignedTaskSearchByComboBox.Size = new Size(143, 27);
         _assignedTaskSearchByComboBox.TabIndex = 10;
         _assignedTaskSearchByComboBox.SelectedIndexChanged += AssignedTaskSearchByComboBox_SelectedIndexChanged;
         // 
@@ -459,9 +466,9 @@ partial class ProjectEditorUserControl
         _assignedTaskSearchCountLabel.Dock = DockStyle.Fill;
         _assignedTaskSearchCountLabel.Font = new Font("Bahnschrift SemiCondensed", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
         _assignedTaskSearchCountLabel.ForeColor = SystemColors.GrayText;
-        _assignedTaskSearchCountLabel.Location = new Point(986, 0);
+        _assignedTaskSearchCountLabel.Location = new Point(653, 0);
         _assignedTaskSearchCountLabel.Name = "_assignedTaskSearchCountLabel";
-        _assignedTaskSearchCountLabel.Size = new Size(230, 44);
+        _assignedTaskSearchCountLabel.Size = new Size(155, 29);
         _assignedTaskSearchCountLabel.TabIndex = 0;
         _assignedTaskSearchCountLabel.TextAlign = ContentAlignment.MiddleRight;
         // 
@@ -492,7 +499,7 @@ partial class ProjectEditorUserControl
         _availableTasksDataGridView.DefaultCellStyle = dataGridViewCellStyle4;
         _availableTasksDataGridView.Dock = DockStyle.Fill;
         _availableTasksDataGridView.EnableHeadersVisualStyles = false;
-        _availableTasksDataGridView.Location = new Point(0, 372);
+        _availableTasksDataGridView.Location = new Point(0, 247);
         _availableTasksDataGridView.Margin = new Padding(0);
         _availableTasksDataGridView.Name = "_availableTasksDataGridView";
         _availableTasksDataGridView.ReadOnly = true;
@@ -504,7 +511,7 @@ partial class ProjectEditorUserControl
         _availableTasksDataGridView.ShowCellToolTips = false;
         _availableTasksDataGridView.ShowEditingIcon = false;
         _availableTasksDataGridView.ShowRowErrors = false;
-        _availableTasksDataGridView.Size = new Size(1225, 248);
+        _availableTasksDataGridView.Size = new Size(817, 159);
         _availableTasksDataGridView.TabIndex = 8;
         _availableTasksDataGridView.CellMouseDoubleClick += AvailableTasksDataGridView_CellMouseDoubleClick;
         _availableTasksDataGridView.ColumnAdded += AvailableTasksDataGridView_ColumnAdded;
@@ -513,24 +520,24 @@ partial class ProjectEditorUserControl
         // availableTaskSearchTableLayoutPanel
         // 
         availableTaskSearchTableLayoutPanel.ColumnCount = 7;
-        availableTaskSearchTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 188F));
+        availableTaskSearchTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 130F));
         availableTaskSearchTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 65F));
-        availableTaskSearchTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 25F));
-        availableTaskSearchTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 132F));
-        availableTaskSearchTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
+        availableTaskSearchTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 16F));
+        availableTaskSearchTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 90F));
+        availableTaskSearchTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 147F));
         availableTaskSearchTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 35F));
-        availableTaskSearchTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 235F));
+        availableTaskSearchTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 160F));
         availableTaskSearchTableLayoutPanel.Controls.Add(availableTaskSearchPatternPanel, 1, 0);
         availableTaskSearchTableLayoutPanel.Controls.Add(availableTaskSearchPatternLabel, 0, 0);
         availableTaskSearchTableLayoutPanel.Controls.Add(availableTaskSearchByLabel, 3, 0);
         availableTaskSearchTableLayoutPanel.Controls.Add(_availableTaskSearchByComboBox, 4, 0);
         availableTaskSearchTableLayoutPanel.Controls.Add(_availableTaskSearchCountLabel, 6, 0);
         availableTaskSearchTableLayoutPanel.Dock = DockStyle.Fill;
-        availableTaskSearchTableLayoutPanel.Location = new Point(3, 325);
+        availableTaskSearchTableLayoutPanel.Location = new Point(3, 215);
         availableTaskSearchTableLayoutPanel.Name = "availableTaskSearchTableLayoutPanel";
         availableTaskSearchTableLayoutPanel.RowCount = 1;
         availableTaskSearchTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-        availableTaskSearchTableLayoutPanel.Size = new Size(1219, 44);
+        availableTaskSearchTableLayoutPanel.Size = new Size(811, 29);
         availableTaskSearchTableLayoutPanel.TabIndex = 0;
         // 
         // availableTaskSearchPatternPanel
@@ -539,10 +546,11 @@ partial class ProjectEditorUserControl
         availableTaskSearchPatternPanel.BorderStyle = BorderStyle.FixedSingle;
         availableTaskSearchPatternPanel.Controls.Add(_availableTaskSearchPatternRichTextBox);
         availableTaskSearchPatternPanel.Dock = DockStyle.Fill;
-        availableTaskSearchPatternPanel.Location = new Point(191, 3);
+        availableTaskSearchPatternPanel.Location = new Point(132, 2);
+        availableTaskSearchPatternPanel.Margin = new Padding(2);
         availableTaskSearchPatternPanel.Name = "availableTaskSearchPatternPanel";
-        availableTaskSearchPatternPanel.Padding = new Padding(10, 0, 10, 0);
-        availableTaskSearchPatternPanel.Size = new Size(266, 38);
+        availableTaskSearchPatternPanel.Padding = new Padding(7, 0, 7, 0);
+        availableTaskSearchPatternPanel.Size = new Size(170, 25);
         availableTaskSearchPatternPanel.TabIndex = 0;
         // 
         // _availableTaskSearchPatternRichTextBox
@@ -551,11 +559,11 @@ partial class ProjectEditorUserControl
         _availableTaskSearchPatternRichTextBox.DetectUrls = false;
         _availableTaskSearchPatternRichTextBox.Dock = DockStyle.Fill;
         _availableTaskSearchPatternRichTextBox.Font = new Font("Bahnschrift SemiCondensed", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        _availableTaskSearchPatternRichTextBox.Location = new Point(10, 0);
+        _availableTaskSearchPatternRichTextBox.Location = new Point(7, 0);
         _availableTaskSearchPatternRichTextBox.Multiline = false;
         _availableTaskSearchPatternRichTextBox.Name = "_availableTaskSearchPatternRichTextBox";
         _availableTaskSearchPatternRichTextBox.ScrollBars = RichTextBoxScrollBars.None;
-        _availableTaskSearchPatternRichTextBox.Size = new Size(244, 36);
+        _availableTaskSearchPatternRichTextBox.Size = new Size(154, 23);
         _availableTaskSearchPatternRichTextBox.TabIndex = 11;
         _availableTaskSearchPatternRichTextBox.Text = "";
         _availableTaskSearchPatternRichTextBox.WordWrap = false;
@@ -568,7 +576,7 @@ partial class ProjectEditorUserControl
         availableTaskSearchPatternLabel.Font = new Font("Bahnschrift SemiCondensed", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
         availableTaskSearchPatternLabel.Location = new Point(3, 0);
         availableTaskSearchPatternLabel.Name = "availableTaskSearchPatternLabel";
-        availableTaskSearchPatternLabel.Size = new Size(182, 44);
+        availableTaskSearchPatternLabel.Size = new Size(124, 29);
         availableTaskSearchPatternLabel.TabIndex = 0;
         availableTaskSearchPatternLabel.Text = "Search Pattern";
         availableTaskSearchPatternLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -578,9 +586,9 @@ partial class ProjectEditorUserControl
         availableTaskSearchByLabel.AutoSize = true;
         availableTaskSearchByLabel.Dock = DockStyle.Fill;
         availableTaskSearchByLabel.Font = new Font("Bahnschrift SemiCondensed", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        availableTaskSearchByLabel.Location = new Point(488, 0);
+        availableTaskSearchByLabel.Location = new Point(323, 0);
         availableTaskSearchByLabel.Name = "availableTaskSearchByLabel";
-        availableTaskSearchByLabel.Size = new Size(126, 44);
+        availableTaskSearchByLabel.Size = new Size(84, 29);
         availableTaskSearchByLabel.TabIndex = 0;
         availableTaskSearchByLabel.Text = "Search By";
         availableTaskSearchByLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -591,11 +599,12 @@ partial class ProjectEditorUserControl
         _availableTaskSearchByComboBox.Dock = DockStyle.Fill;
         _availableTaskSearchByComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
         _availableTaskSearchByComboBox.Font = new Font("Bahnschrift SemiCondensed", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        _availableTaskSearchByComboBox.ItemHeight = 29;
+        _availableTaskSearchByComboBox.ItemHeight = 19;
         _availableTaskSearchByComboBox.Items.AddRange(new object[] { "Reference", "Description", "Training Category", "Type", "Training Started", "Training Completed", "Trainer Initials", "Certifier Initials", "Certifying Score", "Required Score" });
-        _availableTaskSearchByComboBox.Location = new Point(620, 3);
+        _availableTaskSearchByComboBox.Location = new Point(412, 2);
+        _availableTaskSearchByComboBox.Margin = new Padding(2);
         _availableTaskSearchByComboBox.Name = "_availableTaskSearchByComboBox";
-        _availableTaskSearchByComboBox.Size = new Size(214, 37);
+        _availableTaskSearchByComboBox.Size = new Size(143, 27);
         _availableTaskSearchByComboBox.TabIndex = 12;
         _availableTaskSearchByComboBox.SelectedIndexChanged += AvailableTaskSearchByComboBox_SelectedIndexChanged;
         // 
@@ -605,9 +614,9 @@ partial class ProjectEditorUserControl
         _availableTaskSearchCountLabel.Dock = DockStyle.Fill;
         _availableTaskSearchCountLabel.Font = new Font("Bahnschrift SemiCondensed", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
         _availableTaskSearchCountLabel.ForeColor = SystemColors.GrayText;
-        _availableTaskSearchCountLabel.Location = new Point(986, 0);
+        _availableTaskSearchCountLabel.Location = new Point(653, 0);
         _availableTaskSearchCountLabel.Name = "_availableTaskSearchCountLabel";
-        _availableTaskSearchCountLabel.Size = new Size(230, 44);
+        _availableTaskSearchCountLabel.Size = new Size(155, 29);
         _availableTaskSearchCountLabel.TabIndex = 0;
         _availableTaskSearchCountLabel.TextAlign = ContentAlignment.MiddleRight;
         // 
@@ -615,10 +624,10 @@ partial class ProjectEditorUserControl
         // 
         taskDatabaseLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
         taskDatabaseLabel.AutoSize = true;
-        taskDatabaseLabel.Location = new Point(25, 825);
-        taskDatabaseLabel.Margin = new Padding(5, 0, 5, 0);
+        taskDatabaseLabel.Location = new Point(20, 551);
+        taskDatabaseLabel.Margin = new Padding(6, 0, 6, 0);
         taskDatabaseLabel.Name = "taskDatabaseLabel";
-        taskDatabaseLabel.Size = new Size(221, 43);
+        taskDatabaseLabel.Size = new Size(145, 29);
         taskDatabaseLabel.TabIndex = 0;
         taskDatabaseLabel.Text = "Task Database";
         taskDatabaseLabel.TextAlign = ContentAlignment.MiddleLeft;
@@ -629,10 +638,10 @@ partial class ProjectEditorUserControl
         copyTaskDatabaseFilePathButton.BackgroundImage = (Image)resources.GetObject("copyTaskDatabaseFilePathButton.BackgroundImage");
         copyTaskDatabaseFilePathButton.BackgroundImageLayout = ImageLayout.Zoom;
         copyTaskDatabaseFilePathButton.Cursor = Cursors.Hand;
-        copyTaskDatabaseFilePathButton.Location = new Point(1022, 825);
+        copyTaskDatabaseFilePathButton.Location = new Point(682, 549);
         copyTaskDatabaseFilePathButton.Margin = new Padding(0, 3, 3, 3);
         copyTaskDatabaseFilePathButton.Name = "copyTaskDatabaseFilePathButton";
-        copyTaskDatabaseFilePathButton.Size = new Size(51, 51);
+        copyTaskDatabaseFilePathButton.Size = new Size(34, 34);
         copyTaskDatabaseFilePathButton.TabIndex = 3;
         copyTaskDatabaseFilePathButton.UseVisualStyleBackColor = true;
         copyTaskDatabaseFilePathButton.Click += CopyTaskDatabaseFilePathButton_Click;
@@ -642,9 +651,9 @@ partial class ProjectEditorUserControl
         _selectTaskDatabaseButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
         _selectTaskDatabaseButton.AutoSize = true;
         _selectTaskDatabaseButton.Cursor = Cursors.Hand;
-        _selectTaskDatabaseButton.Location = new Point(1079, 825);
+        _selectTaskDatabaseButton.Location = new Point(722, 547);
         _selectTaskDatabaseButton.Name = "_selectTaskDatabaseButton";
-        _selectTaskDatabaseButton.Size = new Size(186, 53);
+        _selectTaskDatabaseButton.Size = new Size(121, 39);
         _selectTaskDatabaseButton.TabIndex = 2;
         _selectTaskDatabaseButton.Text = "Select File";
         _selectTaskDatabaseButton.UseVisualStyleBackColor = true;
@@ -652,7 +661,7 @@ partial class ProjectEditorUserControl
         // 
         // ProjectEditorUserControl
         // 
-        AutoScaleDimensions = new SizeF(17F, 43F);
+        AutoScaleDimensions = new SizeF(11F, 29F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = SystemColors.Control;
         Controls.Add(tasksTableLayoutPanel);
@@ -662,9 +671,9 @@ partial class ProjectEditorUserControl
         Controls.Add(_selectTaskDatabaseButton);
         Controls.Add(taskDatabaseLabel);
         Font = new Font("Bahnschrift SemiCondensed", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        Margin = new Padding(5);
+        Margin = new Padding(6, 5, 6, 5);
         Name = "ProjectEditorUserControl";
-        Size = new Size(1300, 900);
+        Size = new Size(870, 600);
         Load += ProjectEditorUserControl_Load;
         profileTableLayout.ResumeLayout(false);
         managerPanel.ResumeLayout(false);

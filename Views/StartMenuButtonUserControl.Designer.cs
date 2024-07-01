@@ -39,9 +39,9 @@ partial class StartMenuButtonUserControl
         _buttonText.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         _buttonText.BackColor = SystemColors.ButtonHighlight;
         _buttonText.Font = new Font("Bahnschrift SemiCondensed", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        _buttonText.Location = new Point(25, 200);
+        _buttonText.Location = new Point(16, 135);
         _buttonText.Name = "_buttonText";
-        _buttonText.Size = new Size(150, 50);
+        _buttonText.Size = new Size(104, 34);
         _buttonText.TabIndex = 0;
         _buttonText.Text = "Button";
         _buttonText.TextAlign = ContentAlignment.MiddleCenter;
@@ -51,15 +51,15 @@ partial class StartMenuButtonUserControl
         _buttonIcon.BackColor = SystemColors.ButtonHighlight;
         _buttonIcon.BackgroundImage = (Image)resources.GetObject("_buttonIcon.BackgroundImage");
         _buttonIcon.BackgroundImageLayout = ImageLayout.Zoom;
-        _buttonIcon.Location = new Point(25, 25);
+        _buttonIcon.Location = new Point(16, 16);
         _buttonIcon.Name = "_buttonIcon";
-        _buttonIcon.Size = new Size(150, 150);
+        _buttonIcon.Size = new Size(104, 104);
         _buttonIcon.TabIndex = 1;
         _buttonIcon.TabStop = false;
         // 
-        // StartMenuButton
+        // StartMenuButtonUserControl
         // 
-        AutoScaleDimensions = new SizeF(20F, 48F);
+        AutoScaleDimensions = new SizeF(13F, 32F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = SystemColors.ControlLight;
         BackgroundImageLayout = ImageLayout.Zoom;
@@ -68,9 +68,9 @@ partial class StartMenuButtonUserControl
         Cursor = Cursors.Hand;
         Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
         Margin = new Padding(6);
-        MinimumSize = new Size(200, 275);
-        Name = "StartMenuButton";
-        Size = new Size(200, 275);
+        MinimumSize = new Size(136, 183);
+        Name = "StartMenuButtonUserControl";
+        Size = new Size(136, 183);
         ((System.ComponentModel.ISupportInitialize)_buttonIcon).EndInit();
         ResumeLayout(false);
     }

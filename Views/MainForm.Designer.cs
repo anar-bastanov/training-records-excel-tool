@@ -63,14 +63,14 @@ partial class MainForm
         stripMenu.Items.AddRange(new ToolStripItem[] { _stripMenuFile, _stripMenuHelp, _stripMenuLicense });
         stripMenu.Location = new Point(0, 0);
         stripMenu.Name = "stripMenu";
-        stripMenu.Size = new Size(1278, 33);
+        stripMenu.Size = new Size(854, 24);
         stripMenu.TabIndex = 0;
         // 
         // _stripMenuFile
         // 
         _stripMenuFile.DropDownItems.AddRange(new ToolStripItem[] { _stripMenuFileNew, _stripMenuFileOpen, _stripMenuFileClose, stripMenuSeparator2, _stripMenuFileSave, _stripMenuFileSaveAs, stripMenuSeparator1, _stripMenuFileExit });
         _stripMenuFile.Name = "_stripMenuFile";
-        _stripMenuFile.Size = new Size(54, 29);
+        _stripMenuFile.Size = new Size(37, 20);
         _stripMenuFile.Text = "&File";
         // 
         // _stripMenuFileNew
@@ -78,7 +78,7 @@ partial class MainForm
         _stripMenuFileNew.Image = (Image)resources.GetObject("_stripMenuFileNew.Image");
         _stripMenuFileNew.Name = "_stripMenuFileNew";
         _stripMenuFileNew.ShortcutKeys = Keys.Control | Keys.N;
-        _stripMenuFileNew.Size = new Size(267, 34);
+        _stripMenuFileNew.Size = new Size(185, 30);
         _stripMenuFileNew.Text = "&New";
         _stripMenuFileNew.Click += StripMenuFileNew_Click;
         // 
@@ -87,7 +87,7 @@ partial class MainForm
         _stripMenuFileOpen.Image = (Image)resources.GetObject("_stripMenuFileOpen.Image");
         _stripMenuFileOpen.Name = "_stripMenuFileOpen";
         _stripMenuFileOpen.ShortcutKeys = Keys.Control | Keys.O;
-        _stripMenuFileOpen.Size = new Size(267, 34);
+        _stripMenuFileOpen.Size = new Size(185, 30);
         _stripMenuFileOpen.Text = "&Open";
         _stripMenuFileOpen.Click += StripMenuFileOpen_Click;
         // 
@@ -97,14 +97,14 @@ partial class MainForm
         _stripMenuFileClose.Image = (Image)resources.GetObject("_stripMenuFileClose.Image");
         _stripMenuFileClose.Name = "_stripMenuFileClose";
         _stripMenuFileClose.ShortcutKeys = Keys.Control | Keys.Shift | Keys.C;
-        _stripMenuFileClose.Size = new Size(267, 34);
+        _stripMenuFileClose.Size = new Size(185, 30);
         _stripMenuFileClose.Text = "&Close";
         _stripMenuFileClose.Click += StripMenuFileClose_Click;
         // 
         // stripMenuSeparator2
         // 
         stripMenuSeparator2.Name = "stripMenuSeparator2";
-        stripMenuSeparator2.Size = new Size(264, 6);
+        stripMenuSeparator2.Size = new Size(182, 6);
         // 
         // _stripMenuFileSave
         // 
@@ -112,7 +112,7 @@ partial class MainForm
         _stripMenuFileSave.Image = (Image)resources.GetObject("_stripMenuFileSave.Image");
         _stripMenuFileSave.Name = "_stripMenuFileSave";
         _stripMenuFileSave.ShortcutKeys = Keys.Control | Keys.S;
-        _stripMenuFileSave.Size = new Size(267, 34);
+        _stripMenuFileSave.Size = new Size(185, 30);
         _stripMenuFileSave.Text = "&Save";
         _stripMenuFileSave.Click += StripMenuFileSave_Click;
         // 
@@ -122,56 +122,56 @@ partial class MainForm
         _stripMenuFileSaveAs.Enabled = false;
         _stripMenuFileSaveAs.Image = (Image)resources.GetObject("_stripMenuFileSaveAs.Image");
         _stripMenuFileSaveAs.Name = "_stripMenuFileSaveAs";
-        _stripMenuFileSaveAs.Size = new Size(267, 34);
+        _stripMenuFileSaveAs.Size = new Size(185, 30);
         _stripMenuFileSaveAs.Text = "Save &As";
         // 
         // _stripMenuFileSaveAsExcel
         // 
         _stripMenuFileSaveAsExcel.Name = "_stripMenuFileSaveAsExcel";
         _stripMenuFileSaveAsExcel.ShortcutKeys = Keys.Control | Keys.S;
-        _stripMenuFileSaveAsExcel.Size = new Size(357, 34);
+        _stripMenuFileSaveAsExcel.Size = new Size(238, 22);
         _stripMenuFileSaveAsExcel.Text = "Excel Workbook (*.xlsx)";
         _stripMenuFileSaveAsExcel.Click += StripMenuFileSaveAsExcel_Click;
         // 
         // _stripMenuFileSaveAsJson
         // 
         _stripMenuFileSaveAsJson.Name = "_stripMenuFileSaveAsJson";
-        _stripMenuFileSaveAsJson.Size = new Size(357, 34);
+        _stripMenuFileSaveAsJson.Size = new Size(238, 22);
         _stripMenuFileSaveAsJson.Text = "JSON Format (*.json)";
         _stripMenuFileSaveAsJson.Click += StripMenuFileSaveAsJson_Click;
         // 
         // _stripMenuFileSaveAsXML
         // 
         _stripMenuFileSaveAsXML.Name = "_stripMenuFileSaveAsXML";
-        _stripMenuFileSaveAsXML.Size = new Size(357, 34);
+        _stripMenuFileSaveAsXML.Size = new Size(238, 22);
         _stripMenuFileSaveAsXML.Text = "XML (*.xml)";
         _stripMenuFileSaveAsXML.Click += StripMenuFileSaveAsXML_Click;
         // 
         // stripMenuSeparator1
         // 
         stripMenuSeparator1.Name = "stripMenuSeparator1";
-        stripMenuSeparator1.Size = new Size(264, 6);
+        stripMenuSeparator1.Size = new Size(182, 6);
         // 
         // _stripMenuFileExit
         // 
         _stripMenuFileExit.Image = (Image)resources.GetObject("_stripMenuFileExit.Image");
         _stripMenuFileExit.Name = "_stripMenuFileExit";
         _stripMenuFileExit.ShortcutKeys = Keys.Alt | Keys.F4;
-        _stripMenuFileExit.Size = new Size(267, 34);
+        _stripMenuFileExit.Size = new Size(185, 30);
         _stripMenuFileExit.Text = "&Exit";
         _stripMenuFileExit.Click += StripMenuFileExit_Click;
         // 
         // _stripMenuHelp
         // 
         _stripMenuHelp.Name = "_stripMenuHelp";
-        _stripMenuHelp.Size = new Size(65, 29);
+        _stripMenuHelp.Size = new Size(44, 20);
         _stripMenuHelp.Text = "&Help";
         _stripMenuHelp.Click += StripMenuHelp_Click;
         // 
         // _stripMenuLicense
         // 
         _stripMenuLicense.Name = "_stripMenuLicense";
-        _stripMenuLicense.Size = new Size(84, 29);
+        _stripMenuLicense.Size = new Size(58, 20);
         _stripMenuLicense.Text = "&License";
         _stripMenuLicense.Click += StripMenuLicense_Click;
         // 
@@ -179,9 +179,9 @@ partial class MainForm
         // 
         stripStatus.ImageScalingSize = new Size(24, 24);
         stripStatus.Items.AddRange(new ToolStripItem[] { stripStatusIdentityName });
-        stripStatus.Location = new Point(0, 808);
+        stripStatus.Location = new Point(0, 537);
         stripStatus.Name = "stripStatus";
-        stripStatus.Size = new Size(1278, 36);
+        stripStatus.Size = new Size(854, 24);
         stripStatus.TabIndex = 0;
         // 
         // stripStatusIdentityName
@@ -189,7 +189,7 @@ partial class MainForm
         stripStatusIdentityName.BorderSides = ToolStripStatusLabelBorderSides.Right;
         stripStatusIdentityName.BorderStyle = Border3DStyle.Etched;
         stripStatusIdentityName.Name = "stripStatusIdentityName";
-        stripStatusIdentityName.Size = new Size(206, 29);
+        stripStatusIdentityName.Size = new Size(136, 19);
         stripStatusIdentityName.Text = "Developed by Tachysoft";
         // 
         // _projectEditor
@@ -200,7 +200,7 @@ partial class MainForm
         _projectEditor.Location = new Point(0, 0);
         _projectEditor.Margin = new Padding(0);
         _projectEditor.Name = "_projectEditor";
-        _projectEditor.Size = new Size(1278, 844);
+        _projectEditor.Size = new Size(854, 561);
         _projectEditor.TabIndex = 0;
         _projectEditor.TabStop = false;
         _projectEditor.SelectTaskDatabase += ProjectEditor_SelectDatabase;
@@ -217,7 +217,7 @@ partial class MainForm
         _startMenu.Location = new Point(0, 0);
         _startMenu.Margin = new Padding(5);
         _startMenu.Name = "_startMenu";
-        _startMenu.Size = new Size(1278, 844);
+        _startMenu.Size = new Size(854, 561);
         _startMenu.TabIndex = 0;
         _startMenu.TabStop = false;
         _startMenu.NewFileClick += StartMenu_NewFileClick;
@@ -226,9 +226,9 @@ partial class MainForm
         // 
         // MainForm
         // 
-        AutoScaleDimensions = new SizeF(20F, 48F);
+        AutoScaleDimensions = new SizeF(13F, 32F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(1278, 844);
+        ClientSize = new Size(854, 561);
         Controls.Add(stripStatus);
         Controls.Add(stripMenu);
         Controls.Add(_startMenu);
@@ -237,7 +237,7 @@ partial class MainForm
         Icon = (Icon)resources.GetObject("$this.Icon");
         MainMenuStrip = stripMenu;
         Margin = new Padding(6);
-        MinimumSize = new Size(1300, 900);
+        MinimumSize = new Size(870, 600);
         Name = "MainForm";
         Text = "Master Training Records";
         FormClosing += MainForm_FormClosing;

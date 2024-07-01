@@ -5,14 +5,13 @@ global using System.Drawing;
 global using System.Windows.Forms;
 using System;
 using OfficeOpenXml;
-using System.Threading;
 
 namespace ExcelTool;
 
 /// <summary>
 /// The application entry point.
 /// </summary>
-internal static class Program
+internal static partial class Program
 {
     [STAThread]
     private static void Main()
@@ -23,6 +22,8 @@ internal static class Program
         // about clean code or code architecture. It works in the end, and I am happy with it.
 
         ApplicationConfiguration.Initialize();
+        
+
         // The library we use to process Excel files is not free for commercial uses.
         ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
