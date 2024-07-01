@@ -11,7 +11,7 @@ namespace ExcelTool;
 /// <summary>
 /// The application entry point.
 /// </summary>
-internal static partial class Program
+internal static class Program
 {
     [STAThread]
     private static void Main()
@@ -22,7 +22,6 @@ internal static partial class Program
         // about clean code or code architecture. It works in the end, and I am happy with it.
 
         ApplicationConfiguration.Initialize();
-        
 
         // The library we use to process Excel files is not free for commercial uses.
         ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
