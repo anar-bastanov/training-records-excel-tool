@@ -11,7 +11,7 @@ public sealed class ProjectModel
     /// <summary>
     /// Gets the profile information of a trainee.
     /// </summary>
-    public ProfileModel ProfileInfo { get; } = new();
+    public ProfileModel ProfileInfo { get; set; } = new();
 
     /// <summary>
     /// Gets the list of tasks assigned to a trainee.

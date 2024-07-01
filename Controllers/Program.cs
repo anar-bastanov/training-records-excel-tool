@@ -5,6 +5,7 @@ global using System.Drawing;
 global using System.Windows.Forms;
 using System;
 using OfficeOpenXml;
+using System.Threading;
 
 namespace ExcelTool;
 
@@ -27,6 +28,11 @@ internal static class Program
 
         var mainForm = new MainForm();
         _ = new ProjectManager(mainForm);
+
+        // I know it is disgusting, but I had to disable all exceptions to prevent the program
+        // from crashing due to dump WinForms bugs
+        Application.ThreadException += delegate { };
+        AppDomain.CurrentDomain.UnhandledException += delegate { };
 
         Application.Run(mainForm);
     }

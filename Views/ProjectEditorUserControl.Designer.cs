@@ -60,7 +60,6 @@ partial class ProjectEditorUserControl
         _traineeRichTextBox = new RichTextBox();
         _taskDatabasePathLabel = new Label();
         _assignedTasksDataGridView = new DataGridView();
-        unassignButtons = new DataGridViewButtonColumn();
         _assignedTaskSearchPatternRichTextBox = new RichTextBox();
         _assignedTaskSearchByComboBox = new ComboBox();
         _assignedTaskSearchCountLabel = new Label();
@@ -336,7 +335,6 @@ partial class ProjectEditorUserControl
         dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
         _assignedTasksDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
         _assignedTasksDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-        _assignedTasksDataGridView.Columns.AddRange(new DataGridViewColumn[] { unassignButtons });
         dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
         dataGridViewCellStyle2.BackColor = SystemColors.Window;
         dataGridViewCellStyle2.Font = new Font("Bahnschrift SemiCondensed", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -361,22 +359,10 @@ partial class ProjectEditorUserControl
         _assignedTasksDataGridView.ShowRowErrors = false;
         _assignedTasksDataGridView.Size = new Size(1225, 247);
         _assignedTasksDataGridView.TabIndex = 7;
-        _assignedTasksDataGridView.CellContentClick += AssignedTasksDataGridView_CellContentClick;
         _assignedTasksDataGridView.CellEnter += AssignedTasksDataGridView_CellEnter;
         _assignedTasksDataGridView.CellValueChanged += AssignedTasksDataGridView_CellValueChanged;
         _assignedTasksDataGridView.ColumnAdded += AssignedTasksDataGridView_ColumnAdded;
-        _assignedTasksDataGridView.KeyDown += AssignedTasksDataGridView_KeyDown;
-        // 
-        // unassignButtons
-        // 
-        unassignButtons.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-        unassignButtons.FillWeight = 1F;
-        unassignButtons.HeaderText = "";
-        unassignButtons.MinimumWidth = 8;
-        unassignButtons.Name = "unassignButtons";
-        unassignButtons.Text = "✖";
-        unassignButtons.UseColumnTextForButtonValue = true;
-        unassignButtons.Width = 35;
+        _assignedTasksDataGridView.KeyUp += AssignedTasksDataGridView_KeyUp;
         // 
         // assignedTaskSearchTableLayoutPanel
         // 
@@ -709,7 +695,6 @@ partial class ProjectEditorUserControl
     private RichTextBox _traineeRichTextBox;
     private DataGridView _assignedTasksDataGridView;
     private DataGridView _availableTasksDataGridView;
-    private DataGridViewButtonColumn unassignButtons;
     private RichTextBox _assignedTaskSearchPatternRichTextBox;
     private ComboBox _assignedTaskSearchByComboBox;
     private RichTextBox _availableTaskSearchPatternRichTextBox;

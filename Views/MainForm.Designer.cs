@@ -46,8 +46,6 @@ partial class MainForm
         _stripMenuFileExit = new ToolStripMenuItem();
         _stripMenuHelp = new ToolStripMenuItem();
         _stripMenuLicense = new ToolStripMenuItem();
-        _projectEditor = new ProjectEditorUserControl();
-        _startMenu = new StartMenuUserControl();
         stripMenu = new MenuStrip();
         stripMenuSeparator2 = new ToolStripSeparator();
         stripMenuSeparator1 = new ToolStripSeparator();
@@ -189,40 +187,8 @@ partial class MainForm
         stripStatusCompanyName.BorderSides = ToolStripStatusLabelBorderSides.Right;
         stripStatusCompanyName.BorderStyle = Border3DStyle.Etched;
         stripStatusCompanyName.Name = "stripStatusCompanyName";
-        stripStatusCompanyName.Size = new Size(167, 29);
-        stripStatusCompanyName.Text = "Powered by Silisoft";
-        // 
-        // _projectEditor
-        // 
-        _projectEditor.BackColor = SystemColors.Control;
-        _projectEditor.Dock = DockStyle.Fill;
-        _projectEditor.Font = new Font("Bahnschrift SemiCondensed", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        _projectEditor.Location = new Point(0, 0);
-        _projectEditor.Margin = new Padding(0);
-        _projectEditor.Name = "_projectEditor";
-        _projectEditor.Size = new Size(1278, 844);
-        _projectEditor.TabIndex = 0;
-        _projectEditor.TabStop = false;
-        _projectEditor.SelectTaskDatabase += ProjectEditor_SelectDatabase;
-        _projectEditor.CopyTaskDatabaseFilePath += ProjectEditor_CopyTaskDatabaseFilePath;
-        _projectEditor.AssignTaskFromDatabase += ProjectEditor_AssignTaskFromDatabase;
-        _projectEditor.UnassignTask += ProjectEditor_UnassignTask;
-        _projectEditor.AssignedTasksSearchPatternBy += ProjectEditor_AssignedTasksSearchPatternBy;
-        _projectEditor.AvailableTasksSearchPatternBy += ProjectEditor_AvailableTasksSearchPatternBy;
-        // 
-        // _startMenu
-        // 
-        _startMenu.Dock = DockStyle.Fill;
-        _startMenu.Font = new Font("Bahnschrift SemiCondensed", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        _startMenu.Location = new Point(0, 0);
-        _startMenu.Margin = new Padding(5);
-        _startMenu.Name = "_startMenu";
-        _startMenu.Size = new Size(1278, 844);
-        _startMenu.TabIndex = 0;
-        _startMenu.TabStop = false;
-        _startMenu.NewFileClick += StartMenu_NewFileClick;
-        _startMenu.OpenFileClick += StartMenu_OpenFileClick;
-        _startMenu.HelpClick += StartMenu_HelpClick;
+        stripStatusCompanyName.Size = new Size(246, 29);
+        stripStatusCompanyName.Text = "Developed by Anar Bastanov";
         // 
         // MainForm
         // 
@@ -231,8 +197,6 @@ partial class MainForm
         ClientSize = new Size(1278, 844);
         Controls.Add(stripStatus);
         Controls.Add(stripMenu);
-        Controls.Add(_startMenu);
-        Controls.Add(_projectEditor);
         Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
         Icon = (Icon)resources.GetObject("$this.Icon");
         MainMenuStrip = stripMenu;

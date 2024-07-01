@@ -212,7 +212,7 @@ public sealed class ProjectManager : INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Saves the project that the user has either created or opened as one of the available
+    /// Saves the project that the user has either created or opened as one of the supported
     /// file formats.
     /// </summary>
     /// <param name="fileFormat">The format of the file to convert to.</param>
@@ -344,7 +344,7 @@ public sealed class ProjectManager : INotifyPropertyChanged
     /// could have been used instead. The reason why an array of strings is more preferred is
     /// to keep it simple and also to avoid a layer of indirection while accessing an element.
     /// </remarks>
-    private static readonly string[] EmptyStringInArray = [""];
+    private static readonly string[] DefaultTraineeNames = [MainForm.DefaultFileName];
 
     /// <summary>
     /// Unpacks the names of "trainees" delimited by semicolons and returns them in an array.
@@ -363,6 +363,6 @@ public sealed class ProjectManager : INotifyPropertyChanged
 
         var mode = StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries;
         var trainees = packedNames.Split(';', mode);
-        return trainees.Length is 0 ? EmptyStringInArray : trainees;
+        return trainees.Length is 0 ? DefaultTraineeNames : trainees;
     }
 }
