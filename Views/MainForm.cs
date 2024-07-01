@@ -689,6 +689,20 @@ public sealed partial class MainForm : Form
     }
 
     /// <summary>
+    /// Prompts the user to save a project as one of the supported file formats with a default file name.
+    /// </summary>
+    /// <param name="fileFormat">The file format to save the project as.</param>
+    /// <param name="fullPath">The location where the project will be saved.</param>
+    /// <returns>
+    /// <see langword="true"/> if the project was successfully saved before
+    /// the operation was cancelled; otherwise, <see langword="false"/>.
+    /// </returns>
+    public static bool TryPromptSaveFileAs(ref FileFormat fileFormat, out string fullPath)
+    {
+        return TryPromptSaveFileAs(ref fileFormat, DefaultFileName, out fullPath);
+    }
+
+    /// <summary>
     /// Prompts the user to save a project as one of the supported file formats.
     /// </summary>
     /// <param name="fileFormat">The file format to save the project as.</param>
