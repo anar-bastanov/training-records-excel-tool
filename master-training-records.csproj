@@ -7,7 +7,6 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>disable</ImplicitUsings>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <ApplicationIcon>Resources\AppIcon.ico</ApplicationIcon>
     <Title>Master Training Records</Title>
   </PropertyGroup>

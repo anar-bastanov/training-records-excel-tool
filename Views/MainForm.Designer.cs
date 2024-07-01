@@ -33,7 +33,7 @@ partial class MainForm
         ToolStripSeparator stripMenuSeparator2;
         ToolStripSeparator stripMenuSeparator1;
         StatusStrip stripStatus;
-        ToolStripStatusLabel stripStatusCompanyName;
+        ToolStripStatusLabel stripStatusIdentityName;
         _stripMenuFile = new ToolStripMenuItem();
         _stripMenuFileNew = new ToolStripMenuItem();
         _stripMenuFileOpen = new ToolStripMenuItem();
@@ -52,7 +52,7 @@ partial class MainForm
         stripMenuSeparator2 = new ToolStripSeparator();
         stripMenuSeparator1 = new ToolStripSeparator();
         stripStatus = new StatusStrip();
-        stripStatusCompanyName = new ToolStripStatusLabel();
+        stripStatusIdentityName = new ToolStripStatusLabel();
         stripMenu.SuspendLayout();
         stripStatus.SuspendLayout();
         SuspendLayout();
@@ -178,19 +178,19 @@ partial class MainForm
         // stripStatus
         // 
         stripStatus.ImageScalingSize = new Size(24, 24);
-        stripStatus.Items.AddRange(new ToolStripItem[] { stripStatusCompanyName });
+        stripStatus.Items.AddRange(new ToolStripItem[] { stripStatusIdentityName });
         stripStatus.Location = new Point(0, 808);
         stripStatus.Name = "stripStatus";
         stripStatus.Size = new Size(1278, 36);
         stripStatus.TabIndex = 0;
         // 
-        // stripStatusCompanyName
+        // stripStatusIdentityName
         // 
-        stripStatusCompanyName.BorderSides = ToolStripStatusLabelBorderSides.Right;
-        stripStatusCompanyName.BorderStyle = Border3DStyle.Etched;
-        stripStatusCompanyName.Name = "stripStatusCompanyName";
-        stripStatusCompanyName.Size = new Size(167, 29);
-        stripStatusCompanyName.Text = "Powered by Silisoft";
+        stripStatusIdentityName.BorderSides = ToolStripStatusLabelBorderSides.Right;
+        stripStatusIdentityName.BorderStyle = Border3DStyle.Etched;
+        stripStatusIdentityName.Name = "stripStatusIdentityName";
+        stripStatusIdentityName.Size = new Size(206, 29);
+        stripStatusIdentityName.Text = "Developed by Tachysoft";
         // 
         // _projectEditor
         // 
