@@ -105,8 +105,7 @@ partial class StartMenuUserControl
         // 
         // StartMenuUserControl
         // 
-        AutoScaleDimensions = new SizeF(11F, 29F);
-        AutoScaleMode = AutoScaleMode.Font;
+        AutoScaleMode = AutoScaleMode.Inherit;
         Controls.Add(azercosmosLogo);
         Controls.Add(startMenuHelpButton);
         Controls.Add(startMenuOpenButton);

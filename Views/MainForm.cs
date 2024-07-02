@@ -267,18 +267,6 @@ public sealed partial class MainForm : Form
     }
 
     /// <summary>
-    /// Handles the <see cref="Control.Click"/> event of <see cref="_stripMenuLicense"/>.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-    private void StripMenuLicense_Click(object sender, EventArgs e)
-    {
-        //
-        LicenseForm license = new();
-        license.ShowDialog();
-    }
-
-    /// <summary>
     /// Invoked when the `New File` button in the start menu was clicked.
     /// </summary>
     /// <param name="sender">The source of the event.</param>

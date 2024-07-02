@@ -39,14 +39,14 @@ partial class ProjectEditorUserControl
         Label managerLabel;
         Panel taskDatabasePathPanel;
         TableLayoutPanel tasksTableLayoutPanel;
-        DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-        DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+        DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+        DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
         TableLayoutPanel assignedTaskSearchTableLayoutPanel;
         Panel assignedTaskSearchPatternPanel;
         Label assignedTaskSearchPatternLabel;
         Label assignedTaskSearchByLabel;
-        DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-        DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+        DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+        DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
         TableLayoutPanel availableTaskSearchTableLayoutPanel;
         Panel availableTaskSearchPatternPanel;
         Label availableTaskSearchPatternLabel;
@@ -289,7 +289,7 @@ partial class ProjectEditorUserControl
         taskDatabasePathPanel.Location = new Point(174, 549);
         taskDatabasePathPanel.Margin = new Padding(2, 2, 0, 2);
         taskDatabasePathPanel.Name = "taskDatabasePathPanel";
-        taskDatabasePathPanel.Padding = new Padding(10, 2, 10, 0);
+        taskDatabasePathPanel.Padding = new Padding(2, 2, 2, 0);
         taskDatabasePathPanel.Size = new Size(508, 34);
         taskDatabasePathPanel.TabIndex = 0;
         // 
@@ -298,9 +298,10 @@ partial class ProjectEditorUserControl
         _taskDatabasePathLabel.AutoEllipsis = true;
         _taskDatabasePathLabel.Dock = DockStyle.Fill;
         _taskDatabasePathLabel.ForeColor = SystemColors.GrayText;
-        _taskDatabasePathLabel.Location = new Point(10, 2);
+        _taskDatabasePathLabel.Location = new Point(2, 2);
+        _taskDatabasePathLabel.Margin = new Padding(1, 0, 1, 0);
         _taskDatabasePathLabel.Name = "_taskDatabasePathLabel";
-        _taskDatabasePathLabel.Size = new Size(486, 30);
+        _taskDatabasePathLabel.Size = new Size(502, 30);
         _taskDatabasePathLabel.TabIndex = 0;
         // 
         // tasksTableLayoutPanel
@@ -331,23 +332,23 @@ partial class ProjectEditorUserControl
         _assignedTasksDataGridView.AllowUserToResizeRows = false;
         _assignedTasksDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         _assignedTasksDataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-        dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
-        dataGridViewCellStyle5.BackColor = SystemColors.Control;
-        dataGridViewCellStyle5.Font = new Font("Bahnschrift SemiCondensed", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        dataGridViewCellStyle5.ForeColor = SystemColors.WindowText;
-        dataGridViewCellStyle5.SelectionBackColor = SystemColors.Control;
-        dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
-        dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
-        _assignedTasksDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+        dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+        dataGridViewCellStyle1.BackColor = SystemColors.Control;
+        dataGridViewCellStyle1.Font = new Font("Bahnschrift SemiCondensed", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+        dataGridViewCellStyle1.SelectionBackColor = SystemColors.Control;
+        dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+        dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+        _assignedTasksDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
         _assignedTasksDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-        dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
-        dataGridViewCellStyle6.BackColor = SystemColors.Window;
-        dataGridViewCellStyle6.Font = new Font("Bahnschrift SemiCondensed", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        dataGridViewCellStyle6.ForeColor = SystemColors.ControlText;
-        dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
-        dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
-        dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
-        _assignedTasksDataGridView.DefaultCellStyle = dataGridViewCellStyle6;
+        dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+        dataGridViewCellStyle2.BackColor = SystemColors.Window;
+        dataGridViewCellStyle2.Font = new Font("Bahnschrift SemiCondensed", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+        dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+        dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+        dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+        _assignedTasksDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
         _assignedTasksDataGridView.Dock = DockStyle.Fill;
         _assignedTasksDataGridView.EnableHeadersVisualStyles = false;
         _assignedTasksDataGridView.Location = new Point(0, 35);
@@ -480,23 +481,23 @@ partial class ProjectEditorUserControl
         _availableTasksDataGridView.AllowUserToResizeRows = false;
         _availableTasksDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         _availableTasksDataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-        dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
-        dataGridViewCellStyle7.BackColor = SystemColors.Control;
-        dataGridViewCellStyle7.Font = new Font("Bahnschrift SemiCondensed", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        dataGridViewCellStyle7.ForeColor = SystemColors.WindowText;
-        dataGridViewCellStyle7.SelectionBackColor = SystemColors.Control;
-        dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
-        dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
-        _availableTasksDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+        dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+        dataGridViewCellStyle3.BackColor = SystemColors.Control;
+        dataGridViewCellStyle3.Font = new Font("Bahnschrift SemiCondensed", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+        dataGridViewCellStyle3.SelectionBackColor = SystemColors.Control;
+        dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+        dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+        _availableTasksDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
         _availableTasksDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-        dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
-        dataGridViewCellStyle8.BackColor = SystemColors.Window;
-        dataGridViewCellStyle8.Font = new Font("Bahnschrift SemiCondensed", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        dataGridViewCellStyle8.ForeColor = SystemColors.ControlText;
-        dataGridViewCellStyle8.SelectionBackColor = SystemColors.Highlight;
-        dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
-        dataGridViewCellStyle8.WrapMode = DataGridViewTriState.False;
-        _availableTasksDataGridView.DefaultCellStyle = dataGridViewCellStyle8;
+        dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+        dataGridViewCellStyle4.BackColor = SystemColors.Window;
+        dataGridViewCellStyle4.Font = new Font("Bahnschrift SemiCondensed", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        dataGridViewCellStyle4.ForeColor = SystemColors.ControlText;
+        dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
+        dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+        dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
+        _availableTasksDataGridView.DefaultCellStyle = dataGridViewCellStyle4;
         _availableTasksDataGridView.Dock = DockStyle.Fill;
         _availableTasksDataGridView.EnableHeadersVisualStyles = false;
         _availableTasksDataGridView.Location = new Point(0, 247);
@@ -649,7 +650,6 @@ partial class ProjectEditorUserControl
         // _selectTaskDatabaseButton
         // 
         _selectTaskDatabaseButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-        _selectTaskDatabaseButton.AutoSize = true;
         _selectTaskDatabaseButton.Cursor = Cursors.Hand;
         _selectTaskDatabaseButton.Location = new Point(722, 547);
         _selectTaskDatabaseButton.Name = "_selectTaskDatabaseButton";
@@ -661,8 +661,7 @@ partial class ProjectEditorUserControl
         // 
         // ProjectEditorUserControl
         // 
-        AutoScaleDimensions = new SizeF(11F, 29F);
-        AutoScaleMode = AutoScaleMode.Font;
+        AutoScaleMode = AutoScaleMode.Inherit;
         BackColor = SystemColors.Control;
         Controls.Add(tasksTableLayoutPanel);
         Controls.Add(taskDatabasePathPanel);

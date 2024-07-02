@@ -10,7 +10,14 @@
     <ApplicationIcon>Resources\AppIcon.ico</ApplicationIcon>
     <Title>Master Training Records</Title>
     <ForceDesignerDpiUnaware>true</ForceDesignerDpiUnaware>
-    <ApplicationHighDpiMode>DpiUnawareGdiScaled</ApplicationHighDpiMode>
+    <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
+    <Version>$(VersionPrefix)</Version>
+    <Authors>Anar Bastanov</Authors>
+    <Company>Tachysoft</Company>
+    <Product>Master Training Records</Product>
+    <Description>A Windows Forms application designed to be a tool to work with Excel files and assign tasks to trainees more easily.</Description>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -46,6 +53,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="LICENSE.txt">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

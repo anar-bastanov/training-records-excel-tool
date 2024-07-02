@@ -59,8 +59,7 @@ partial class StartMenuButtonUserControl
         // 
         // StartMenuButtonUserControl
         // 
-        AutoScaleDimensions = new SizeF(13F, 32F);
-        AutoScaleMode = AutoScaleMode.Font;
+        AutoScaleMode = AutoScaleMode.Inherit;
         BackColor = SystemColors.ControlLight;
         BackgroundImageLayout = ImageLayout.Zoom;
         Controls.Add(_buttonIcon);
