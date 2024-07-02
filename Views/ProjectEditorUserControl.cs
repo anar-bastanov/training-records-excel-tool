@@ -226,8 +226,10 @@ public partial class ProjectEditorUserControl : UserControl
         // Apparently we need this method to disable glyphs. Otherwise,
         // the text in the column headers will not be perfectly centered
         // https://stackoverflow.com/a/55010743/22760966
-
         e.Column.SortMode = DataGridViewColumnSortMode.NotSortable;
+
+        // Set colors
+        e.Column.DefaultCellStyle.BackColor = e.Column.Index is 0 ? Color.IndianRed : Color.LightGreen;
     }
 
     /// <summary>
@@ -269,8 +271,10 @@ public partial class ProjectEditorUserControl : UserControl
     private void AvailableTasksDataGridView_ColumnAdded(object sender, DataGridViewColumnEventArgs e)
     {
         // See the AssignedTasksDataGridView_ColumnAdded method for an explanation
-
         e.Column.SortMode = DataGridViewColumnSortMode.NotSortable;
+
+        // Set colors
+        e.Column.DefaultCellStyle.BackColor = e.Column.Index is 0 ? Color.IndianRed : Color.LightGreen;
     }
 
     /// <summary>
