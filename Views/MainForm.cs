@@ -367,6 +367,7 @@ public sealed partial class MainForm : Form
     {
         UnassignTaskRequested?.Invoke(e);
 
+        FilterAssignedTasks();
         FilterAvailableTasks();
     }
 
