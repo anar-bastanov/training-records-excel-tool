@@ -77,7 +77,7 @@ partial class MainForm
         _stripMenuFileNew.Image = (Image)resources.GetObject("_stripMenuFileNew.Image");
         _stripMenuFileNew.Name = "_stripMenuFileNew";
         _stripMenuFileNew.ShortcutKeys = Keys.Control | Keys.N;
-        _stripMenuFileNew.Size = new Size(188, 30);
+        _stripMenuFileNew.Size = new Size(185, 30);
         _stripMenuFileNew.Text = "&New";
         _stripMenuFileNew.Click += StripMenuFileNew_Click;
         // 
@@ -86,7 +86,7 @@ partial class MainForm
         _stripMenuFileOpen.Image = (Image)resources.GetObject("_stripMenuFileOpen.Image");
         _stripMenuFileOpen.Name = "_stripMenuFileOpen";
         _stripMenuFileOpen.ShortcutKeys = Keys.Control | Keys.O;
-        _stripMenuFileOpen.Size = new Size(188, 30);
+        _stripMenuFileOpen.Size = new Size(185, 30);
         _stripMenuFileOpen.Text = "&Open";
         _stripMenuFileOpen.Click += StripMenuFileOpen_Click;
         // 
@@ -96,14 +96,14 @@ partial class MainForm
         _stripMenuFileClose.Image = (Image)resources.GetObject("_stripMenuFileClose.Image");
         _stripMenuFileClose.Name = "_stripMenuFileClose";
         _stripMenuFileClose.ShortcutKeys = Keys.Control | Keys.Shift | Keys.C;
-        _stripMenuFileClose.Size = new Size(188, 30);
+        _stripMenuFileClose.Size = new Size(185, 30);
         _stripMenuFileClose.Text = "&Close";
         _stripMenuFileClose.Click += StripMenuFileClose_Click;
         // 
         // stripMenuSeparator2
         // 
         stripMenuSeparator2.Name = "stripMenuSeparator2";
-        stripMenuSeparator2.Size = new Size(185, 6);
+        stripMenuSeparator2.Size = new Size(182, 6);
         // 
         // _stripMenuFileSave
         // 
@@ -111,7 +111,7 @@ partial class MainForm
         _stripMenuFileSave.Image = (Image)resources.GetObject("_stripMenuFileSave.Image");
         _stripMenuFileSave.Name = "_stripMenuFileSave";
         _stripMenuFileSave.ShortcutKeys = Keys.Control | Keys.S;
-        _stripMenuFileSave.Size = new Size(188, 30);
+        _stripMenuFileSave.Size = new Size(185, 30);
         _stripMenuFileSave.Text = "&Save";
         _stripMenuFileSave.Click += StripMenuFileSave_Click;
         // 
@@ -121,7 +121,7 @@ partial class MainForm
         _stripMenuFileSaveAs.Enabled = false;
         _stripMenuFileSaveAs.Image = (Image)resources.GetObject("_stripMenuFileSaveAs.Image");
         _stripMenuFileSaveAs.Name = "_stripMenuFileSaveAs";
-        _stripMenuFileSaveAs.Size = new Size(188, 30);
+        _stripMenuFileSaveAs.Size = new Size(185, 30);
         _stripMenuFileSaveAs.Text = "Save &As";
         // 
         // _stripMenuFileSaveAsExcel
@@ -149,14 +149,14 @@ partial class MainForm
         // stripMenuSeparator1
         // 
         stripMenuSeparator1.Name = "stripMenuSeparator1";
-        stripMenuSeparator1.Size = new Size(185, 6);
+        stripMenuSeparator1.Size = new Size(182, 6);
         // 
         // _stripMenuFileExit
         // 
         _stripMenuFileExit.Image = (Image)resources.GetObject("_stripMenuFileExit.Image");
         _stripMenuFileExit.Name = "_stripMenuFileExit";
         _stripMenuFileExit.ShortcutKeys = Keys.Alt | Keys.F4;
-        _stripMenuFileExit.Size = new Size(188, 30);
+        _stripMenuFileExit.Size = new Size(185, 30);
         _stripMenuFileExit.Text = "&Exit";
         _stripMenuFileExit.Click += StripMenuFileExit_Click;
         // 
@@ -218,8 +218,8 @@ partial class MainForm
         // 
         // MainForm
         // 
-        AutoScaleDimensions = new SizeF(13F, 32F);
-        AutoScaleMode = AutoScaleMode.Font;
+        AutoScaleDimensions = new SizeF(96F, 96F);
+        AutoScaleMode = AutoScaleMode.Dpi;
         ClientSize = new Size(854, 561);
         Controls.Add(stripStatus);
         Controls.Add(stripMenu);

@@ -404,4 +404,9 @@ public partial class ProjectEditorUserControl : UserControl
             return null;
         }
     }
+
+    private void ProjectEditorUserControl_DpiChangedAfterParent(object sender, EventArgs e)
+    {
+        // ...
+    }
 }
