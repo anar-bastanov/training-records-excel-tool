@@ -318,8 +318,6 @@ public sealed partial class MainForm : Form
         float newHeaderSize = oldHeaderSize * ratio;
         float newCellSize = oldCellSize * ratio;
 
-        MessageBox.Show($"Header: {newHeaderSize}\nCell: {newCellSize}");
-
         _projectEditor.AssignedTasks.ColumnHeadersDefaultCellStyle.Font = new(_projectEditor.AssignedTasks.Font.FontFamily, newHeaderSize);
         _projectEditor.AssignedTasks.DefaultCellStyle.Font = new(_projectEditor.AssignedTasks.Font.FontFamily, newCellSize);
         _projectEditor.AvailableTasks.ColumnHeadersDefaultCellStyle.Font = new(_projectEditor.AssignedTasks.Font.FontFamily, newHeaderSize);
