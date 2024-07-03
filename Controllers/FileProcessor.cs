@@ -195,7 +195,8 @@ public static class FileProcessor
             ws.Cells["A3:J3"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
 
             // Enable world wrap
-            ws.Cells["C3:J3"].Style.WrapText = true;
+            ws.Columns.Style.WrapText = true;
+            ws.Columns.BestFit = true;
 
             // Adjust orientation
             ws.Cells["C3:D3"].Style.TextRotation = 90;
