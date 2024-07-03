@@ -310,13 +310,15 @@ public sealed partial class MainForm : Form
         // the end, this was my desperate attempt to get around the problem, by doing this
         // trickery below. Please, rewrite it if you have better solutions.
 
-        float ratio = e.DeviceDpiNew / e.DeviceDpiOld;
+        float ratio = (float)e.DeviceDpiNew / e.DeviceDpiOld;
 
         float oldHeaderSize = _projectEditor.AssignedTasks.ColumnHeadersDefaultCellStyle.Font.Size;
         float oldCellSize = _projectEditor.AssignedTasks.DefaultCellStyle.Font.Size;
 
         float newHeaderSize = oldHeaderSize * ratio;
         float newCellSize = oldCellSize * ratio;
+
+        MessageBox.Show($"Header: {newHeaderSize}\nCell: {newCellSize}");
 
         _projectEditor.AssignedTasks.ColumnHeadersDefaultCellStyle.Font = new(_projectEditor.AssignedTasks.Font.FontFamily, newHeaderSize);
         _projectEditor.AssignedTasks.DefaultCellStyle.Font = new(_projectEditor.AssignedTasks.Font.FontFamily, newCellSize);
