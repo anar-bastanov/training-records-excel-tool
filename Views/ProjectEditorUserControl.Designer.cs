@@ -679,7 +679,6 @@ partial class ProjectEditorUserControl
         Name = "ProjectEditorUserControl";
         Size = new Size(870, 600);
         Load += ProjectEditorUserControl_Load;
-        DpiChangedAfterParent += ProjectEditorUserControl_DpiChangedAfterParent;
         profileTableLayout.ResumeLayout(false);
         managerPanel.ResumeLayout(false);
         coursePanel.ResumeLayout(false);

@@ -298,6 +298,33 @@ public sealed partial class MainForm : Form
     }
 
     /// <summary>
+    /// Handles the <see cref="Control.DpiChangedAfterParent"/> event of this control.
+    /// Adjusts font sizes in grids as the DPI changes.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">An <see cref="EventArgs"/> that contains the event data.</param>
+    private void MainForm_DpiChanged(object sender, DpiChangedEventArgs e)
+    {
+        // This has to be done manually because for some reason WinForms DataGridViews do not
+        // auto-scale with DPI... I searched everywhere but could not get it to work. So in
+        // the end, this was my desperate attempt to get around the problem, by doing this
+        // trickery below. Please, rewrite it if you have better solutions.
+
+        float ratio = e.DeviceDpiNew / e.DeviceDpiOld;
+
+        float oldHeaderSize = _projectEditor.AssignedTasks.ColumnHeadersDefaultCellStyle.Font.Size;
+        float oldCellSize = _projectEditor.AssignedTasks.DefaultCellStyle.Font.Size;
+
+        float newHeaderSize = oldHeaderSize * ratio;
+        float newCellSize = oldCellSize * ratio;
+
+        _projectEditor.AssignedTasks.ColumnHeadersDefaultCellStyle.Font = new(_projectEditor.AssignedTasks.Font.FontFamily, newHeaderSize);
+        _projectEditor.AssignedTasks.DefaultCellStyle.Font = new(_projectEditor.AssignedTasks.Font.FontFamily, newCellSize);
+        _projectEditor.AvailableTasks.ColumnHeadersDefaultCellStyle.Font = new(_projectEditor.AssignedTasks.Font.FontFamily, newHeaderSize);
+        _projectEditor.AvailableTasks.DefaultCellStyle.Font = new(_projectEditor.AssignedTasks.Font.FontFamily, newCellSize);
+    }
+
+    /// <summary>
     /// Handles the <see cref="Form.FormClosing"/> event of this form.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
@@ -800,7 +827,7 @@ public sealed partial class MainForm : Form
             caption: "Packed Names",
             buttons: MessageBoxButtons.YesNo,
             icon: MessageBoxIcon.Question,
-            defaultButton: MessageBoxDefaultButton.Button2) 
+            defaultButton: MessageBoxDefaultButton.Button2)
             is DialogResult.Yes;
     }
 }

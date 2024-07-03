@@ -233,6 +233,7 @@ partial class MainForm
         Name = "MainForm";
         Text = "Master Training Records";
         FormClosing += MainForm_FormClosing;
+        DpiChanged += MainForm_DpiChanged;
         stripMenu.ResumeLayout(false);
         stripMenu.PerformLayout();
         stripStatus.ResumeLayout(false);
