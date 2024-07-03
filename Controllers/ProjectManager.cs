@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 
 namespace ExcelTool.Controllers;
 
@@ -27,9 +28,9 @@ public sealed class ProjectManager : INotifyPropertyChanged
     private string _sourceFilePath = "";
 
     /// <summary>
-    /// The absolute path to the Excel file from where all available tasks are accessed as <see cref="TaskModel"/>.
+    /// The absolute paths to the Excel file from where all available tasks are accessed as <see cref="TaskModel"/>.
     /// </summary>
-    private string _taskDatabasePath = "";
+    private string[] _taskDatabasePaths = [];
 
     /// <summary>
     /// Data that the user can directly modify and save to <see cref="_sourceFilePath"/>.
@@ -40,10 +41,10 @@ public sealed class ProjectManager : INotifyPropertyChanged
     private ProjectModel? _currentProject;
 
     /// <summary>
-    /// A list of tasks accessed from <see cref="_taskDatabasePath"/> that the user can assign to "trainees".
+    /// A list of tasks accessed from <see cref="_taskDatabasePaths"/> that the user can assign to "trainees".
     /// </summary>
     /// <remarks>
-    /// This list is created once and repopulated every time the user chooses another task database and <see cref="_taskDatabasePath"/> changes.
+    /// This list is created once and repopulated every time the user chooses another task database and <see cref="_taskDatabasePaths"/> changes.
     /// </remarks>
     private readonly BindingList<TaskModel> _availableTasks = new()
     {
@@ -85,20 +86,42 @@ public sealed class ProjectManager : INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Gets or sets the absolute path to the Excel file containing all available tasks.
+    /// Gets or sets the absolute paths to the Excel files containing all available tasks.
     /// </summary>
-    /// <returns>
-    /// The absolute path to the Excel file containing all available tasks.
-    /// </returns>
-    public string TaskDatabasePath
+    /// <returns>The absolute paths to the Excel files containing all available tasks.</returns>
+    public string[] TaskDatabasePaths
     {
-        // Display this message instead of blank
-        get => _taskDatabasePath is "" ? "No database is selected" : _taskDatabasePath;
+        get => _taskDatabasePaths;
         set
         {
             _availableTasks.Clear();
-            FileProcessor.LoadTaskDatabaseFromExcel(_availableTasks, value);
-            this.SetProperty(ref _taskDatabasePath, value, PropertyChanged);
+
+            foreach (string path in value)
+            {
+                FileProcessor.LoadTaskDatabaseFromExcel(_availableTasks, path);
+            }
+
+            // Should format this string array before displaying, hence we need
+            // to add nameof(FormattedTaskDatabasePaths) explicitly to use its getter
+            this.SetProperty(ref _taskDatabasePaths, value, PropertyChanged, nameof(FormattedTaskDatabasePaths));
+        }
+    }
+
+    /// <summary>
+    /// Gets a formatted <see langword="string"/> representation of the <see cref="TaskDatabasePaths"/> array.
+    /// </summary>
+    /// <returns>A formatted <see langword="string"/> to display on the screen.</returns>
+    public string FormattedTaskDatabasePaths
+    {
+        get
+        {
+            if (_taskDatabasePaths is []) 
+                return "No database is selected";
+
+            if (_taskDatabasePaths.Length is 1)
+                return _taskDatabasePaths[0];
+
+            return string.Join(' ', _taskDatabasePaths.Select(p => $"\"{p}\""));
         }
     }
 
@@ -114,14 +137,14 @@ public sealed class ProjectManager : INotifyPropertyChanged
         mainView.FileCloseRequested += CloseCurrentProject;
         mainView.FileSaveRequested += () => SaveCurrentProject();
         mainView.FileSaveAsRequested += SaveCurrentProjectAs;
-        mainView.TaskDatabaseSelectRequested += SelectTaskDatabase;
-        mainView.TaskDatabaseFilePathCopyRequested += CopyTaskDatabaseFilePath;
+        mainView.TaskDatabasesSelectRequested += SelectTaskDatabases;
+        mainView.TaskDatabaseFilePathsCopyRequested += CopyTaskDatabaseFilePaths;
         mainView.AssignTaskFromDatabaseRequested += AssignTask;
         mainView.UnassignTaskRequested += UnassignTask;
         mainView.ApplicationExitRequested += OnApplicationExit;
         // These fields can be databound once at the start, whereas other fields need to be
         // rebound every time a new object with the desired fields are created
-        mainView.BindTaskDatabasePath(this);
+        mainView.BindTaskDatabasePaths(this);
         mainView.BindAvailableTasks(_availableTasks);
     }
 
@@ -253,28 +276,28 @@ public sealed class ProjectManager : INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Selects an Excel file requested by the user as a source database to available tasks.
+    /// Selects Excel files requested by the user as the source databases to available tasks.
     /// </summary>
-    public void SelectTaskDatabase()
+    public void SelectTaskDatabases()
     {
-        if (!MainForm.TryPromptSelectTaskDatabase(out string fullPath))
+        if (!MainForm.TryPromptSelectTaskDatabase(out string[] fullPaths))
             return;
 
-        TaskDatabasePath = fullPath;
+        TaskDatabasePaths = fullPaths;
     }
 
     /// <summary>
-    /// Copies the absolute path of the currently chosen task database to clipboard.
+    /// Copies the absolute paths of the currently chosen task databases to clipboard.
     /// </summary>
     /// <remarks>
     /// If no database is selected by the user at the time, this method does nothing.
     /// </remarks>
-    public void CopyTaskDatabaseFilePath()
+    public void CopyTaskDatabaseFilePaths()
     {
-        if (_taskDatabasePath is "")
+        if (_taskDatabasePaths is null or [])
             return;
 
-        Clipboard.SetText(_taskDatabasePath);
+        Clipboard.SetText(FormattedTaskDatabasePaths);
     }
 
     /// <summary>

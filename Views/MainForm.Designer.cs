@@ -195,8 +195,8 @@ partial class MainForm
         _projectEditor.Size = new Size(854, 561);
         _projectEditor.TabIndex = 0;
         _projectEditor.TabStop = false;
-        _projectEditor.SelectTaskDatabase += ProjectEditor_SelectDatabase;
-        _projectEditor.CopyTaskDatabaseFilePath += ProjectEditor_CopyTaskDatabaseFilePath;
+        _projectEditor.SelectTaskDatabases += ProjectEditor_SelectDatabases;
+        _projectEditor.CopyTaskDatabaseFilePaths += ProjectEditor_CopyTaskDatabaseFilePaths;
         _projectEditor.AssignTaskFromDatabase += ProjectEditor_AssignTaskFromDatabase;
         _projectEditor.UnassignTask += ProjectEditor_UnassignTask;
         _projectEditor.AssignedTasksSearchPatternBy += ProjectEditor_AssignedTasksSearchPatternBy;

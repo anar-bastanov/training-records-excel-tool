@@ -71,17 +71,17 @@ public partial class ProjectEditorUserControl : UserControl
     public Label TaskDatabasePath => _taskDatabasePathLabel;
 
     /// <summary>
-    /// Occurs when the user selects a database for available tasks.
+    /// Occurs when the user selects databases for available tasks.
     /// </summary>
     [Browsable(true)]
-    public event EventHandler? SelectTaskDatabase;
+    public event EventHandler? SelectTaskDatabases;
 
     /// <summary>
-    /// Occurs when the user copies the absolute path to the Excel file
+    /// Occurs when the user copies the absolute paths to the Excel files
     /// containing all available tasks.
     /// </summary>
     [Browsable(true)]
-    public event EventHandler? CopyTaskDatabaseFilePath;
+    public event EventHandler? CopyTaskDatabaseFilePaths;
 
     /// <summary>
     /// Occurs when the user assigns one or more of available tasks to a trainee.
@@ -137,9 +137,9 @@ public partial class ProjectEditorUserControl : UserControl
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">An <see cref="EventArgs"/> that contains the event data.</param>
-    private void SelectTaskDatabaseButton_Click(object sender, EventArgs e)
+    private void SelectTaskDatabasesButton_Click(object sender, EventArgs e)
     {
-        SelectTaskDatabase?.Invoke(sender, e);
+        SelectTaskDatabases?.Invoke(sender, e);
     }
 
     /// <summary>
@@ -147,9 +147,9 @@ public partial class ProjectEditorUserControl : UserControl
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">An <see cref="EventArgs"/> that contains the event data.</param>
-    private void CopyTaskDatabaseFilePathButton_Click(object sender, EventArgs e)
+    private void CopyTaskDatabaseFilePathsButton_Click(object sender, EventArgs e)
     {
-        CopyTaskDatabaseFilePath?.Invoke(sender, e);
+        CopyTaskDatabaseFilePaths?.Invoke(sender, e);
     }
 
     /// <summary>
@@ -229,6 +229,7 @@ public partial class ProjectEditorUserControl : UserControl
         e.Column.SortMode = DataGridViewColumnSortMode.NotSortable;
 
         // Set colors
+        // Only the first column (References) is readonly and should be colored red
         e.Column.DefaultCellStyle.BackColor = e.Column.Index is 0 ? Color.IndianRed : Color.LightGreen;
     }
 
@@ -274,6 +275,7 @@ public partial class ProjectEditorUserControl : UserControl
         e.Column.SortMode = DataGridViewColumnSortMode.NotSortable;
 
         // Set colors
+        // Only the first column (References) is readonly and should be colored red
         e.Column.DefaultCellStyle.BackColor = e.Column.Index is 0 ? Color.IndianRed : Color.LightGreen;
     }
 

@@ -67,14 +67,14 @@ public sealed partial class MainForm : Form
     public event Action<FileFormat>? FileSaveAsRequested;
 
     /// <summary>
-    /// Occurs when the user requests to select a database for available tasks.
+    /// Occurs when the user requests to select databases for available tasks.
     /// </summary>
-    public event Action? TaskDatabaseSelectRequested;
+    public event Action? TaskDatabasesSelectRequested;
 
     /// <summary>
-    /// Occurs when the user requests to copy the absolute path to the task database.
+    /// Occurs when the user requests to copy the absolute paths to the task databases.
     /// </summary>
-    public event Action? TaskDatabaseFilePathCopyRequested;
+    public event Action? TaskDatabaseFilePathsCopyRequested;
 
     /// <summary>
     /// Occurs when the user requests to assign a specified task to a trainee.
@@ -159,7 +159,8 @@ public sealed partial class MainForm : Form
         Title = "Select Task Database",
         Filter = "Excel File (*.xlsx)|*.xlsx",
         DefaultExt = "xlsx",
-        AddExtension = true
+        AddExtension = true,
+        Multiselect = true
     };
 
     /// <summary>
@@ -306,18 +307,18 @@ public sealed partial class MainForm : Form
         ApplicationExitRequested?.Invoke(e);
     }
 
-    /// <inheritdoc cref="ProjectEditorUserControl.SelectTaskDatabaseButton_Click(object, EventArgs)"/>
-    private void ProjectEditor_SelectDatabase(object sender, EventArgs e)
+    /// <inheritdoc cref="ProjectEditorUserControl.SelectTaskDatabasesButton_Click(object, EventArgs)"/>
+    private void ProjectEditor_SelectDatabases(object sender, EventArgs e)
     {
-        TaskDatabaseSelectRequested?.Invoke();
+        TaskDatabasesSelectRequested?.Invoke();
 
         FilterAvailableTasks();
     }
 
-    /// <inheritdoc cref="ProjectEditorUserControl.CopyTaskDatabaseFilePathButton_Click(object, EventArgs)"/>
-    private void ProjectEditor_CopyTaskDatabaseFilePath(object sender, EventArgs e)
+    /// <inheritdoc cref="ProjectEditorUserControl.CopyTaskDatabaseFilePathsButton_Click(object, EventArgs)"/>
+    private void ProjectEditor_CopyTaskDatabaseFilePaths(object sender, EventArgs e)
     {
-        TaskDatabaseFilePathCopyRequested?.Invoke();
+        TaskDatabaseFilePathsCopyRequested?.Invoke();
     }
 
     /// <summary>
@@ -508,13 +509,13 @@ public sealed partial class MainForm : Form
     /// Binds the absolute path to the current task database to its corresponding label.
     /// </summary>
     /// <param name="manager">An object containing the path.</param>
-    public void BindTaskDatabasePath(ProjectManager manager)
+    public void BindTaskDatabasePaths(ProjectManager manager)
     {
         _projectEditor.TaskDatabasePath.DataBindings.Clear();
         _projectEditor.TaskDatabasePath.DataBindings.Add(
             propertyName: "Text",
             dataSource: manager,
-            dataMember: "TaskDatabasePath",
+            dataMember: "FormattedTaskDatabasePaths",
             formattingEnabled: false,
             updateMode: DataSourceUpdateMode.OnPropertyChanged);
     }
@@ -731,7 +732,7 @@ public sealed partial class MainForm : Form
     /// <see langword="true"/> if the database file was successfully opened before
     /// the operation was cancelled; otherwise, <see langword="false"/>.
     /// </returns>
-    public static bool TryPromptSelectTaskDatabase(out string fullPath)
+    public static bool TryPromptSelectTaskDatabase(out string[] fullPath)
     {
         return TryPrompt(SelectTaskDatabasePrompt, out fullPath);
     }
@@ -748,6 +749,21 @@ public sealed partial class MainForm : Form
     {
         var choice = dialog.ShowDialog();
         fullPath = dialog.FileName;
+        return choice is DialogResult.OK;
+    }
+
+    /// <summary>
+    /// Prompts the user a file dialog box to select multiple files.
+    /// </summary>
+    /// <param name="dialog">The dialog box to prompt.</param>
+    /// <param name="fullPaths">The result of the dialog.</param>
+    /// <returns>
+    /// <see langword="false"/> if the dialog was cancelled; otherwise, <see langword="true"/>.
+    /// </returns>
+    public static bool TryPrompt(FileDialog dialog, out string[] fullPaths)
+    {
+        var choice = dialog.ShowDialog();
+        fullPaths = dialog.FileNames;
         return choice is DialogResult.OK;
     }
 

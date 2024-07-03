@@ -52,7 +52,7 @@ partial class ProjectEditorUserControl
         Label availableTaskSearchPatternLabel;
         Label availableTaskSearchByLabel;
         Label taskDatabaseLabel;
-        Button copyTaskDatabaseFilePathButton;
+        Button copyTaskDatabaseFilePathsButton;
         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProjectEditorUserControl));
         _managerRichTextBox = new RichTextBox();
         _courseRichTextBox = new RichTextBox();
@@ -67,7 +67,7 @@ partial class ProjectEditorUserControl
         _availableTaskSearchPatternRichTextBox = new RichTextBox();
         _availableTaskSearchByComboBox = new ComboBox();
         _availableTaskSearchCountLabel = new Label();
-        _selectTaskDatabaseButton = new Button();
+        _selectTaskDatabasesButton = new Button();
         profileTableLayout = new TableLayoutPanel();
         managerPanel = new Panel();
         coursePanel = new Panel();
@@ -88,7 +88,7 @@ partial class ProjectEditorUserControl
         availableTaskSearchPatternLabel = new Label();
         availableTaskSearchByLabel = new Label();
         taskDatabaseLabel = new Label();
-        copyTaskDatabaseFilePathButton = new Button();
+        copyTaskDatabaseFilePathsButton = new Button();
         profileTableLayout.SuspendLayout();
         managerPanel.SuspendLayout();
         coursePanel.SuspendLayout();
@@ -633,31 +633,31 @@ partial class ProjectEditorUserControl
         taskDatabaseLabel.Text = "Task Database";
         taskDatabaseLabel.TextAlign = ContentAlignment.MiddleLeft;
         // 
-        // copyTaskDatabaseFilePathButton
+        // copyTaskDatabaseFilePathsButton
         // 
-        copyTaskDatabaseFilePathButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-        copyTaskDatabaseFilePathButton.BackgroundImage = (Image)resources.GetObject("copyTaskDatabaseFilePathButton.BackgroundImage");
-        copyTaskDatabaseFilePathButton.BackgroundImageLayout = ImageLayout.Zoom;
-        copyTaskDatabaseFilePathButton.Cursor = Cursors.Hand;
-        copyTaskDatabaseFilePathButton.Location = new Point(682, 549);
-        copyTaskDatabaseFilePathButton.Margin = new Padding(0, 3, 3, 3);
-        copyTaskDatabaseFilePathButton.Name = "copyTaskDatabaseFilePathButton";
-        copyTaskDatabaseFilePathButton.Size = new Size(34, 34);
-        copyTaskDatabaseFilePathButton.TabIndex = 3;
-        copyTaskDatabaseFilePathButton.UseVisualStyleBackColor = true;
-        copyTaskDatabaseFilePathButton.Click += CopyTaskDatabaseFilePathButton_Click;
+        copyTaskDatabaseFilePathsButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+        copyTaskDatabaseFilePathsButton.BackgroundImage = (Image)resources.GetObject("copyTaskDatabaseFilePathsButton.BackgroundImage");
+        copyTaskDatabaseFilePathsButton.BackgroundImageLayout = ImageLayout.Zoom;
+        copyTaskDatabaseFilePathsButton.Cursor = Cursors.Hand;
+        copyTaskDatabaseFilePathsButton.Location = new Point(682, 549);
+        copyTaskDatabaseFilePathsButton.Margin = new Padding(0, 3, 3, 3);
+        copyTaskDatabaseFilePathsButton.Name = "copyTaskDatabaseFilePathsButton";
+        copyTaskDatabaseFilePathsButton.Size = new Size(34, 34);
+        copyTaskDatabaseFilePathsButton.TabIndex = 3;
+        copyTaskDatabaseFilePathsButton.UseVisualStyleBackColor = true;
+        copyTaskDatabaseFilePathsButton.Click += CopyTaskDatabaseFilePathsButton_Click;
         // 
-        // _selectTaskDatabaseButton
+        // _selectTaskDatabasesButton
         // 
-        _selectTaskDatabaseButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-        _selectTaskDatabaseButton.Cursor = Cursors.Hand;
-        _selectTaskDatabaseButton.Location = new Point(722, 547);
-        _selectTaskDatabaseButton.Name = "_selectTaskDatabaseButton";
-        _selectTaskDatabaseButton.Size = new Size(121, 39);
-        _selectTaskDatabaseButton.TabIndex = 2;
-        _selectTaskDatabaseButton.Text = "Select File";
-        _selectTaskDatabaseButton.UseVisualStyleBackColor = true;
-        _selectTaskDatabaseButton.Click += SelectTaskDatabaseButton_Click;
+        _selectTaskDatabasesButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+        _selectTaskDatabasesButton.Cursor = Cursors.Hand;
+        _selectTaskDatabasesButton.Location = new Point(722, 547);
+        _selectTaskDatabasesButton.Name = "_selectTaskDatabasesButton";
+        _selectTaskDatabasesButton.Size = new Size(121, 39);
+        _selectTaskDatabasesButton.TabIndex = 2;
+        _selectTaskDatabasesButton.Text = "Select File";
+        _selectTaskDatabasesButton.UseVisualStyleBackColor = true;
+        _selectTaskDatabasesButton.Click += SelectTaskDatabasesButton_Click;
         // 
         // ProjectEditorUserControl
         // 
@@ -666,8 +666,8 @@ partial class ProjectEditorUserControl
         Controls.Add(tasksTableLayoutPanel);
         Controls.Add(taskDatabasePathPanel);
         Controls.Add(profileTableLayout);
-        Controls.Add(copyTaskDatabaseFilePathButton);
-        Controls.Add(_selectTaskDatabaseButton);
+        Controls.Add(copyTaskDatabaseFilePathsButton);
+        Controls.Add(_selectTaskDatabasesButton);
         Controls.Add(taskDatabaseLabel);
         Font = new Font("Bahnschrift SemiCondensed", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
         Margin = new Padding(6, 5, 6, 5);
@@ -695,7 +695,7 @@ partial class ProjectEditorUserControl
 
     #endregion
 
-    private Button _selectTaskDatabaseButton;
+    private Button _selectTaskDatabasesButton;
     private Label _taskDatabasePathLabel;
     private RichTextBox _courseRichTextBox;
     private RichTextBox _positionRichTextBox;
