@@ -133,6 +133,34 @@ public partial class ProjectEditorUserControl : UserControl
     }
 
     /// <summary>
+    /// Handles the <see cref="Control.DpiChangedAfterParent"/> event of this user 
+    /// control. Adjusts font sizes as the DPI changes.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">An <see cref="EventArgs"/> that contains the event data.</param>
+    private void ProjectEditorUserControl_DpiChangedAfterParent(object sender, EventArgs e)
+    {
+        // This has to be done manually because for some reason WinForms DataGridViews do not
+        // auto-scale with DPI... I searched everywhere but could not get it to work. So in
+        // the end, this was my desperate attempt to get around the problem, by doing this
+        // trickery below. Please, rewrite it if you have better solutions.
+
+        const float defaultHeaderSize = 10.0f;
+        const float defaultCellSize = 9.0f;
+        const float defaultDpi = 144.0f; // At 150% DPI on my device
+
+        float dpi = DeviceDpi;
+        float ratio = dpi / defaultDpi;
+        float newHeaderSize = defaultHeaderSize * ratio;
+        float newCellSize = defaultCellSize * ratio;
+
+        AssignedTasks.ColumnHeadersDefaultCellStyle.Font = new(AssignedTasks.Font.FontFamily, newHeaderSize);
+        AssignedTasks.DefaultCellStyle.Font = new(AssignedTasks.Font.FontFamily, newCellSize);
+        AvailableTasks.ColumnHeadersDefaultCellStyle.Font = new(AssignedTasks.Font.FontFamily, newHeaderSize);
+        AvailableTasks.DefaultCellStyle.Font = new(AssignedTasks.Font.FontFamily, newCellSize);
+    }
+
+    /// <summary>
     /// Invoked when the `select task database` button is clicked.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
@@ -403,10 +431,5 @@ public partial class ProjectEditorUserControl : UserControl
         {
             return null;
         }
-    }
-
-    private void ProjectEditorUserControl_DpiChangedAfterParent(object sender, EventArgs e)
-    {
-        // ...
     }
 }
