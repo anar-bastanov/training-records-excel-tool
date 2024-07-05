@@ -185,13 +185,16 @@ public static class FileProcessor
             ws.Cells[1, 1, 3 + taskCount, 10].Style.Border.Left.Style = ExcelBorderStyle.Thin;
 
             // Adjust font
+            ws.Cells.Style.Font.Name = "Arial";
             ws.Rows[3].Style.Font.Size = 9;
             ws.Rows[3].Style.Font.Bold = true;
             ws.Cells["A1:A2"].Style.Font.Bold = true;
             ws.Cells["C1:C2"].Style.Font.Bold = true;
 
             // Adjust text alignment
-            ws.Cells["A1:J3"].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+            ws.Cells.Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+            ws.Columns[1, 2].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+            ws.Columns[3, 10].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
             ws.Cells["A3:J3"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
 
             // Enable world wrap
