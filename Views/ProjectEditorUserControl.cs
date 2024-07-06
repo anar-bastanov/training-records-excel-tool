@@ -84,6 +84,12 @@ public partial class ProjectEditorUserControl : UserControl
     public event EventHandler? CopyTaskDatabaseFilePaths;
 
     /// <summary>
+    /// Occurs when the user loads required scores from an Excel file into assigned tasks.
+    /// </summary>
+    [Browsable(true)]
+    public event EventHandler? LoadRequiredScores;
+
+    /// <summary>
     /// Occurs when the user assigns one or more of available tasks to a trainee.
     /// </summary>
     [Browsable(true)]
@@ -150,6 +156,16 @@ public partial class ProjectEditorUserControl : UserControl
     private void CopyTaskDatabaseFilePathsButton_Click(object sender, EventArgs e)
     {
         CopyTaskDatabaseFilePaths?.Invoke(sender, e);
+    }
+
+    /// <summary>
+    /// Invoked when the `load required scores` button is clicked.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">An <see cref="EventArgs"/> that contains the event data.</param>
+    private void LoadRequiredScoresButton_Click(object sender, EventArgs e)
+    {
+        LoadRequiredScores?.Invoke(sender, e);
     }
 
     /// <summary>

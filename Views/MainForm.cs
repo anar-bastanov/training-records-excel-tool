@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
@@ -75,6 +76,11 @@ public sealed partial class MainForm : Form
     /// Occurs when the user requests to copy the absolute paths to the task databases.
     /// </summary>
     public event Action? TaskDatabaseFilePathsCopyRequested;
+
+    /// <summary>
+    /// Occurs when the user requests to load required scores from an Excel file into assigned tasks.
+    /// </summary>
+    public event Action? RequiredScoresLoadRequested;
 
     /// <summary>
     /// Occurs when the user requests to assign a specified task to a trainee.
@@ -161,6 +167,29 @@ public sealed partial class MainForm : Form
         DefaultExt = "xlsx",
         AddExtension = true,
         Multiselect = true
+    };
+
+    /// <summary>
+    /// A dialog box to load required scores.
+    /// </summary>
+    private static readonly OpenFileDialog LoadRequiredScoresPrompt = new()
+    {
+        Title = "Load Required Scores",
+        Filter = "Excel File (*.xlsx)|*.xlsx",
+        DefaultExt = "xlsx",
+        AddExtension = true,
+        Multiselect = true
+    };
+
+    /// <summary>
+    /// A dialog box to select a category for required scores.
+    /// </summary>
+    private static readonly TaskDialogPage SelectRequiredScoreCategory = new()
+    {
+        Caption = "Select a field",
+        Heading = "Please specify trainees' category",
+        Text = "Which category should be used to load required scores from?",
+        AllowCancel = true
     };
 
     /// <summary>
@@ -346,6 +375,12 @@ public sealed partial class MainForm : Form
     private void ProjectEditor_CopyTaskDatabaseFilePaths(object sender, EventArgs e)
     {
         TaskDatabaseFilePathsCopyRequested?.Invoke();
+    }
+
+    /// <inheritdoc cref="ProjectEditorUserControl.LoadRequiredScoresButton_Click(object, EventArgs)"/>
+    private void ProjectEditor_LoadRequiredScores(object sender, EventArgs e)
+    {
+        RequiredScoresLoadRequested?.Invoke();
     }
 
     /// <summary>
@@ -765,6 +800,49 @@ public sealed partial class MainForm : Form
     }
 
     /// <summary>
+    /// Prompts the user to load required scores.
+    /// </summary>
+    /// <param name="fullPath">Absolute path to the Excel file with required tasks.</param>
+    /// <returns>
+    /// <see langword="true"/> if files were successfully selected before
+    /// the operation was cancelled; otherwise, <see langword="false"/>.
+    /// </returns>
+    public static bool TryPromptLoadRequiredScores(out string[] fullPath)
+    {
+        return TryPrompt(LoadRequiredScoresPrompt, out fullPath);
+    }
+
+    /// <summary>
+    /// Prompts the user to select a category for required scores.
+    /// </summary>
+    /// <param name="mainView">The owner of the prompt.</param>
+    /// <param name="categories">An <see cref="IEnumerable{T}"/> of category names.</param>
+    /// <param name="result">The index of the selected category.</param>
+    /// <returns>
+    /// <see langword="true"/> if a category was successfully selected before the operation
+    /// was cancelled; otherwise, <see langword="false"/>.
+    /// </returns>
+    public static bool TryPromptSelectRequiredScoreCategory(IWin32Window mainView, IEnumerable<string> categories, out object result)
+    {
+        SelectRequiredScoreCategory.Buttons.Clear();
+        int index = 0;
+
+        foreach (string category in categories)
+        {
+            var button = new TaskDialogButton()
+            {
+                Text = category,
+                Tag = index
+            };
+
+            SelectRequiredScoreCategory.Buttons.Add(button);
+            ++index;
+        }
+
+        return TryPrompt(mainView, SelectRequiredScoreCategory, out result!);
+    }
+
+    /// <summary>
     /// Prompts the user a file dialog box.
     /// </summary>
     /// <param name="dialog">The dialog box to prompt.</param>
@@ -792,6 +870,22 @@ public sealed partial class MainForm : Form
         var choice = dialog.ShowDialog();
         fullPaths = dialog.FileNames;
         return choice is DialogResult.OK;
+    }
+
+    /// <summary>
+    /// Prompts the user a task dialog box to select one of its buttons.
+    /// </summary>
+    /// <param name="owner">The owner of the prompt.</param>
+    /// <param name="dialog">The dialog box to prompt.</param>
+    /// <param name="result">Data associated with a button that the user clicked to close the dialog.</param>
+    /// <returns>
+    /// <see langword="false"/> if the dialog was cancelled; otherwise, <see langword="true"/>.
+    /// </returns>
+    public static bool TryPrompt(IWin32Window owner, TaskDialogPage dialog, out object? result)
+    {
+        var choice = TaskDialog.ShowDialog(owner, dialog);
+        result = choice.Tag;
+        return result is not null;
     }
 
     /// <summary>

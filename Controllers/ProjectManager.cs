@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -139,6 +140,7 @@ public sealed class ProjectManager : INotifyPropertyChanged
         mainView.FileSaveAsRequested += SaveCurrentProjectAs;
         mainView.TaskDatabasesSelectRequested += SelectTaskDatabases;
         mainView.TaskDatabaseFilePathsCopyRequested += CopyTaskDatabaseFilePaths;
+        mainView.RequiredScoresLoadRequested += LoadRequiredScores;
         mainView.AssignTaskFromDatabaseRequested += AssignTask;
         mainView.UnassignTaskRequested += UnassignTask;
         mainView.ApplicationExitRequested += OnApplicationExit;
@@ -298,6 +300,41 @@ public sealed class ProjectManager : INotifyPropertyChanged
             return;
 
         Clipboard.SetText(FormattedTaskDatabasePaths);
+    }
+
+    /// <summary>
+    /// Overwrites required scores of all assigned tasks that have matching reference numbers
+    /// with values loaded from an Excel file.
+    /// </summary>
+    public void LoadRequiredScores()
+    {
+        if (!MainForm.TryPromptLoadRequiredScores(out string[] fullPaths))
+            return;
+
+        var categories = FileProcessor.LoadRequiredScoreCategoriesFromExcel(fullPaths[0]);
+
+        if (!MainForm.TryPromptSelectRequiredScoreCategory(_mainView, categories, out object result))
+            return;
+
+        if (result is not int categoryIndex)
+            throw new NotSupportedException("The user could not have selected a button with an invalid tag.");
+
+        var scores = new List<TaskScore>();
+
+        foreach (string path in fullPaths)
+        {
+            FileProcessor.LoadRequiredScoresFromExcel(scores, path, categoryIndex);
+        }
+
+        foreach (var task in _currentProject!.Tasks)
+        {
+            int index = scores.FindIndex(t => t.TaskReference == task.Reference);
+
+            if (index < 0)
+                continue;
+
+            task.RequiredScore = scores[index].RequiredScore;
+        }
     }
 
     /// <summary>

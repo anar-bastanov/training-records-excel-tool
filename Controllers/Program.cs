@@ -30,7 +30,7 @@ internal static class Program
         _ = new ProjectManager(mainForm);
 
         // I know it is disgusting, but I had to disable all exceptions to prevent the program
-        // from crashing due to dump WinForms bugs
+        // from crashing due to dumb WinForms bugs
         Application.ThreadException += delegate { };
         AppDomain.CurrentDomain.UnhandledException += delegate { };
 

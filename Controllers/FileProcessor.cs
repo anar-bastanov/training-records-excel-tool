@@ -1,4 +1,5 @@
-﻿using OfficeOpenXml;
+﻿global using TaskScore = (string TaskReference, string RequiredScore);
+using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System.IO;
 using System.Text.Json;
@@ -6,6 +7,7 @@ using System.Xml.Serialization;
 using System.Xml;
 using System.ComponentModel;
 using System;
+using System.Collections.Generic;
 
 namespace ExcelTool.Controllers;
 
@@ -40,8 +42,8 @@ public static class FileProcessor
     private static readonly XmlSerializerNamespaces XmlEmptyNamespaces = new([XmlQualifiedName.Empty]);
 
     /// <summary>
-    /// Opens an Excel file at a location specified by <paramref name="fullPath"/> and modifies <paramref name="project"/> with
-    /// values extracted from cells representing <see cref="ProjectModel"/>.
+    /// Opens an Excel file at a location specified by <paramref name="fullPath"/> and modifies
+    /// <paramref name="project"/> with values extracted from cells representing <see cref="ProjectModel"/>.
     /// </summary>
     /// <param name="project">The project to write to.</param>
     /// <param name="fullPath">Absolute path to the Excel file.</param>
@@ -93,7 +95,8 @@ public static class FileProcessor
     }
 
     /// <summary>
-    /// Opens an Excel file at a location specified by <paramref name="fullPath"/> and adds rows of tasks from the file to <paramref name="tasks"/>.
+    /// Opens an Excel file at a location specified by <paramref name="fullPath"/> and adds rows of
+    /// tasks from the file to <paramref name="tasks"/>.
     /// </summary>
     /// <param name="tasks">The collection to populate.</param>
     /// <param name="fullPath">Absolute path to the Excel file.</param>
@@ -131,6 +134,73 @@ public static class FileProcessor
                 };
 
                 tasks.Add(task);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Opens an Excel file at a location specified by <paramref name="fullPath"/> and extracts
+    /// category labels from the first row of the sheet.
+    /// </summary>
+    /// <param name="fullPath">Absolute path to the Excel file.</param>
+    /// <returns>An <see cref="IEnumerable{T}"/> of category names.</returns>
+    public static IEnumerable<string> LoadRequiredScoreCategoriesFromExcel(string fullPath)
+    {
+        using var package = new ExcelPackage(fullPath);
+
+        if (package.Workbook.Worksheets.Count is 0)
+            return [];
+
+        var worksheet = package.Workbook.Worksheets[0];
+
+        return ImportCategories(worksheet);
+
+        static IEnumerable<string> ImportCategories(ExcelWorksheet ws)
+        {
+            var categories = new List<string>();
+            int columnCount = ws.Dimension?.Columns ?? 0;
+
+            for (int i = 2; i <= columnCount; i++)
+            {
+                string category = ws.Cells[1, i].Value?.ToString() ?? "";
+                categories.Add(category);
+            }
+
+            return categories;
+        }
+    }
+
+    /// <summary>
+    /// Opens an Excel file at a location specified by <paramref name="fullPath"/> and populates
+    /// the list <paramref name="scores"/> with required scores extracted from a selected column.
+    /// </summary>
+    /// <param name="scores">A list to populate.</param>
+    /// <param name="fullPath">Absolute path to the Excel file.</param>
+    /// <param name="categoryIndex">A zero-based index of a column of required scores.</param>
+    public static void LoadRequiredScoresFromExcel(List<TaskScore> scores, string fullPath, int categoryIndex)
+    {
+        using var package = new ExcelPackage(fullPath);
+
+        if (package.Workbook.Worksheets.Count is 0)
+            return;
+
+        var worksheet = package.Workbook.Worksheets[0];
+
+        if (categoryIndex < 0 || categoryIndex >= (worksheet.Dimension?.Rows ?? 1) - 1)
+            return;
+
+        ImportScores(worksheet, scores, categoryIndex);
+
+        static void ImportScores(ExcelWorksheet ws, List<TaskScore> scores, int categoryIndex)
+        {
+            int rowCount = ws.Dimension?.Rows ?? 0;
+
+            for (int i = 2; i <= rowCount; ++i)
+            {
+                string reference = ws.Cells[i, 1].Value?.ToString() ?? "";
+                string score = ws.Cells[i, 2 + categoryIndex].Value?.ToString() ?? "";
+
+                scores.Add(new TaskScore(reference, score));
             }
         }
     }
@@ -186,7 +256,7 @@ public static class FileProcessor
 
             // Adjust font
             ws.Cells.Style.Font.Name = "Arial";
-            ws.Rows[3].Style.Font.Size = 9;
+            ws.Cells.Style.Font.Size = 9;
             ws.Rows[3].Style.Font.Bold = true;
             ws.Cells["A1:A2"].Style.Font.Bold = true;
             ws.Cells["C1:C2"].Style.Font.Bold = true;
@@ -195,6 +265,7 @@ public static class FileProcessor
             ws.Cells.Style.VerticalAlignment = ExcelVerticalAlignment.Center;
             ws.Columns[1, 2].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
             ws.Columns[3, 10].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            ws.Rows[1, 2].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
             ws.Cells["A3:J3"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
 
             // Enable world wrap

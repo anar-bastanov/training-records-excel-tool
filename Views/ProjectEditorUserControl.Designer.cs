@@ -55,6 +55,8 @@ partial class ProjectEditorUserControl
         Label taskDatabaseLabel;
         Button copyTaskDatabaseFilePathsButton;
         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProjectEditorUserControl));
+        Button selectTaskDatabasesButton;
+        Button loadRequiredScoresButton;
         _managerRichTextBox = new RichTextBox();
         _courseRichTextBox = new RichTextBox();
         _positionRichTextBox = new RichTextBox();
@@ -68,7 +70,6 @@ partial class ProjectEditorUserControl
         _availableTaskSearchPatternRichTextBox = new RichTextBox();
         _availableTaskSearchByComboBox = new ComboBox();
         _availableTaskSearchCountLabel = new Label();
-        _selectTaskDatabasesButton = new Button();
         profileTableLayout = new TableLayoutPanel();
         managerPanel = new Panel();
         coursePanel = new Panel();
@@ -90,6 +91,8 @@ partial class ProjectEditorUserControl
         availableTaskSearchByLabel = new Label();
         taskDatabaseLabel = new Label();
         copyTaskDatabaseFilePathsButton = new Button();
+        selectTaskDatabasesButton = new Button();
+        loadRequiredScoresButton = new Button();
         profileTableLayout.SuspendLayout();
         managerPanel.SuspendLayout();
         coursePanel.SuspendLayout();
@@ -292,7 +295,7 @@ partial class ProjectEditorUserControl
         taskDatabasePathPanel.Margin = new Padding(2, 2, 0, 2);
         taskDatabasePathPanel.Name = "taskDatabasePathPanel";
         taskDatabasePathPanel.Padding = new Padding(2, 2, 2, 0);
-        taskDatabasePathPanel.Size = new Size(516, 34);
+        taskDatabasePathPanel.Size = new Size(371, 34);
         taskDatabasePathPanel.TabIndex = 0;
         // 
         // _taskDatabasePathLabel
@@ -303,7 +306,7 @@ partial class ProjectEditorUserControl
         _taskDatabasePathLabel.Location = new Point(2, 2);
         _taskDatabasePathLabel.Margin = new Padding(1, 0, 1, 0);
         _taskDatabasePathLabel.Name = "_taskDatabasePathLabel";
-        _taskDatabasePathLabel.Size = new Size(510, 30);
+        _taskDatabasePathLabel.Size = new Size(365, 30);
         _taskDatabasePathLabel.TabIndex = 0;
         // 
         // tasksTableLayoutPanel
@@ -324,7 +327,7 @@ partial class ProjectEditorUserControl
         tasksTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
         tasksTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
         tasksTableLayoutPanel.Size = new Size(817, 418);
-        tasksTableLayoutPanel.TabIndex = 4;
+        tasksTableLayoutPanel.TabIndex = 5;
         // 
         // _assignedTasksDataGridView
         // 
@@ -643,7 +646,7 @@ partial class ProjectEditorUserControl
         copyTaskDatabaseFilePathsButton.BackgroundImage = (Image)resources.GetObject("copyTaskDatabaseFilePathsButton.BackgroundImage");
         copyTaskDatabaseFilePathsButton.BackgroundImageLayout = ImageLayout.Zoom;
         copyTaskDatabaseFilePathsButton.Cursor = Cursors.Hand;
-        copyTaskDatabaseFilePathsButton.Location = new Point(685, 550);
+        copyTaskDatabaseFilePathsButton.Location = new Point(540, 550);
         copyTaskDatabaseFilePathsButton.Margin = new Padding(0, 3, 3, 3);
         copyTaskDatabaseFilePathsButton.Name = "copyTaskDatabaseFilePathsButton";
         copyTaskDatabaseFilePathsButton.Size = new Size(34, 34);
@@ -651,28 +654,41 @@ partial class ProjectEditorUserControl
         copyTaskDatabaseFilePathsButton.UseVisualStyleBackColor = true;
         copyTaskDatabaseFilePathsButton.Click += CopyTaskDatabaseFilePathsButton_Click;
         // 
-        // _selectTaskDatabasesButton
+        // selectTaskDatabasesButton
         // 
-        _selectTaskDatabasesButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-        _selectTaskDatabasesButton.Cursor = Cursors.Hand;
-        _selectTaskDatabasesButton.Location = new Point(722, 548);
-        _selectTaskDatabasesButton.Margin = new Padding(0);
-        _selectTaskDatabasesButton.Name = "_selectTaskDatabasesButton";
-        _selectTaskDatabasesButton.Size = new Size(121, 39);
-        _selectTaskDatabasesButton.TabIndex = 2;
-        _selectTaskDatabasesButton.Text = "Select File";
-        _selectTaskDatabasesButton.UseVisualStyleBackColor = true;
-        _selectTaskDatabasesButton.Click += SelectTaskDatabasesButton_Click;
+        selectTaskDatabasesButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+        selectTaskDatabasesButton.Cursor = Cursors.Hand;
+        selectTaskDatabasesButton.Location = new Point(577, 548);
+        selectTaskDatabasesButton.Margin = new Padding(0);
+        selectTaskDatabasesButton.Name = "selectTaskDatabasesButton";
+        selectTaskDatabasesButton.Size = new Size(121, 39);
+        selectTaskDatabasesButton.TabIndex = 2;
+        selectTaskDatabasesButton.Text = "Select File";
+        selectTaskDatabasesButton.UseVisualStyleBackColor = true;
+        selectTaskDatabasesButton.Click += SelectTaskDatabasesButton_Click;
+        // 
+        // loadRequiredScoresButton
+        // 
+        loadRequiredScoresButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+        loadRequiredScoresButton.Cursor = Cursors.Hand;
+        loadRequiredScoresButton.Location = new Point(701, 548);
+        loadRequiredScoresButton.Name = "loadRequiredScoresButton";
+        loadRequiredScoresButton.Size = new Size(142, 39);
+        loadRequiredScoresButton.TabIndex = 4;
+        loadRequiredScoresButton.Text = "Load Scores";
+        loadRequiredScoresButton.UseVisualStyleBackColor = true;
+        loadRequiredScoresButton.Click += LoadRequiredScoresButton_Click;
         // 
         // ProjectEditorUserControl
         // 
         AutoScaleMode = AutoScaleMode.Inherit;
         BackColor = SystemColors.Control;
+        Controls.Add(loadRequiredScoresButton);
         Controls.Add(tasksTableLayoutPanel);
         Controls.Add(taskDatabasePathPanel);
         Controls.Add(profileTableLayout);
         Controls.Add(copyTaskDatabaseFilePathsButton);
-        Controls.Add(_selectTaskDatabasesButton);
+        Controls.Add(selectTaskDatabasesButton);
         Controls.Add(taskDatabaseLabel);
         Font = new Font("Bahnschrift SemiCondensed", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
         Margin = new Padding(6, 5, 6, 5);
@@ -700,7 +716,6 @@ partial class ProjectEditorUserControl
 
     #endregion
 
-    private Button _selectTaskDatabasesButton;
     private Label _taskDatabasePathLabel;
     private RichTextBox _courseRichTextBox;
     private RichTextBox _positionRichTextBox;
