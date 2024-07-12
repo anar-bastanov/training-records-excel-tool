@@ -346,13 +346,13 @@ partial class ProjectEditorUserControl
         dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
         _assignedTasksDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
         _assignedTasksDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-        dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+        dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.TopLeft;
         dataGridViewCellStyle2.BackColor = SystemColors.Window;
         dataGridViewCellStyle2.Font = new Font("Bahnschrift SemiCondensed", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
         dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
         dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
         dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-        dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+        dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
         _assignedTasksDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
         _assignedTasksDataGridView.Dock = DockStyle.Fill;
         _assignedTasksDataGridView.EnableHeadersVisualStyles = false;
@@ -373,7 +373,6 @@ partial class ProjectEditorUserControl
         _assignedTasksDataGridView.TabIndex = 7;
         _assignedTasksDataGridView.CellEnter += AssignedTasksDataGridView_CellEnter;
         _assignedTasksDataGridView.CellValueChanged += AssignedTasksDataGridView_CellValueChanged;
-        _assignedTasksDataGridView.ColumnAdded += AssignedTasksDataGridView_ColumnAdded;
         _assignedTasksDataGridView.KeyUp += AssignedTasksDataGridView_KeyUp;
         // 
         // assignedTaskSearchTableLayoutPanel
@@ -496,7 +495,7 @@ partial class ProjectEditorUserControl
         dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
         _availableTasksDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
         _availableTasksDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-        dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+        dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.TopLeft;
         dataGridViewCellStyle5.BackColor = SystemColors.Window;
         dataGridViewCellStyle5.Font = new Font("Bahnschrift SemiCondensed", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
         dataGridViewCellStyle5.ForeColor = SystemColors.ControlText;
@@ -522,7 +521,6 @@ partial class ProjectEditorUserControl
         _availableTasksDataGridView.Size = new Size(817, 165);
         _availableTasksDataGridView.TabIndex = 8;
         _availableTasksDataGridView.CellMouseDoubleClick += AvailableTasksDataGridView_CellMouseDoubleClick;
-        _availableTasksDataGridView.ColumnAdded += AvailableTasksDataGridView_ColumnAdded;
         _availableTasksDataGridView.KeyDown += AvailableTasksDataGridView_KeyDown;
         // 
         // availableTaskSearchTableLayoutPanel

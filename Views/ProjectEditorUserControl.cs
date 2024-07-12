@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 
 namespace ExcelTool.Views;
@@ -121,6 +122,12 @@ public partial class ProjectEditorUserControl : UserControl
     public ProjectEditorUserControl()
     {
         InitializeComponent();
+
+        AssignedTasks.AutoGenerateColumns = false;
+        BindTasks(AvailableTasks.Columns);
+
+        AvailableTasks.AutoGenerateColumns = false;
+        BindTasks(AssignedTasks.Columns);
     }
 
     /// <summary>
@@ -232,24 +239,6 @@ public partial class ProjectEditorUserControl : UserControl
     }
 
     /// <summary>
-    /// Handles the <see cref="DataGridView.ColumnAdded"/> event of the
-    /// <see cref="AssignedTasks"/> grid.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">A <see cref="DataGridViewColumnEventArgs"/> that contains the event data.</param>
-    private void AssignedTasksDataGridView_ColumnAdded(object sender, DataGridViewColumnEventArgs e)
-    {
-        // Apparently we need this method to disable glyphs. Otherwise,
-        // the text in the column headers will not be perfectly centered
-        // https://stackoverflow.com/a/55010743/22760966
-        e.Column.SortMode = DataGridViewColumnSortMode.NotSortable;
-
-        // Set colors
-        // Only the first column (References) is readonly and should be colored red
-        e.Column.DefaultCellStyle.BackColor = e.Column.Index is 0 ? Color.IndianRed : Color.LightGreen;
-    }
-
-    /// <summary>
     /// Handles the <see cref="Control.KeyUp"/> event of the <see cref="AssignedTasks"/>
     /// grid. Unassigns selected tasks from a trainee on the user's appropriate key presses
     /// if the selection only consists of the cells in the first column of <see cref="AssignedTasks"/>.
@@ -277,22 +266,6 @@ public partial class ProjectEditorUserControl : UserControl
 
         // Prevents a "bug" in which the last row gets automatically selected
         e.Handled = true;
-    }
-
-    /// <summary>
-    /// Handles the <see cref="DataGridView.ColumnAdded"/> event of the
-    /// <see cref="AvailableTasks"/> grid.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">A <see cref="DataGridViewColumnEventArgs"/> that contains the event data.</param>
-    private void AvailableTasksDataGridView_ColumnAdded(object sender, DataGridViewColumnEventArgs e)
-    {
-        // See the AssignedTasksDataGridView_ColumnAdded method for an explanation
-        e.Column.SortMode = DataGridViewColumnSortMode.NotSortable;
-
-        // Set colors
-        // Only the first column (References) is readonly and should be colored red
-        e.Column.DefaultCellStyle.BackColor = e.Column.Index is 0 ? Color.IndianRed : Color.LightGreen;
     }
 
     /// <summary>
@@ -391,6 +364,95 @@ public partial class ProjectEditorUserControl : UserControl
         AvailableTasksSearchPatternBy?.Invoke(regex, searchBy);
     }
 
+    private static void BindTasks(DataGridViewColumnCollection columns)
+    {
+        // References to tasks are static, therefore the first column is readonly.
+        // Set the SortMode to DataGridViewColumnSortMode.NotSortable; otherwise,
+        // the text in the column headers will not be perfectly centered
+        // https://stackoverflow.com/a/55010743/22760966
+        columns.AddRange(
+        [
+            new DataGridViewWrappingTextBoxColumn
+            {
+                DataPropertyName = "Reference",
+                Name = "Reference",
+                HeaderText = "Reference",
+                ReadOnly = true,
+                SortMode = DataGridViewColumnSortMode.NotSortable,
+            },
+            new DataGridViewWrappingTextBoxColumn
+            {
+                DataPropertyName = "Description",
+                HeaderText = "Description",
+                Name = "Description",
+                SortMode = DataGridViewColumnSortMode.NotSortable
+            },
+            new DataGridViewWrappingTextBoxColumn
+            {
+                DataPropertyName = "TrainingCategory",
+                HeaderText = "Training Category",
+                Name = "Training Category",
+                SortMode = DataGridViewColumnSortMode.NotSortable
+            },
+            new DataGridViewWrappingTextBoxColumn
+            {
+                DataPropertyName = "Type",
+                HeaderText = "Type",
+                Name = "Type",
+                SortMode = DataGridViewColumnSortMode.NotSortable
+            },
+            new DataGridViewWrappingTextBoxColumn
+            {
+                DataPropertyName = "TrainingStarted",
+                HeaderText = "Training Started",
+                Name = "Training Started",
+                SortMode = DataGridViewColumnSortMode.NotSortable
+            },
+            new DataGridViewWrappingTextBoxColumn
+            {
+                DataPropertyName = "TrainingCompleted",
+                HeaderText = "Training Completed",
+                Name = "Training Completed",
+                SortMode = DataGridViewColumnSortMode.NotSortable
+            },
+            new DataGridViewWrappingTextBoxColumn
+            {
+                DataPropertyName = "TrainerInitials",
+                HeaderText = "Trainer Initials",
+                Name = "Trainer Initials",
+                SortMode = DataGridViewColumnSortMode.NotSortable
+            },
+            new DataGridViewWrappingTextBoxColumn
+            {
+                DataPropertyName = "CertifierInitials",
+                HeaderText = "Certifier Initials",
+                Name = "Certifier Initials",
+                SortMode = DataGridViewColumnSortMode.NotSortable
+            },
+            new DataGridViewWrappingTextBoxColumn
+            {
+                DataPropertyName = "CertifyingScore",
+                HeaderText = "Certifying Score",
+                Name = "Certifying Score",
+                SortMode = DataGridViewColumnSortMode.NotSortable
+            },
+            new DataGridViewWrappingTextBoxColumn
+            {
+                DataPropertyName = "RequiredScore",
+                HeaderText = "Required Score",
+                Name = "Required Score",
+                SortMode = DataGridViewColumnSortMode.NotSortable
+            }
+        ]);
+
+        // Set colors
+        // Only the first column (References) is readonly and should be colored red
+        for (int i = 0; i < columns.Count; i++)
+        {
+            columns[i].DefaultCellStyle.BackColor = i is 0 ? Color.IndianRed : Color.LightGreen;
+        }
+    }
+
     /// <summary>
     /// Creates and returns a <see cref="Regex"/> object for a specified regular expression.
     /// </summary>
@@ -419,5 +481,67 @@ public partial class ProjectEditorUserControl : UserControl
         {
             return null;
         }
+    }
+}
+
+public class DataGridViewWrappingTextBoxCell : DataGridViewTextBoxCell
+{
+    protected override Size GetPreferredSize(Graphics graphics,
+        DataGridViewCellStyle cellStyle, int rowIndex, Size constraintSize)
+    {
+        if (cellStyle.WrapMode is DataGridViewTriState.True && RowIndex >= 0)
+        {
+            string value = string.Format("{0}", FormattedValue);
+            using var g = OwningColumn.DataGridView!.CreateGraphics();
+            var r = g.MeasureString(value, cellStyle.Font, OwningColumn.Width).ToSize();
+
+            //  r.Width += cellStyle.Padding.Left + cellStyle.Padding.Right;
+            //  r.Height += cellStyle.Padding.Top + cellStyle.Padding.Bottom;
+            r.Height += 4;
+            return r;
+        }
+        else
+        {
+            return base.GetPreferredSize(graphics, cellStyle, rowIndex, constraintSize);
+        }
+    }
+
+    protected override void Paint(Graphics graphics, Rectangle clipBounds,
+        Rectangle cellBounds, int rowIndex, DataGridViewElementStates cellState,
+        object value, object formattedValue, string errorText,
+        DataGridViewCellStyle cellStyle,
+        DataGridViewAdvancedBorderStyle advancedBorderStyle,
+        DataGridViewPaintParts paintParts)
+    {
+        base.Paint(graphics, clipBounds, cellBounds, rowIndex, cellState, value,
+            formattedValue, errorText, cellStyle, advancedBorderStyle,
+            paintParts & ~DataGridViewPaintParts.ContentForeground);
+
+        //Rectangle borderWidths = BorderWidths(advancedBorderStyle);
+        //Rectangle valBounds = cellBounds;
+        //valBounds.Offset(borderWidths.X, borderWidths.Y);
+        //valBounds.Width -= borderWidths.Left;
+        //valBounds.Height -= borderWidths.Bottom;
+
+        //  cellBounds.Y += cellStyle.Font.Height;
+
+        //bool cellSelected = (cellState & DataGridViewElementStates.Selected) != 0;
+        //TextRenderer.DrawText(graphics,
+        //    string.Format("{0}", formattedValue),
+        //    cellStyle.Font,
+        //    cellBounds,
+        //    cellSelected ? cellStyle.SelectionForeColor : cellStyle.ForeColor,
+        //    TextFormatFlags.Left | TextFormatFlags.Top);
+
+        graphics.DrawString(string.Format("{0}", formattedValue),
+            cellStyle.Font, Brushes.Black, cellBounds);
+    }
+}
+
+public class DataGridViewWrappingTextBoxColumn : DataGridViewColumn
+{
+    public DataGridViewWrappingTextBoxColumn()
+    {
+        CellTemplate = new DataGridViewWrappingTextBoxCell();
     }
 }

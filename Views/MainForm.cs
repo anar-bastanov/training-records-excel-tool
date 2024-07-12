@@ -554,8 +554,6 @@ public sealed partial class MainForm : Form
     public void BindAssignedTasks(BindingList<TaskModel> tasks)
     {
         _projectEditor.AssignedTasks.DataSource = tasks;
-        // References to tasks are static
-        _projectEditor.AssignedTasks.Columns[0].ReadOnly = true;
     }
 
     /// <summary>
