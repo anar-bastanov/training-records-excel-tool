@@ -256,7 +256,7 @@ public static class FileProcessor
 
             // Adjust font
             ws.Cells.Style.Font.Name = "Arial";
-            ws.Cells.Style.Font.Size = 9;
+            ws.Cells.Style.Font.Size = 12;
             ws.Rows[3].Style.Font.Bold = true;
             ws.Cells["A1:A2"].Style.Font.Bold = true;
             ws.Cells["C1:C2"].Style.Font.Bold = true;
